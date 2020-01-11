@@ -5,15 +5,18 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package frc.robot.commands.drivetrain;
+package frc.robot.commands.pneumatics.shifter;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class Drive extends CommandBase {
+public class Shift extends CommandBase {
+  Value value;
 
-  public Drive() {
-    addRequirements(RobotContainer.dt);
+  public Shift(Value v) {
+    addRequirements(RobotContainer.pn);
+    value = v;
   }
 
   // Called when the command is initially scheduled.
@@ -24,7 +27,7 @@ public class Drive extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.dt.arcadeDrive(RobotContainer.xbox.getSmoothedMainY(), RobotContainer.xbox.getSmoothedAltX());
+    RobotContainer.pn.shift(value);
   }
 
   // Called once the command ends or is interrupted.
@@ -35,6 +38,6 @@ public class Drive extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    return true;
   }
 }

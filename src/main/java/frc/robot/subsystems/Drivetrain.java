@@ -13,11 +13,12 @@ import frc.robot.HardwareAdapter;
 public class Drivetrain extends SubsystemBase implements HardwareAdapter {
 
   public Drivetrain() {
-    setFollowers();
+	setFollowers();
+	setInverts();
   }
 
   public void arcadeDrive(double throttle, double heading) {
-    tankDrive(throttle + heading, throttle - heading);
+    tankDrive(throttle - heading, throttle + heading);
   }
 
   public void tankDrive(double left, double right) {
@@ -27,9 +28,14 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter {
 
   private void setFollowers() {
     leftDriveSlave1.follow(leftDriveMaster);
-    leftDriveSlave2.follow(leftDriveMaster);
+   // leftDriveSlave2.follow(leftDriveMaster);
     rightDriveSlave1.follow(rightDriveMaster);
-    rightDriveSlave2.follow(rightDriveMaster);
+    //rightDriveSlave2.follow(rightDriveMaster);
+  }
+
+  private void setInverts() {
+	  rightDriveMaster.setInverted(true);
+	  rightDriveSlave1.setInverted(true);
   }
 
   @Override

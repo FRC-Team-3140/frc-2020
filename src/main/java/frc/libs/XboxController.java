@@ -19,7 +19,7 @@ public final class XboxController extends Joystick {
 	private JoystickButton leftJoystickPressButton;
 	private JoystickButton rightJoystickPressButton;
 	// Bumpers
-	private JoystickButton leftBumperButton;
+	public JoystickButton leftBumperButton;
 	private JoystickButton rightBumperButton;
 	// Triggers
 	private Button leftTriggerButton;

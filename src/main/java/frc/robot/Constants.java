@@ -7,6 +7,9 @@
 
 package frc.robot;
 
+import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
+
 /**
  * The Constants class provides a convenient place for teams to hold robot-wide numerical or boolean
  * constants.  This class should not be used for any other purpose.  All constants should be
@@ -16,5 +19,19 @@ package frc.robot;
  * constants are needed, to reduce verbosity.
  */
 public interface Constants {
+
+	public final static int LEFT_DRIVE_MASTER = 2;
+	public final static int RIGHT_DRIVE_MASTER = 3;
+	public final static int LEFT_DRIVE_SLAVE1 = 4;
+	public final static int RIGHT_DRIVE_SLAVE1 = 5;
+	public final static int LEFT_DRIVE_SLAVE2 = 6;
+	public final static int RIGHT_DRIVE_SLAVE2 = 7;
+
+	public final static int PCM = 1;
+
+
+	public final static Value EXT = Value.kForward;
+	public final static Value RET = Value.kReverse;
+	public final static Value OFF = Value.kOff;
 
 }

@@ -9,7 +9,10 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.pneumatics.shifter.ShiftDown;
+import frc.robot.commands.pneumatics.shifter.ShiftUp;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.libs.*;
@@ -25,6 +28,7 @@ public class RobotContainer {
   public static final XboxController xbox = new XboxController(0);
 
   public static final Drivetrain dt = new Drivetrain();
+  public static final Pneumatics pn = new Pneumatics();
 
   /**
    * The container for the robot.  Contains subsystems, OI devices, and commands.
@@ -41,6 +45,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
+    xbox.leftBumperButton.whenPressed(new ShiftUp());
+    xbox.leftBumperButton.whenReleased(new ShiftDown());
   }
 
   private void configureDefaultCommands() {
@@ -54,7 +60,6 @@ public class RobotContainer {
    * @return the command to run in autonomous
    */
   public Command getAutonomousCommand() {
-    // An ExampleCommand will run in autonomous
     return new WaitCommand(15);
   }
 }
