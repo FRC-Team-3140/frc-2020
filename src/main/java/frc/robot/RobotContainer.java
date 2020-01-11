@@ -38,8 +38,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    xbox.leftBumperButton.whenPressed(new ShiftUp());
-    xbox.leftBumperButton.whenReleased(new ShiftDown());
+    xbox.leftBumper.whenPressed(new ShiftUp());
+    xbox.leftBumper.whenReleased(new ShiftDown());
   }
 
   private void configureDefaultCommands() {

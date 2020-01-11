@@ -8,7 +8,7 @@ import frc.robot.HardwareAdapter;
 public class Pneumatics extends SubsystemBase  implements Constants, HardwareAdapter {
 
   public Pneumatics() {
-
+    
   }
 
   // NOTE: shifter will not exist on the competition robot
