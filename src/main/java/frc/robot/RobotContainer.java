@@ -2,9 +2,13 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.intake.SpinIntakeIn;
+import frc.robot.commands.intake.SpinIntakeOff;
+import frc.robot.commands.intake.SpinIntakeOut;
 import frc.robot.commands.pneumatics.intake.DeployIntake;
 import frc.robot.commands.pneumatics.intake.RetractIntake;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -23,6 +27,7 @@ public class RobotContainer {
 
   public static final Drivetrain dt = new Drivetrain();
   public static final Pneumatics pn = new Pneumatics();
+  public static final Intake in = new Intake();
 
   public RobotContainer() {
     configureButtonBindings();
@@ -38,6 +43,11 @@ public class RobotContainer {
   private void configureButtonBindings() {
     xbox2.leftBumper.whenPressed(new DeployIntake());
     xbox2.leftBumper.whenReleased(new RetractIntake());
+
+    xbox2.a.whenPressed(new SpinIntakeIn());
+    xbox2.a.whenReleased(new SpinIntakeOff());
+    xbox2.b.whenPressed(new SpinIntakeOut());
+    xbox2.b.whenReleased(new SpinIntakeOff());
   }
 
   private void configureDefaultCommands() {

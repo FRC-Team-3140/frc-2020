@@ -17,6 +17,9 @@ public interface HardwareAdapter extends Constants {
     //public static final CANSparkMax leftDriveSlave2 = new CANSparkMax(6, MotorType.kBrushless);
 	//public static final CANSparkMax rightDriveSlave2 = new CANSparkMax(7, MotorType.kBrushless);
 
+	// INTAKE
+	public static WPI_TalonSRX intakeMotor = new WPI_TalonSRX(INTAKE_MOTOR);
+
 	public static final Compressor compressor = new Compressor(PCM);
 
 	// PNEUMATICS
