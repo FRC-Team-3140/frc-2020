@@ -2,9 +2,10 @@ package frc.libs;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
+import frc.robot.Constants;
 
 
-public final class XboxController extends Joystick {
+public final class XboxController extends Joystick implements Constants {
 	
 	// Internal Buttons
 	public JoystickButton a;
@@ -69,19 +70,24 @@ public final class XboxController extends Joystick {
 	}
 	
 	public double getSmoothedMainX() {
-		return -Math.sin(Math.PI/2 * super.getRawAxis(0));
+		return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(0)));
 	}
 	
 	public double getSmoothedMainY() {
-		return -Math.sin(Math.PI/2 * super.getRawAxis(1));
+		return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(1)));
 	}
 	
 	public double getSmoothedAltX() {
-		return -Math.sin(Math.PI/2 * super.getRawAxis(4));
+		return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(4)));
 	}
 	
 	public double getSmoothedAltY() {
-		return -Math.sin(Math.PI/2 * super.getRawAxis(5));
+		return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(5)));
+	}
+
+	private double getDeadband(double d) {
+		if(Math.abs(d) > DEADBAND) return d;
+		else return 0;
 	}
 
 }
