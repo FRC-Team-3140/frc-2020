@@ -1,13 +1,13 @@
-package frc.robot.commands.pneumatics.shifter;
+package frc.robot.commands.pneumatics.intake;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class Shift extends CommandBase {
+public class MoveIntake extends CommandBase {
   Value value;
 
-  public Shift(Value v) {
+  public MoveIntake(Value v) {
     addRequirements(RobotContainer.pn);
     value = v;
   }

@@ -2,8 +2,8 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.pneumatics.shifter.ShiftDown;
-import frc.robot.commands.pneumatics.shifter.ShiftUp;
+import frc.robot.commands.pneumatics.intake.DeployIntake;
+import frc.robot.commands.pneumatics.intake.RetractIntake;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -19,6 +19,7 @@ import frc.libs.*;
 public class RobotContainer {
   // The robot's subsystems and OI devices
   public static final XboxController xbox = new XboxController(0);
+  public static final XboxController xbox2 = new XboxController(1);
 
   public static final Drivetrain dt = new Drivetrain();
   public static final Pneumatics pn = new Pneumatics();
@@ -35,8 +36,8 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    xbox.leftBumper.whenPressed(new ShiftUp());
-    xbox.leftBumper.whenReleased(new ShiftDown());
+    xbox2.leftBumper.whenPressed(new DeployIntake());
+    xbox2.leftBumper.whenReleased(new RetractIntake());
   }
 
   private void configureDefaultCommands() {

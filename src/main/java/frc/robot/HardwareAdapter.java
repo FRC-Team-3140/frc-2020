@@ -17,9 +17,10 @@ public interface HardwareAdapter extends Constants {
     //public static final CANSparkMax leftDriveSlave2 = new CANSparkMax(6, MotorType.kBrushless);
 	//public static final CANSparkMax rightDriveSlave2 = new CANSparkMax(7, MotorType.kBrushless);
 
-	//public static final Compressor compressor = new Compressor(PCM);
+	public static final Compressor compressor = new Compressor(PCM);
 
-	//public static final DoubleSolenoid shifter = new DoubleSolenoid(PCM,2,5);
+	// PNEUMATICS
+	public static final DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PCM,2,5);
 
 
 }
