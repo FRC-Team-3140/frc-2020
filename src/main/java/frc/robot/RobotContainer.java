@@ -1,7 +1,10 @@
 package frc.robot;
 
+import edu.wpi.first.networktables.NetworkTable;
+import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.drivetrain.TurnToVisionTarget;
 import frc.robot.commands.pneumatics.shifter.ShiftDown;
 import frc.robot.commands.pneumatics.shifter.ShiftUp;
 import frc.robot.subsystems.Drivetrain;
@@ -23,6 +26,8 @@ public class RobotContainer {
   public static final Drivetrain dt = new Drivetrain();
   public static final Pneumatics pn = new Pneumatics();
 
+  public static NetworkTable nt;
+
   public RobotContainer() {
     configureButtonBindings();
     configureDefaultCommands();
@@ -37,6 +42,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     xbox.leftBumper.whenPressed(new ShiftUp());
     xbox.leftBumper.whenReleased(new ShiftDown());
+
+    xbox.a.whenPressed(new TurnToVisionTarget());
   }
 
   private void configureDefaultCommands() {
@@ -51,5 +58,10 @@ public class RobotContainer {
    */
   public Command getAutonomousCommand() {
     return new WaitCommand(15);
+  }
+
+  public void setNetworkTable() {
+    NetworkTableInstance inst = NetworkTableInstance.getDefault();
+    nt = inst.getTable("SmartDashboard");
   }
 }

@@ -7,13 +7,29 @@
 
 package frc.robot.subsystems;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
 public class Drivetrain extends SubsystemBase implements HardwareAdapter {
 
+  private double kP = 1.5;
+  private double VISION_TARGET_TOL = .05;
+
   public Drivetrain() {
 	  setFollowers();
+  }
+
+  // very primitive turn to target method
+  public void turnToVisionTarget() {
+    double x = SmartDashboard.getNumber("x", 0) - 0.5;
+    arcadeDrive(0,kP * x);
+  }
+
+  public boolean isFacingVisionTarget() {
+    double x = SmartDashboard.getNumber("x", 0) - 0.5;
+    if(Math.abs(x) < VISION_TARGET_TOL) return true;
+    else return false;
   }
 
   public void arcadeDrive(double throttle, double heading) {
