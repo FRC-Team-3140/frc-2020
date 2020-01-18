@@ -10,6 +10,7 @@ import frc.robot.commands.intake.SpinIntakeOut;
 import frc.robot.commands.pneumatics.intake.DeployIntake;
 import frc.robot.commands.pneumatics.intake.RetractIntake;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pneumatics;
@@ -32,6 +33,7 @@ public class RobotContainer {
   public static final Pneumatics pn = new Pneumatics();
   public static final Intake in = new Intake();
   public static final Flywheel fw = new Flywheel();
+  public static final Feeder fd = new Feeder();
   
   public RobotContainer() {
     configureButtonBindings();

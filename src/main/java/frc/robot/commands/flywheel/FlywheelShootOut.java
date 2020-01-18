@@ -11,13 +11,14 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
 public class FlywheelShootOut extends CommandBase {
-  
+
   /**
    * Creates a new FlywheelShootOut.
    */
   public FlywheelShootOut() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.fw);
+    addRequirements(RobotContainer.fd);
   }
 
   // Called when the command is initially scheduled.
@@ -29,6 +30,7 @@ public class FlywheelShootOut extends CommandBase {
   @Override
   public void execute() {
     RobotContainer.fw.shootOut();
+    RobotContainer.fd.feedShooter();
   }
 
   // Called once the command ends or is interrupted.

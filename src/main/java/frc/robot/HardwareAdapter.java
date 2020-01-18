@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public interface HardwareAdapter extends Constants {
@@ -29,4 +30,15 @@ public interface HardwareAdapter extends Constants {
     public static final CANSparkMax flyWheelMaster = new CANSparkMax(FLYWHEEL_MASTER, MotorType.kBrushless);
     public static final CANSparkMax flyWheelSlave1 = new CANSparkMax(FLYWHEEL_SLAVE1, MotorType.kBrushless);
     public static final CANSparkMax flyWheelSlave2 = new CANSparkMax(FLYWHEEL_SLAVE2, MotorType.kBrushless);
+
+    //FEEDER
+    public static final CANSparkMax feeder = new CANSparkMax(FEEDER, MotorType.kBrushless);
+
+    // FEEDER LIMIT SWITCHES
+    public static final DigitalInput chamber1 = new DigitalInput(CHAMBER_1);
+    public static final DigitalInput chamber2 = new DigitalInput(CHAMBER_2);
+    public static final DigitalInput chamber3 = new DigitalInput(CHAMBER_3);
+    public static final DigitalInput chamber4 = new DigitalInput(CHAMBER_4);
+    public static final DigitalInput chamber5 = new DigitalInput(CHAMBER_5);
+
 }

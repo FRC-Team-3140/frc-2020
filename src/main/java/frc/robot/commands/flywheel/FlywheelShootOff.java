@@ -17,6 +17,7 @@ public class FlywheelShootOff extends CommandBase {
   public FlywheelShootOff() {
     // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.fw);
+    addRequirements(RobotContainer.fd);
   }
 
   // Called when the command is initially scheduled.
@@ -28,6 +29,7 @@ public class FlywheelShootOff extends CommandBase {
   @Override
   public void execute() {
     RobotContainer.fw.shootOff();
+    RobotContainer.fd.stopFeed();
   }
 
   // Called once the command ends or is interrupted.
