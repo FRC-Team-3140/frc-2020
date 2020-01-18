@@ -20,6 +20,10 @@ public interface Constants {
 
 	public final static int INTAKE_MOTOR = 8;
 
+	public final static int FLYWHEEL_MASTER = 9;
+	public final static int FLYWHEEL_SLAVE1 = 10;
+	public final static int FLYWHEEL_SLAVE2 = 11;
+
 	public final static int PCM = 1;
 
 	public final static Value EXT = Value.kForward;

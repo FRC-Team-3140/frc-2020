@@ -23,7 +23,10 @@ public interface HardwareAdapter extends Constants {
 	public static final Compressor compressor = new Compressor(PCM);
 
 	// PNEUMATICS
-	public static final DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PCM,2,5);
-
-
+    public static final DoubleSolenoid intakeSolenoid = new DoubleSolenoid(PCM,2,5);
+    
+    // FLYWHEEL
+    public static final CANSparkMax flyWheelMaster = new CANSparkMax(FLYWHEEL_MASTER, MotorType.kBrushless);
+    public static final CANSparkMax flyWheelSlave1 = new CANSparkMax(FLYWHEEL_SLAVE1, MotorType.kBrushless);
+    public static final CANSparkMax flyWheelSlave2 = new CANSparkMax(FLYWHEEL_SLAVE2, MotorType.kBrushless);
 }
