@@ -4,9 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
 
-
 public final class XboxController extends Joystick implements Constants {
-	
 	// Internal Buttons
 	public JoystickButton a;
 	public JoystickButton b;
@@ -41,7 +39,7 @@ public final class XboxController extends Joystick implements Constants {
 		rightTrigger = new AnalogButton(this, 3, 0.1);
 	}
 	
-	// Call this in a loop if needed
+	// Call this in a loop to force update if needed
 	public void check() {
 	}
 	
@@ -86,7 +84,7 @@ public final class XboxController extends Joystick implements Constants {
 	}
 
 	private double getDeadband(double d) {
-		if(Math.abs(d) > DEADBAND) return d;
+		if(Math.abs(d) > OIConstants.deadBand) return d;
 		else return 0;
 	}
 

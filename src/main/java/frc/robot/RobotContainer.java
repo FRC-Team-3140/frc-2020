@@ -1,56 +1,58 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
-import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.pneumatics.intake.DeployIntake;
-import frc.robot.commands.pneumatics.intake.RetractIntake;
-import frc.robot.subsystems.Drivetrain;
-import frc.robot.subsystems.Pneumatics;
+import java.io.IOException;
+import java.nio.file.Paths;
+
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.WaitCommand;
-import frc.libs.*;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
 
-/**
- * This class is where the bulk of the robot should be declared.  Since Command-based is a
- * "declarative" paradigm, very little robot logic should actually be handled in the {@link Robot}
- * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
- * (including subsystems, commands, and button mappings) should be declared here.
- */
+import frc.robot.Constants.AutoConstants;
+import frc.robot.Constants.DriveConstants;
+import frc.robot.Constants.OIConstants;
+import frc.robot.commands.drivetrain.Drive;
+import frc.robot.subsystems.Drivetrain;
+
+import frc.libs.XboxController;
+
 public class RobotContainer {
-  // The robot's subsystems and OI devices
-  public static final XboxController xbox = new XboxController(0);
-  public static final XboxController xbox2 = new XboxController(1);
-
   public static final Drivetrain dt = new Drivetrain();
-  public static final Pneumatics pn = new Pneumatics();
+  public static final XboxController xbox = new XboxController(OIConstants.xboxPort);
 
   public RobotContainer() {
     configureButtonBindings();
     configureDefaultCommands();
   }
 
-  /**
-   * Use this method to define your button->command mappings.  Buttons can be created by
-   * instantiating a {@link GenericHID} or one of its subclasses ({@link
-   * edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then passing it to a
-   * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
   private void configureButtonBindings() {
-    xbox2.leftBumper.whenPressed(new DeployIntake());
-    xbox2.leftBumper.whenReleased(new RetractIntake());
+    // Drive at half speed when the right bumper is held
+    xbox.rightBumper.whenPressed(() -> dt.setMaxOutput(0.5));
+    xbox.rightBumper.whenPressed(() -> dt.setMaxOutput(1));
   }
 
   private void configureDefaultCommands() {
     dt.setDefaultCommand(new Drive());
   }
 
+  public Command getAutonomousCommand() throws IOException {
+    Trajectory trajectory = TrajectoryUtil
+        .fromPathweaverJson(Paths.get("/home/lvuser/deploy/testTrajectory.wpilib.json"));
 
-  /**
-   * Use this to pass the autonomous command to the main {@link Robot} class.
-   *
-   * @return the command to run in autonomous
-   */
-  public Command getAutonomousCommand() {
-    return new WaitCommand(15);
+    RamseteCommand ramseteCommand = new RamseteCommand(trajectory, dt::getPose,
+        new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+        new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
+            DriveConstants.kaVoltSecondsSquaredPerMeter),
+        DriveConstants.kDriveKinematics, dt::getWheelSpeeds,
+        new PIDController(DriveConstants.kPDriveVel, DriveConstants.kIDriveVel, DriveConstants.kDDriveVel),
+        new PIDController(DriveConstants.kPDriveVel, DriveConstants.kIDriveVel, DriveConstants.kDDriveVel),
+        // RamseteCommand passes volts to the callback
+        dt::tankDriveVolts, dt);
+
+    // Run path following command, then stop at the end.
+    return ramseteCommand.andThen(() -> dt.tankDriveVolts(0, 0));
   }
 }
