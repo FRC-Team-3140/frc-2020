@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.CANEncoder;
+
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
@@ -15,13 +17,13 @@ import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase implements HardwareAdapter, Constants {
   private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
-  private final Gyro m_gyro = new ADXRS450_Gyro();
+  private final Gyro m_gyro = new ADXRS450_Gyro(); // Change
   private final DifferentialDriveOdometry odometry;
 
   public Drivetrain() {
     setFollowers();
-    m_leftEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
-    m_rightEncoder.setDistancePerPulse(DriveConstants.kEncoderDistancePerPulse);
+    leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+    rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
     resetEncoders();
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
   }
@@ -37,8 +39,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
 
   @Override
   public void periodic() {
-    odometry.update(Rotation2d.fromDegrees(getHeading()), m_leftEncoder.getDistance(),
-                      m_rightEncoder.getDistance());
+    odometry.update(Rotation2d.fromDegrees(getHeading()), leftEncoder.getPosition(), leftEncoder.getPosition());
   }
 
   public void arcadeDrive(double throttle, double heading) {
@@ -56,8 +57,8 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
 
   public void resetEncoders() {
-    m_leftEncoder.reset();
-    m_rightEncoder.reset();
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
   }
 
   public void resetGyro() {
@@ -69,24 +70,24 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     odometry.resetPosition(pose, Rotation2d.fromDegrees(getHeading()));
   }
 
-  public Encoder getLeftEncoder() {
-    return m_leftEncoder;
+  public CANEncoder getLeftEncoder() {
+    return leftEncoder;
   }
 
-  public Encoder getRightEncoder() {
-    return m_rightEncoder;
+  public CANEncoder getRightEncoder() {
+    return rightEncoder;
   }
 
   public double getAverageEncoderDistance() {
-    return (m_leftEncoder.getDistance() + m_rightEncoder.getDistance()) / 2.0;
+    return (leftEncoder.getPosition() + rightEncoder.getPosition()) / 2.0;
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(m_leftEncoder.getRate(), m_rightEncoder.getRate());
+    return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
   }
 
   public double getHeading() {
-    //Redo????
+    // Redo????
     return Math.IEEEremainder(gyro.getAngle(), 360) * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
 
