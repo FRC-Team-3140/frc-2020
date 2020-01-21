@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.kauailabs.navx.frc.AHRS;
+import edu.wpi.first.wpilibj.SPI;
 import com.revrobotics.CANEncoder;
 
 import edu.wpi.first.wpilibj.Encoder;
@@ -7,7 +9,6 @@ import edu.wpi.first.wpilibj.SpeedControllerGroup;
 import edu.wpi.first.wpilibj.drive.DifferentialDrive;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.interfaces.Gyro;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -17,7 +18,7 @@ import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase implements HardwareAdapter, Constants {
   private final DifferentialDrive differentialDrive = new DifferentialDrive(leftMotors, rightMotors);
-  private final Gyro m_gyro = new ADXRS450_Gyro(); // Change
+  private final AHRS navx = new AHRS(SPI.Port.kMXP);
   private final DifferentialDriveOdometry odometry;
 
   public Drivetrain() {
@@ -25,6 +26,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
     rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
     resetEncoders();
+    resetGyro();
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
   }
 
@@ -62,7 +64,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
 
   public void resetGyro() {
-    gyro.reset();
+    navx.reset();
   }
 
   public void resetOdometry(Pose2d pose) {
@@ -83,16 +85,20 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
+    return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity() / 60, rightEncoder.getVelocity() / 60);
   }
 
   public double getHeading() {
-    // Redo????
-    return Math.IEEEremainder(gyro.getAngle(), 360) * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+    // -180deg to 180deg
+    double yaw = navx.getYaw();
+    // Convert to 0-360deg
+    yaw += 180;
+    // Return angle with reverse correction if needed
+    return yaw * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
 
   public double getTurnRate() {
-    return gyro.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+    return navx.getRate() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
 
   public Pose2d getPose() {

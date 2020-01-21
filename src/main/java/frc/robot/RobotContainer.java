@@ -40,7 +40,7 @@ public class RobotContainer {
 
   public Command getAutonomousCommand() throws IOException {
     Trajectory trajectory = TrajectoryUtil
-        .fromPathweaverJson(Paths.get("/home/lvuser/deploy/testTrajectory.wpilib.json"));
+        .fromPathweaverJson(Paths.get("/home/lvuser/deploy/TestPath.wpilib.json"));
 
     RamseteCommand ramseteCommand = new RamseteCommand(trajectory, dt::getPose,
         new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),

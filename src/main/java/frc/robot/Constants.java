@@ -2,7 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 
-// Use meters, seconds, and volts for all motion profiling based units.
+// Use meters, seconds, degrees (0-360deg), and volts for all motion profiling based units.
 public interface Constants {
   public static final class DriveConstants {
     public final static int LEFT_DRIVE_MASTER = 3;
