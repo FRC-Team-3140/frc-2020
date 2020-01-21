@@ -5,6 +5,7 @@ import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.Compressor;
+import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
 public interface HardwareAdapter extends Constants {
@@ -19,7 +20,13 @@ public interface HardwareAdapter extends Constants {
 
 	//public static final Compressor compressor = new Compressor(PCM);
 
-	//public static final DoubleSolenoid shifter = new DoubleSolenoid(PCM,2,5);
+    //public static final DoubleSolenoid shifter = new DoubleSolenoid(PCM,2,5);
+    
+    public static final WPI_TalonSRX climberMaster = new WPI_TalonSRX(CLIMBER_MASTER);
+    public static final WPI_TalonSRX climberSlave = new WPI_TalonSRX(CLIMBER_SLAVE);
+    public static final DigitalInput climberBot = new DigitalInput(5);
+    public static final DigitalInput climberTop = new DigitalInput(6);
+
 
 
 }

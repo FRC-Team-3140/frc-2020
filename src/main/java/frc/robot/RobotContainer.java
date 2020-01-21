@@ -1,9 +1,10 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import frc.robot.commands.climber.ClimberBot;
+import frc.robot.commands.climber.ClimberTop;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.pneumatics.shifter.ShiftDown;
-import frc.robot.commands.pneumatics.shifter.ShiftUp;
+import frc.robot.subsystems.Climber;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -22,11 +23,12 @@ public class RobotContainer {
 
   public static final Drivetrain dt = new Drivetrain();
   public static final Pneumatics pn = new Pneumatics();
+  public static final Climber cb = new Climber();
 
   public RobotContainer() {
     configureButtonBindings();
     configureDefaultCommands();
-  }
+    }
 
   /**
    * Use this method to define your button->command mappings.  Buttons can be created by
@@ -35,8 +37,10 @@ public class RobotContainer {
    * {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
    */
   private void configureButtonBindings() {
-    xbox.leftBumper.whenPressed(new ShiftUp());
-    xbox.leftBumper.whenReleased(new ShiftDown());
+    // xbox.leftBumper.whenPressed(new ShiftUp());
+    // xbox.leftBumper.whenReleased(new ShiftDown());
+    xbox.a.whenPressed(new ClimberTop());
+    xbox.a.whenReleased(new ClimberBot());
   }
 
   private void configureDefaultCommands() {
