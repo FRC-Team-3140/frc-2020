@@ -43,10 +43,10 @@ public class RobotContainer {
         .fromPathweaverJson(Paths.get("/home/lvuser/deploy/TestPath.wpilib.json"));
     
     // Need to add this??
-    // var transform = dt.getCurrentPose().minus(exampleTrajectory.getInitialPose());
-    // exampleTrajectory = straightTrajectory.transformBy(transform);
+    var transform = dt.getCurrentPose().minus(trajectory.getInitialPose());
+    Trajectory newTrajectory = trajectory.transformBy(transform);
 
-    RamseteCommand ramseteCommand = new RamseteCommand(trajectory, dt::getPose,
+    RamseteCommand ramseteCommand = new RamseteCommand(newTrajectory, dt::getPose,
         new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
         new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
             DriveConstants.kaVoltSecondsSquaredPerMeter),
