@@ -22,8 +22,10 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
 
   public Drivetrain() {
     setFollowers();
-    leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
-    rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderDistancePerPulse);
+    leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderMetersPerPulse);
+    leftEncoder.setVelocityConversionFactor(DriveConstants.kEncoderLinearMetersPerSecondPerRPM);
+    rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderMetersPerPulse);
+    rightEncoder.setVelocityConversionFactor(DriveConstants.kEncoderLinearMetersPerSecondPerRPM);
     resetEncoders();
     resetGyro();
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));

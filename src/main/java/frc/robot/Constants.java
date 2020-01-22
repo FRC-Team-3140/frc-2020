@@ -26,9 +26,18 @@ public interface Constants {
     public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
         kTrackwidthMeters);
 
-    public static final int kEncoderCPR = 1; //(Native units for the Spark Max are in Rotations)
+    // Wheel Diameter
     public static final double kWheelDiameterMeters = 0.1016;
-    public static final double kEncoderDistancePerPulse = (kWheelDiameterMeters * Math.PI) / ((double) kEncoderCPR * gearRatio);
+
+    // Position Conversions
+    //(Native units for the Spark Max are in Rotations)
+    public static final int kEncoderCPR = 1; // Encoder Counts/Pulses per Rotation (usually > 1)
+    public static final double kEncoderMetersPerPulse = (kWheelDiameterMeters * Math.PI) / ((double) kEncoderCPR * gearRatio);
+
+    // Velocity Conversions
+    private static final double RPM_to_RPS = ((double) 1 / 60);
+    private static final double metersPerRotation = kEncoderMetersPerPulse * kEncoderCPR;
+    public static final double kEncoderLinearMetersPerSecondPerRPM = metersPerRotation * RPM_to_RPS; 
     public static final boolean kGyroReversed = true;
 
     // Update from Characterization tool.
