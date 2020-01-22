@@ -62,6 +62,16 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   public void resetGyro() {
     navx.reset();
   }
+  
+  public void resetOdometry() {
+    //TODO:
+  }
+  
+  public void resetAll() {
+    resetEncoders();
+    resetGyro();
+    resetOdometry();
+  }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
