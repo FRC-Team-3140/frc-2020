@@ -4,11 +4,14 @@ import edu.wpi.first.networktables.NetworkTable;
 import edu.wpi.first.networktables.NetworkTableInstance;
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.drivetrain.DriveToDistance;
+import frc.robot.commands.drivetrain.TurnToAngle;
 import frc.robot.commands.drivetrain.TurnToVisionTarget;
 import frc.robot.commands.pneumatics.shifter.ShiftDown;
 import frc.robot.commands.pneumatics.shifter.ShiftUp;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Shuffleboard;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.libs.*;
@@ -25,12 +28,16 @@ public class RobotContainer {
 
   public static final Drivetrain dt = new Drivetrain();
   public static final Pneumatics pn = new Pneumatics();
+  public static final Shuffleboard sb = new Shuffleboard();
 
   public static NetworkTable nt;
 
   public RobotContainer() {
     configureButtonBindings();
     configureDefaultCommands();
+
+    sb.pushToSB();
+    dt.resetEncoders();
   }
 
   /**
@@ -43,13 +50,18 @@ public class RobotContainer {
     xbox.leftBumper.whenPressed(new ShiftUp());
     xbox.leftBumper.whenReleased(new ShiftDown());
 
-    xbox.a.whenPressed(new TurnToVisionTarget());
+    xbox.a.whenPressed(new DriveToDistance(12));
+    xbox.b.whenPressed(new DriveToDistance(24));
+    xbox.y.whenPressed(new TurnToAngle(90));
   }
 
   private void configureDefaultCommands() {
     dt.setDefaultCommand(new Drive());
   }
 
+  public void periodic() {
+    sb.pullFromSDB();
+  }
 
   /**
    * Use this to pass the autonomous command to the main {@link Robot} class.
