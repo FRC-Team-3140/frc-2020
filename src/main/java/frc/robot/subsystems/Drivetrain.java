@@ -98,7 +98,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     //TODO: Remove division by 60???? // Didn't help
     //Try negating either side's encoders // Didn't help
-    return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity() / 60, rightEncoder.getVelocity() / 60);
+    return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
   }
 
   public double getHeading() {
