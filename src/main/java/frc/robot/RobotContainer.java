@@ -37,8 +37,14 @@ public class RobotContainer {
   }
 
   public Command getAutonomousCommand() throws IOException {
+    dt.resetAll();
+    
     Trajectory trajectory = TrajectoryUtil
         .fromPathweaverJson(Paths.get("/home/lvuser/deploy/TestPath.wpilib.json"));
+    
+    // Need to add this??
+    // var transform = dt.getCurrentPose().minus(exampleTrajectory.getInitialPose());
+    // exampleTrajectory = straightTrajectory.transformBy(transform);
 
     RamseteCommand ramseteCommand = new RamseteCommand(trajectory, dt::getPose,
         new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
