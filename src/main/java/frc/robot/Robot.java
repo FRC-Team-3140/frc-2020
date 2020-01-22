@@ -6,8 +6,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 
-// Currently we reset all sensors 
-// whenever the robot enters a new game state.
 public class Robot extends TimedRobot {
   private Command autoCommand;
   private RobotContainer robotContainer;
@@ -24,8 +22,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void disabledInit() {
-    RobotContainer.dt.resetEncoders();
-    RobotContainer.dt.resetGyro();
   }
 
   @Override
@@ -34,9 +30,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    RobotContainer.dt.resetEncoders();
-    RobotContainer.dt.resetGyro();
-
     try {
       autoCommand = robotContainer.getAutonomousCommand();
     } catch (IOException e) {
@@ -54,9 +47,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void teleopInit() {
-    RobotContainer.dt.resetEncoders();
-    RobotContainer.dt.resetGyro();
-
     if (autoCommand != null) {
       autoCommand.cancel();
     }
@@ -68,9 +58,6 @@ public class Robot extends TimedRobot {
 
   @Override
   public void testInit() {    
-    RobotContainer.dt.resetEncoders();
-    RobotContainer.dt.resetGyro();
-
     CommandScheduler.getInstance().cancelAll();
   }
 
