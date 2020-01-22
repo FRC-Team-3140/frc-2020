@@ -35,9 +35,11 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   @Override
   public void periodic() {
     odometry.update(Rotation2d.fromDegrees(getHeading()), leftEncoder.getPosition(), rightEncoder.getPosition());
-    SmartDashboard.putNumber("Gyro Heading: ", getHeading());
-    SmartDashboard.putNumber("Left Encoder: ", leftEncoder.getPosition());
-    SmartDashboard.putNumber("Right Encoder: ", rightEncoder.getPosition());
+    SmartDashboard.putNumber("Gyro Heading (deg): ", getHeading());
+    SmartDashboard.putNumber("Left Encoder Distance (m): ", leftEncoder.getPosition());
+    SmartDashboard.putNumber("Right Encoder Distance (m): ", rightEncoder.getPosition());
+    SmartDashboard.putNumber("Left Encoder Velocity (m/s): ", leftEncoder.getVelocity());
+    SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", rightEncoder.getVelocity());
   }
 
   public void arcadeDrive(double throttle, double heading) {
