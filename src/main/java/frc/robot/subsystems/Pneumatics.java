@@ -14,7 +14,11 @@ public class Pneumatics extends SubsystemBase  implements Constants, HardwareAda
   // NOTE: shifter will not exist on the competition robot
   // Use this as an example to code future pneumatic subsytems
   public void shift(Value v) {
-    //shifter.set(v);
+    shifter.set(v);
+  }
+
+  public void wheelDeployer(Value v){
+    wheelDeployer.set(v);
   }
 
   @Override

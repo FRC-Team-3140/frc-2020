@@ -19,7 +19,9 @@ public interface HardwareAdapter extends Constants {
 
 	//public static final Compressor compressor = new Compressor(PCM);
 
-	//public static final DoubleSolenoid shifter = new DoubleSolenoid(PCM,2,5);
+    public static final DoubleSolenoid shifter = new DoubleSolenoid(PCM,2,5);
+    
+    public static final DoubleSolenoid wheelDeployer = new DoubleSolenoid(PCM, 2,5);
 
 
 }

@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.pneumatics.shifter.ShiftDown;
 import frc.robot.commands.pneumatics.shifter.ShiftUp;
+import frc.robot.commands.pneumatics.wheelDeployer.WheelDown;
+import frc.robot.commands.pneumatics.wheelDeployer.WheelUp;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -37,6 +39,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     xbox.leftBumper.whenPressed(new ShiftUp());
     xbox.leftBumper.whenReleased(new ShiftDown());
+    xbox.a.whenPressed(new WheelUp());
+    xbox.a.whenReleased(new WheelDown());
   }
 
   private void configureDefaultCommands() {
