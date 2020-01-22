@@ -64,7 +64,8 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
   
   public void resetOdometry() {
-    //TODO:
+    Pose2d defaultPose = new Pose2d();
+    odometry.resetPosition(defaultPose, Rotation2d.fromDegrees(getHeading()));
   }
   
   public void resetAll() {
