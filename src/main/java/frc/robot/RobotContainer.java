@@ -23,15 +23,13 @@ public class RobotContainer {
   public static final Drivetrain dt = new Drivetrain();
   public static final XboxController xbox = new XboxController(OIConstants.xboxPort);
 
+  // TODO: Add Deadband to Xbox Controller
   public RobotContainer() {
     configureButtonBindings();
     configureDefaultCommands();
   }
 
   private void configureButtonBindings() {
-    // Drive at half speed when the right bumper is held
-    //xbox.rightBumper.whenPressed(() -> dt.setMaxOutput(0.5));
-    //xbox.rightBumper.whenReleased(() -> dt.setMaxOutput(1));
   }
 
   private void configureDefaultCommands() {
