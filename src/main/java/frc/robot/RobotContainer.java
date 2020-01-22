@@ -30,8 +30,8 @@ public class RobotContainer {
 
   private void configureButtonBindings() {
     // Drive at half speed when the right bumper is held
-    xbox.rightBumper.whenPressed(() -> dt.setMaxOutput(0.5));
-    xbox.rightBumper.whenPressed(() -> dt.setMaxOutput(1));
+    //xbox.rightBumper.whenPressed(() -> dt.setMaxOutput(0.5));
+    //xbox.rightBumper.whenReleased(() -> dt.setMaxOutput(1));
   }
 
   private void configureDefaultCommands() {

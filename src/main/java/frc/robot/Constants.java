@@ -32,16 +32,16 @@ public interface Constants {
     public static final boolean kGyroReversed = true;
 
     // Update from Characterization tool.
-    public static final double ksVolts = 0.15;
-    public static final double kvVoltSecondsPerMeter = 5.07;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.351;
-    public static final double kPDriveVel = 5.96;
+    public static final double ksVolts = 0.116;
+    public static final double kvVoltSecondsPerMeter = 5.06;
+    public static final double kaVoltSecondsSquaredPerMeter = 0.327;
+    public static final double kPDriveVel = 11.1;
     public static final double kIDriveVel = 0;
-    public static final double kDDriveVel = 2.62;
+    public static final double kDDriveVel = 0;
   }
 
   public static final class OIConstants {
-    public static final int xboxPort = 1;
+    public static final int xboxPort = 0;
     public static final double deadBand = 0.1;
   }
 
