@@ -45,6 +45,8 @@ public class RobotContainer {
     // Need to add this??
     var transform = dt.getCurrentPose().minus(trajectory.getInitialPose());
     Trajectory newTrajectory = trajectory.transformBy(transform);
+    // Same thing, but more efficient computation?
+    // Trajectory newTrajectory = trajectory.relativeTo(dt.getCurrentPose());
 
     RamseteCommand ramseteCommand = new RamseteCommand(newTrajectory, dt::getCurrentPose,
         new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
