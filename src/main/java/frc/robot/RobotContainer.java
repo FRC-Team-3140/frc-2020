@@ -15,6 +15,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.DesiredPose_SMDB_Sender;
 import frc.robot.subsystems.Drivetrain;
 
 import frc.libs.XboxController;
@@ -59,6 +60,6 @@ public class RobotContainer {
         dt::tankDriveVolts, dt);
 
     // Run path following command, then stop at the end.
-    return ramseteCommand.andThen(() -> dt.tankDriveVolts(0, 0));
+    return ramseteCommand.deadlineWith(new DesiredPose_SMDB_Sender(newTrajectory)).andThen(() -> dt.tankDriveVolts(0, 0));
   }
 }
