@@ -40,6 +40,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     SmartDashboard.putNumber("Right Encoder Distance (m): ", rightEncoder.getPosition());
     SmartDashboard.putNumber("Left Encoder Velocity (m/s): ", leftEncoder.getVelocity());
     SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", rightEncoder.getVelocity());
+    SmartDashboard.putNumber("Average Velocity (m/s): ", (leftEncoder.getVelocity() + rightEncoder.getVelocity()) / 2);
   }
 
   public void arcadeDrive(double throttle, double heading) {
