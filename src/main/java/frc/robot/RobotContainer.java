@@ -15,7 +15,7 @@ import frc.robot.Constants.AutoConstants;
 import frc.robot.Constants.DriveConstants;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.DesiredPose_SMDB_Sender;
+import frc.robot.commands.otherCommands.DesiredPose_SMDB_Sender;
 import frc.robot.subsystems.Drivetrain;
 
 import frc.libs.XboxController;
