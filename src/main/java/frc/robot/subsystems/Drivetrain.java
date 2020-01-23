@@ -84,7 +84,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     return navx.getYaw() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
 
-  public Pose2d getPose() {
+  public Pose2d getCurrentPose() {
     return odometry.getPoseMeters();
   }
 }

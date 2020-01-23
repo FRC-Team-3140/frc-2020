@@ -46,7 +46,7 @@ public class RobotContainer {
     var transform = dt.getCurrentPose().minus(trajectory.getInitialPose());
     Trajectory newTrajectory = trajectory.transformBy(transform);
 
-    RamseteCommand ramseteCommand = new RamseteCommand(newTrajectory, dt::getPose,
+    RamseteCommand ramseteCommand = new RamseteCommand(newTrajectory, dt::getCurrentPose,
         new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
         new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
             DriveConstants.kaVoltSecondsSquaredPerMeter),
