@@ -41,13 +41,13 @@ public class RobotContainer {
     dt.resetAll();
     
     Trajectory trajectory = TrajectoryUtil
-        .fromPathweaverJson(Paths.get("/home/lvuser/deploy/TestPath.wpilib.json"));
+        .fromPathweaverJson(Paths.get("/home/lvuser/deploy/TestPath2.wpilib.json"));
     
     // Need to add this??
     var transform = dt.getCurrentPose().minus(trajectory.getInitialPose());
     Trajectory newTrajectory = trajectory.transformBy(transform);
     // Same thing, but more efficient computation?
-    // Trajectory newTrajectory = trajectory.relativeTo(dt.getCurrentPose());
+    //Trajectory newTrajectory = trajectory.relativeTo(dt.getCurrentPose());
 
     RamseteCommand ramseteCommand = new RamseteCommand(newTrajectory, dt::getCurrentPose,
         new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
