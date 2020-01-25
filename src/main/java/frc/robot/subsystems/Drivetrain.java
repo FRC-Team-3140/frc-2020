@@ -18,10 +18,16 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
 
   public Drivetrain() {
     setFollowers();
-    leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderMetersPerPulse);
-    leftEncoder.setVelocityConversionFactor(DriveConstants.kEncoderLinearMetersPerSecondPerRPM);
-    rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderMetersPerPulse);
-    rightEncoder.setVelocityConversionFactor(DriveConstants.kEncoderLinearMetersPerSecondPerRPM);
+    // leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderMetersPerPulse);
+    // leftEncoder.setVelocityConversionFactor(DriveConstants.kEncoderLinearMetersPerSecondPerRPM);
+    // rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderMetersPerPulse);
+    // rightEncoder.setVelocityConversionFactor(DriveConstants.kEncoderLinearMetersPerSecondPerRPM);
+    // leftEncoder.setDistancePerPulse(DriveConstants.kEncoderMetersPerPulse);
+    leftEncoder.setDistancePerRotation(DriveConstants.kEncoderMetersPerPulse);
+    //leftEncoder.setVelocityConversionFactor(DriveConstants.kEncoderLinearMetersPerSecondPerRPM);
+    // rightEncoder.setDistancePerPulse(DriveConstants.kEncoderMetersPerPulse);
+    rightEncoder.setDistancePerRotation(DriveConstants.kEncoderMetersPerPulse);
+    //rightEncoder.setVelocityConversionFactor(DriveConstants.kEncoderLinearMetersPerSecondPerRPM);
     resetEncoders();
     resetGyro();
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
@@ -34,13 +40,21 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
 
   @Override
   public void periodic() {
-    odometry.update(Rotation2d.fromDegrees(getHeading()), leftEncoder.getPosition(), rightEncoder.getPosition());
+    //odometry.update(Rotation2d.fromDegrees(getHeading()), leftEncoder.getPosition(), rightEncoder.getPosition());
+    odometry.update(Rotation2d.fromDegrees(getHeading()), leftEncoder.getDistance(), rightEncoder.getDistance());
     SmartDashboard.putNumber("Gyro Heading (deg): ", getHeading());
+    /*
     SmartDashboard.putNumber("Left Encoder Distance (m): ", leftEncoder.getPosition());
     SmartDashboard.putNumber("Right Encoder Distance (m): ", rightEncoder.getPosition());
     SmartDashboard.putNumber("Left Encoder Velocity (m/s): ", leftEncoder.getVelocity());
     SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", rightEncoder.getVelocity());
     SmartDashboard.putNumber("Average Velocity (m/s): ", (leftEncoder.getVelocity() + rightEncoder.getVelocity()) / 2);
+    */
+    SmartDashboard.putNumber("Left Encoder Distance (m): ", leftEncoder.getDistance());
+    SmartDashboard.putNumber("Right Encoder Distance (m): ", rightEncoder.getDistance());
+    SmartDashboard.putNumber("Left Encoder Velocity (m/s): ", leftEncoder.getRate());
+    SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", rightEncoder.getRate());
+    SmartDashboard.putNumber("Average Velocity (m/s): ", (leftEncoder.getRate() + rightEncoder.getRate()) / 2);
   }
 
   public void arcadeDrive(double throttle, double heading) {
@@ -58,8 +72,11 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
 
   public void resetEncoders() {
-    leftEncoder.setPosition(0);
-    rightEncoder.setPosition(0);
+    // leftEncoder.setPosition(0);
+    // rightEncoder.setPosition(0);
+
+    leftEncoder.reset();
+    rightEncoder.reset();
   }
 
   public void resetGyro() {
@@ -78,7 +95,8 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
+    // return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
+    return new DifferentialDriveWheelSpeeds(leftEncoder.getRate(), rightEncoder.getRate());
   }
 
   public double getHeading() {

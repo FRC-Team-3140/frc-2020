@@ -8,7 +8,7 @@ public class VelocityDutyCycleEncoder extends DutyCycleEncoder {
   private double lastPosition;
   private double lastTime;
   
-  public DutyCycleEncoder(int channel) {
+  public VelocityDutyCycleEncoder(int channel) {
     super(channel);
     m_timer.reset();
     m_timer.start();
