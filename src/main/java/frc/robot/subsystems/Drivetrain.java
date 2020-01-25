@@ -70,7 +70,8 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     SmartDashboard.putNumber("Right Encoder Distance (m): ", getRightEncoderDistance());
     SmartDashboard.putNumber("Left Encoder Velocity (m/s): ", getLeftEncoderVelocity());
     SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", getRightEncoderVelocity());
-    SmartDashboard.putNumber("Average Velocity (m/s): ", (getLeftEncoderVelocity() + getRightEncoderVelocity()) / 2);
+    //SmartDashboard.putNumber("Average Velocity (m/s): ", (getLeftEncoderVelocity() + getRightEncoderVelocity()) / 2);
+    //System.out.println("left: " + getLeftEncoderVelocity() + "  right: " + getRightEncoderVelocity());
   }
 
   public void arcadeDrive(double throttle, double heading) {
@@ -83,6 +84,16 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
 
   public void tankDriveVolts(double leftVolts, double rightVolts) {
+    leftVolts = leftVolts/12;
+    if(Math.abs(leftVolts) > 12)
+      leftVolts = Math.signum(leftVolts) * 12;
+
+    rightVolts = rightVolts/12;
+    if(Math.abs(rightVolts) > 12)
+      rightVolts = Math.signum(rightVolts) * 12;
+    
+    //System.out.println("left: " + leftVolts + "  right: " + rightVolts);
+
     leftDriveMaster.setVoltage(leftVolts);
     rightDriveMaster.setVoltage(rightVolts);
   }

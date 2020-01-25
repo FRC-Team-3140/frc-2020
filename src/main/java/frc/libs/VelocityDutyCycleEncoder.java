@@ -34,7 +34,7 @@ public class VelocityDutyCycleEncoder extends DutyCycleEncoder {
     double currentTime = m_timer.get();
     
     // Calculate current Velocity
-    double currentVelocity = Math.signum(currentPosition) * Math.abs(currentPosition - lastPosition)
+    double currentVelocity = (currentPosition - lastPosition)
       / (currentTime - lastTime);
     
     // Set previous Position and Time to current Position and Time
