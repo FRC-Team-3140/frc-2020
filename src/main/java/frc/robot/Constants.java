@@ -21,8 +21,8 @@ public interface Constants {
     public final static int Left_Encoder_PWM_PORT = 0;
     public final static int Right_Encoder_PWM_PORT = 1;
 
-    public final static boolean leftEncoderReversed = true;
-    public final static boolean rightEncoderReversed = false;
+    //public final static boolean leftEncoderReversed = true;
+    //public final static boolean rightEncoderReversed = false;
 
     //Drivetrain gear ratio's number with respect to 1. i.e. 12:1
     public static final double highGear = 12.86;

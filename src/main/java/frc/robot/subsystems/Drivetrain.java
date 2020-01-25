@@ -38,10 +38,26 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     rightDriveSlave1.follow(rightDriveMaster);
   }
 
+  public double getLeftEncoderDistance() {
+    return leftEncoder.getDistance();
+  }
+
+  public double getRightEncoderDistance() {
+    return -rightEncoder.getDistance();
+  }
+
+  public double getLeftEncoderVelocity() {
+    return leftEncoder.getRate();
+  }
+
+  public double getRightEncoderVelocity() {
+    return -rightEncoder.getRate();
+  }
+
   @Override
   public void periodic() {
     //odometry.update(Rotation2d.fromDegrees(getHeading()), leftEncoder.getPosition(), rightEncoder.getPosition());
-    odometry.update(Rotation2d.fromDegrees(getHeading()), leftEncoder.getDistance(), rightEncoder.getDistance());
+    odometry.update(Rotation2d.fromDegrees(getHeading()), getLeftEncoderDistance(), getRightEncoderDistance());
     SmartDashboard.putNumber("Gyro Heading (deg): ", getHeading());
     /*
     SmartDashboard.putNumber("Left Encoder Distance (m): ", leftEncoder.getPosition());
@@ -50,11 +66,11 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", rightEncoder.getVelocity());
     SmartDashboard.putNumber("Average Velocity (m/s): ", (leftEncoder.getVelocity() + rightEncoder.getVelocity()) / 2);
     */
-    SmartDashboard.putNumber("Left Encoder Distance (m): ", leftEncoder.getDistance());
-    SmartDashboard.putNumber("Right Encoder Distance (m): ", rightEncoder.getDistance());
-    SmartDashboard.putNumber("Left Encoder Velocity (m/s): ", leftEncoder.getRate());
-    SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", rightEncoder.getRate());
-    SmartDashboard.putNumber("Average Velocity (m/s): ", (leftEncoder.getRate() + rightEncoder.getRate()) / 2);
+    SmartDashboard.putNumber("Left Encoder Distance (m): ", getLeftEncoderDistance());
+    SmartDashboard.putNumber("Right Encoder Distance (m): ", getRightEncoderDistance());
+    SmartDashboard.putNumber("Left Encoder Velocity (m/s): ", getLeftEncoderVelocity());
+    SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", getRightEncoderVelocity());
+    SmartDashboard.putNumber("Average Velocity (m/s): ", (getLeftEncoderVelocity() + getRightEncoderVelocity()) / 2);
   }
 
   public void arcadeDrive(double throttle, double heading) {
@@ -96,7 +112,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     // return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
-    return new DifferentialDriveWheelSpeeds(leftEncoder.getRate(), rightEncoder.getRate());
+    return new DifferentialDriveWheelSpeeds(getLeftEncoderVelocity(), getRightEncoderVelocity());
   }
 
   public double getHeading() {

@@ -27,12 +27,15 @@ public class VelocityDutyCycleEncoder extends DutyCycleEncoder {
   // Returns Encoder Distance / Seconds
   public double getRate() {
     // Get current Position and Time
+
+    // ?? Do I need to put a deadband on the encoder distance so velocity doesn't drift when the bot
+    // isn't moving i.e. if distance < 0.001 set to 0????
     double currentPosition = getDistance();
     double currentTime = m_timer.get();
     
     // Calculate current Velocity
     double currentVelocity = Math.signum(currentPosition) * Math.abs(currentPosition - lastPosition)
-      * (currentTime - lastTime);
+      / (currentTime - lastTime);
     
     // Set previous Position and Time to current Position and Time
     lastPosition = currentPosition;
