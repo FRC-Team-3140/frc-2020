@@ -4,6 +4,8 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
 
 // Use meters, seconds, degrees (-180deg to 180deg), and volts for all motion profiling based units.
 public interface Constants {
+  public static final double kLooperDt = 0.01;
+
   public static final class DriveConstants {
     public final static int LEFT_DRIVE_MASTER = 3;
     public final static int RIGHT_DRIVE_MASTER = 2;

@@ -21,7 +21,7 @@ import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.otherCommands.DesiredPose_SMDB_Sender;
 import frc.robot.subsystems.Drivetrain;
 
-import frc.libs.XboxController;
+import frc.lib.XboxController;
 
 public class RobotContainer {
   public static final Drivetrain dt = new Drivetrain();
