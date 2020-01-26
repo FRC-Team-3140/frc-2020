@@ -49,6 +49,7 @@ public class Drivetrain extends Subsystem {
   }
 
   private void tankVolts(double leftVolts, double rightVolts) {
+    /*
     leftVolts = leftVolts/12;
     if(Math.abs(leftVolts) > 12)
       leftVolts = Math.signum(leftVolts) * 12;
@@ -56,7 +57,7 @@ public class Drivetrain extends Subsystem {
     rightVolts = rightVolts/12;
     if(Math.abs(rightVolts) > 12)
       rightVolts = Math.signum(rightVolts) * 12;
-
+    */
     leftDriveMaster.setVoltage(leftVolts);
     rightDriveMaster.setVoltage(rightVolts);
   }
@@ -263,6 +264,8 @@ public class Drivetrain extends Subsystem {
     SmartDashboard.putNumber("Average Velocity (m/s): ", periodicIO.averageVelocity);
 
     // Debugging
+    // System.out.println("Left Volts: " + periodicIO.leftVolts);
+    // System.out.println("Right Volts: " + periodicIO.rightVolts);
     System.out.println("Left Encoder Velocity (m/s): " + periodicIO.leftVelocity); 
     System.out.println("Right Encoder Velocity (m/s): " + periodicIO.rightVelocity); 
   }
