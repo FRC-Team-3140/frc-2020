@@ -56,12 +56,8 @@ public class RobotContainer {
     var transform = zeroedPose.minus(trajectory.getInitialPose());
     Trajectory newTrajectory = trajectory.transformBy(transform);
 
-<<<<<<< HEAD
     // Build RamseteCommand, this command follows the trajectory in auto.
     RamseteCommand ramseteCommand = new RamseteCommand(newTrajectory, dt::getCurrentPose,
-=======
-    RamseteCommand ramseteCommand = new RamseteCommand(newTrajectory, dt::getPose,
->>>>>>> parent of f1874c7... Minor fix and build test.
         new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
         new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
             DriveConstants.kaVoltSecondsSquaredPerMeter),
