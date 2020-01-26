@@ -1,0 +1,17 @@
+This was a big refactor, does $hit still work correctly????
+
+-Is velocity reporting correctly (check riolog for first value posted and ongoing data).
+-Does the autonomous start instantly?
+-Can we drive a path backwards?
+-Do we need to recharachterize with the gyro inverted to that the track width is accurate
+    in the chracterization tool?
+-Do we need to apply a 5 item median filter to the velocity to account for inaccuracies?
+-Are we still going over 12 with volts?
+-Are we still seeing the single instance sign flip behavior causing chain rattle on playback?
+    -Is a solution to this to smooth/apply error correction to the controller output.
+    -Is this because of an error with one of the input sensors that the control loop is trying to account for.
+-Is the behavior once we get it working consistent even through battery changes and low batteries?
+-Is the path following smooth?
+-Is the path following dimensionally accurate?
+
+-Did you get sleep??? Things look stupid when you didn't.
