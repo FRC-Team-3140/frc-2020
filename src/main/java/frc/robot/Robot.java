@@ -13,6 +13,13 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
+
+    // Import auto's when robot initializes to save time.
+    try {
+      autoCommand = robotContainer.getAutonomousCommand();
+    } catch (IOException e) {
+      e.printStackTrace();
+    }
   }
 
   @Override
@@ -31,12 +38,10 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    try {
-      autoCommand = robotContainer.getAutonomousCommand();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
+    //Reset sensors
+    RobotContainer.dt.resetAll();
 
+    //Run autoCommand
     if (autoCommand != null) {
       autoCommand.schedule();
     }

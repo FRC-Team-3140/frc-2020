@@ -6,6 +6,9 @@ import java.nio.file.Paths;
 import edu.wpi.first.wpilibj.controller.PIDController;
 import edu.wpi.first.wpilibj.controller.RamseteController;
 import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.trajectory.Trajectory;
 import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -24,7 +27,6 @@ public class RobotContainer {
   public static final Drivetrain dt = new Drivetrain();
   public static final XboxController xbox = new XboxController(OIConstants.xboxPort);
 
-  // TODO: Add Deadband to Xbox Controller
   public RobotContainer() {
     configureButtonBindings();
     configureDefaultCommands();
@@ -37,18 +39,24 @@ public class RobotContainer {
     dt.setDefaultCommand(new Drive());
   }
 
-  public Command getAutonomousCommand() throws IOException {
-    dt.resetAll();
-    
+  public Command getAutonomousCommand() throws IOException {    
+    //Import trajectory
     Trajectory trajectory = TrajectoryUtil
         .fromPathweaverJson(Paths.get("/home/lvuser/deploy/TestPath2.wpilib.json"));
-    
-    // Need to add this??
-    var transform = dt.getCurrentPose().minus(trajectory.getInitialPose());
-    Trajectory newTrajectory = trajectory.transformBy(transform);
-    // Same thing, but more efficient computation?
-    //Trajectory newTrajectory = trajectory.relativeTo(dt.getCurrentPose());
 
+    // Create a generic zeroed robot pose to set the path relative to.
+    // This is done so we can preemptively import the paths/
+    // The robot will have to be zeroed before this auto command is run
+    // in order to be consistent with this assumption which we have modified
+    // the path relative to.
+    DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
+    Pose2d zeroedPose = odometry.getPoseMeters();
+    
+    // Make path relative to a zeroed robot
+    var transform = zeroedPose.minus(trajectory.getInitialPose());
+    Trajectory newTrajectory = trajectory.transformBy(transform);
+
+    // Build RamseteCommand, this command follows the trajectory in auto.
     RamseteCommand ramseteCommand = new RamseteCommand(newTrajectory, dt::getCurrentPose,
         new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
         new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
@@ -59,7 +67,9 @@ public class RobotContainer {
         // RamseteCommand passes volts to the callback
         dt::tankDriveVolts, dt);
 
-    // Run path following command, then stop at the end.
+    // Run path following command
+    // In parallel update the smartDashboard with variable from the trajectory
+    // And finally when the trajectory ends cancel everything and stop the drivetrain.
     return ramseteCommand.deadlineWith(new DesiredPose_SMDB_Sender(newTrajectory)).andThen(() -> dt.tankDriveVolts(0, 0));
   }
 }
