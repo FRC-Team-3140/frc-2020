@@ -209,6 +209,7 @@ public class Drivetrain extends Subsystem {
     return periodicIO.heading;
   }
 
+<<<<<<< HEAD
   public Pose2d getCurrentPose() {
     return periodicIO.currentPose;
   }
@@ -275,6 +276,10 @@ public class Drivetrain extends Subsystem {
   @Override
   public void stop() {
     // Code to run on once when the loop changes state to not running.
+=======
+  public Pose2d getPose() {
+    return odometry.getPoseMeters();
+>>>>>>> parent of f1874c7... Minor fix and build test.
   }
 // End loop specific methods.
 }
