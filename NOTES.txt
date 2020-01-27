@@ -15,3 +15,5 @@ This was a big refactor, does $hit still work correctly????
 -Is the path following dimensionally accurate?
 
 -Did you get sleep??? Things look stupid when you didn't.
+  // ?? Do I need to put a deadband on the encoder distance so velocity doesn't drift when the bot
+    // isn't moving i.e. if distance < 0.001 set to 0????
