@@ -6,7 +6,7 @@ import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 // import edu.wpi.first.wpilibj.DutyCycleEncoder;
 // import edu.wpi.first.wpilibj.Encoder;
-import frc.lib.VelocityDutyCycleEncoder;
+import frc.libs.VelocityDutyCycleEncoder;
 import frc.robot.Constants.DriveConstants;
 
 public interface HardwareAdapter {

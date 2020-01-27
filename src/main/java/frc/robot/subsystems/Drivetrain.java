@@ -1,55 +1,94 @@
 package frc.robot.subsystems;
 
-import frc.robot.loops.ILooper;
-import frc.robot.loops.Loop;
-
 import com.kauailabs.navx.frc.AHRS;
-import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.wpilibj.SPI;
-import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveWheelSpeeds;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj2.command.SubsystemBase;
 
+import frc.robot.HardwareAdapter;
+import frc.robot.Constants;
 
-public class Drivetrain extends Subsystem {
-  // Variables
+public class Drivetrain extends SubsystemBase implements HardwareAdapter, Constants {
   private final AHRS navx = new AHRS(SPI.Port.kMXP);
-  private PeriodicIO periodicIO;
-  public enum DriveTrainMode {Arcade, Tank, TankVolts};
+  private final DifferentialDriveOdometry odometry;
 
-  // Subsystem Constructor
   public Drivetrain() {
-    periodicIO = new PeriodicIO();
-    periodicIO.odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
-
-    configMotorControllers();
+    setFollowers();
+    // leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderMetersPerPulse);
+    // leftEncoder.setVelocityConversionFactor(DriveConstants.kEncoderLinearMetersPerSecondPerRPM);
+    // rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderMetersPerPulse);
+    // rightEncoder.setVelocityConversionFactor(DriveConstants.kEncoderLinearMetersPerSecondPerRPM);
+    // leftEncoder.setDistancePerPulse(DriveConstants.kEncoderMetersPerPulse);
+    leftEncoder.setDistancePerRotation(DriveConstants.kEncoderMetersPerPulse);
+    //leftEncoder.setVelocityConversionFactor(DriveConstants.kEncoderLinearMetersPerSecondPerRPM);
+    // rightEncoder.setDistancePerPulse(DriveConstants.kEncoderMetersPerPulse);
+    rightEncoder.setDistancePerRotation(DriveConstants.kEncoderMetersPerPulse);
+    //rightEncoder.setVelocityConversionFactor(DriveConstants.kEncoderLinearMetersPerSecondPerRPM);
+    resetEncoders();
+    resetGyro();
+    odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
   }
 
-// Begin generic Subsystem methods section.
-  private void configMotorControllers() {
-    leftEncoder.setDistancePerRotation(DriveConstants.kEncoderMetersPerPulse);
-    rightEncoder.setDistancePerRotation(DriveConstants.kEncoderMetersPerPulse);
+  private void setFollowers() {
     leftDriveSlave1.follow(leftDriveMaster);
     rightDriveSlave1.follow(rightDriveMaster);
-    leftDriveMaster.setIdleMode(IdleMode.kBrake);
-    rightDriveMaster.setIdleMode(IdleMode.kBrake);
   }
 
-  private void arcade(double throttle, double heading) {
+  public double getLeftEncoderDistance() {
+    return leftEncoder.getDistance();
+  }
+
+  public double getRightEncoderDistance() {
+    return -rightEncoder.getDistance();
+  }
+
+  public double getLeftEncoderVelocity() {
+    return leftEncoder.getRate();
+  }
+
+  public double getRightEncoderVelocity() {
+    return -rightEncoder.getRate();
+  }
+
+  @Override
+  public void periodic() {
+    //odometry.update(Rotation2d.fromDegrees(getHeading()), leftEncoder.getPosition(), rightEncoder.getPosition());
+    odometry.update(Rotation2d.fromDegrees(getHeading()), getLeftEncoderDistance(), getRightEncoderDistance());
+    SmartDashboard.putNumber("Gyro Heading (deg): ", getHeading());
+    /*
+    SmartDashboard.putNumber("Left Encoder Distance (m): ", leftEncoder.getPosition());
+    SmartDashboard.putNumber("Right Encoder Distance (m): ", rightEncoder.getPosition());
+    SmartDashboard.putNumber("Left Encoder Velocity (m/s): ", leftEncoder.getVelocity());
+    SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", rightEncoder.getVelocity());
+    SmartDashboard.putNumber("Average Velocity (m/s): ", (leftEncoder.getVelocity() + rightEncoder.getVelocity()) / 2);
+    */
+    SmartDashboard.putNumber("Left Encoder Distance (m): ", getLeftEncoderDistance());
+    SmartDashboard.putNumber("Right Encoder Distance (m): ", getRightEncoderDistance());
+    SmartDashboard.putNumber("Left Encoder Velocity (m/s): ", getLeftEncoderVelocity());
+    SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", getRightEncoderVelocity());
+    //SmartDashboard.putNumber("Average Velocity (m/s): ", (getLeftEncoderVelocity() + getRightEncoderVelocity()) / 2);
+    //System.out.println("left: " + getLeftEncoderVelocity() + "  right: " + getRightEncoderVelocity());
+  }
+
+  public void arcadeDrive(double throttle, double heading) {
     tankDrive(throttle - heading, throttle + heading);
   }
 
-  private void tank(double left, double right) {
+  public void tankDrive(double left, double right) {
     leftDriveMaster.set(left);
     rightDriveMaster.set(right);
   }
 
+<<<<<<< HEAD
   private void tankVolts(double leftVolts, double rightVolts) {
     /*
+=======
+  public void tankDriveVolts(double leftVolts, double rightVolts) {
+>>>>>>> parent of 25f061d... Refactor: All sensors now synced on 100hz clock.
     leftVolts = leftVolts/12;
     if(Math.abs(leftVolts) > 12)
       leftVolts = Math.signum(leftVolts) * 12;
@@ -57,159 +96,51 @@ public class Drivetrain extends Subsystem {
     rightVolts = rightVolts/12;
     if(Math.abs(rightVolts) > 12)
       rightVolts = Math.signum(rightVolts) * 12;
+<<<<<<< HEAD
     */
+=======
+    
+    //System.out.println("left: " + leftVolts + "  right: " + rightVolts);
+
+>>>>>>> parent of 25f061d... Refactor: All sensors now synced on 100hz clock.
     leftDriveMaster.setVoltage(leftVolts);
     rightDriveMaster.setVoltage(rightVolts);
   }
-// End generic Subsystem methods section.
 
-// Begin syncronized IO section.
-  public static class PeriodicIO {
-    // Inputs
-    public double timestamp;
-    public DriveTrainMode dtMode;
-    public double leftDistance;
-    public double rightDistance;
-    public double leftVelocity;
-    public double rightVelocity;
-    public double averageVelocity;
-    public double averagevelocityMagnitude;
-    public double angularVelocity;
-    public double heading;
-    public DifferentialDriveOdometry odometry;
-    public Pose2d currentPose;
+  public void resetEncoders() {
+    // leftEncoder.setPosition(0);
+    // rightEncoder.setPosition(0);
 
-    // Outputs
-    // Arcade Drive
-    public double throttle;
-    public double headingThrottle;
-    // Tank Drive
-    public double leftThrottle;
-    public double rightThrottle;
-    // Tank Drive Volts
-    public double leftVolts;
-    public double rightVolts;
-  }
-
-  @Override
-  public synchronized void readPeriodicInputs() {
-    periodicIO.timestamp = Timer.getFPGATimestamp();
-    periodicIO.leftDistance = leftEncoder.getDistance();
-    periodicIO.rightDistance = -rightEncoder.getDistance();
-    periodicIO.leftVelocity = leftEncoder.getRate();
-    periodicIO.rightVelocity = -rightEncoder.getRate();
-    periodicIO.averageVelocity = (periodicIO.leftVelocity + periodicIO.rightVelocity) / 2.0;
-    periodicIO.averagevelocityMagnitude = (Math.abs(periodicIO.leftVelocity) + Math.abs(periodicIO.rightVelocity)) / 2.0;
-    periodicIO.angularVelocity = (periodicIO.rightVelocity - periodicIO.leftVelocity) / DriveConstants.kTrackwidthMeters;
-    periodicIO.heading = navx.getYaw() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
-    periodicIO.odometry.update(Rotation2d.fromDegrees(periodicIO.heading), periodicIO.leftDistance, periodicIO.rightDistance);
-    periodicIO.currentPose = periodicIO.odometry.getPoseMeters();
-  }
-
-  @Override
-  public synchronized void writePeriodicOutputs() {
-    switch(periodicIO.dtMode) {
-      case Arcade:
-        arcade(periodicIO.throttle, periodicIO.headingThrottle);
-        break;
-      case Tank:
-        tank(periodicIO.leftThrottle, periodicIO.rightThrottle);       
-        break;
-      case TankVolts:
-        tankVolts(periodicIO.leftVolts, periodicIO.rightVolts);
-        break;
-    }
-  }
-// End synchronized IO section.
-
-// Begin loop management section.
-  @Override
-  public void registerEnabledLoops(ILooper in) {
-    in.register(new Loop() {
-      @Override
-      public void onStart(double timestamp) {
-        synchronized(Drivetrain.this) {
-          stop();
-        }
-      }
-
-      @Override
-      public void onLoop(double timestamp) {
-        synchronized(Drivetrain.this) {
-          // On Loop Code
-        }
-      }
-
-      @Override
-      public void onStop(double timestamp) {
-        stop();
-      }
-    });
-  }
-// End loop management section.
-
-
-// Begin zeroing sensors section.
-  private void zeroEncoders() {
     leftEncoder.reset();
     rightEncoder.reset();
   }
 
-  private void zeroGyro() {
+  public void resetGyro() {
     navx.reset();
   }
   
-  private void zeroOdometry() {
+  public void resetOdometry() {
     Pose2d defaultPose = new Pose2d();
-    periodicIO.odometry.resetPosition(defaultPose, Rotation2d.fromDegrees(getHeading()));
+    odometry.resetPosition(defaultPose, Rotation2d.fromDegrees(getHeading()));
   }
   
-  @Override
-  public void zeroSensors() {
-    zeroEncoders();
-    zeroGyro();
-    zeroOdometry();
-  }
-// End zeroing sensors section.
-
-// Begin data accessor section.
-  public double getLeftEncoderDistance() {
-    return periodicIO.leftDistance;
-  }
-
-  public double getRightEncoderDistance() {
-    return periodicIO.rightDistance;
-  }
-
-  public double getLeftEncoderVelocity() {
-    return periodicIO.leftVelocity;
-  }
-
-  public double getRightEncoderVelocity() {
-    return periodicIO.rightVelocity;
-  }
-
-  public double getAverageEncoderVelocity() {
-    return periodicIO.averageVelocity;
-  }
-
-  public double getAverageEncoderVelocityMagnitude() {
-    return periodicIO.averagevelocityMagnitude;
-  }
-
-  public double getAngularVelocity() {
-    return periodicIO.angularVelocity;
+  public void resetAll() {
+    resetEncoders();
+    resetGyro();
+    resetOdometry();
   }
 
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(periodicIO.leftVelocity, periodicIO.rightVelocity);
+    // return new DifferentialDriveWheelSpeeds(leftEncoder.getVelocity(), rightEncoder.getVelocity());
+    return new DifferentialDriveWheelSpeeds(getLeftEncoderVelocity(), getRightEncoderVelocity());
   }
 
   public double getHeading() {
-    return periodicIO.heading;
+    return navx.getYaw() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
 
   public Pose2d getCurrentPose() {
+<<<<<<< HEAD
     return periodicIO.currentPose;
   }
 
@@ -275,6 +206,8 @@ public class Drivetrain extends Subsystem {
   @Override
   public void stop() {
     // Code to run on once when the loop changes state to not running.
+=======
+    return odometry.getPoseMeters();
+>>>>>>> parent of 25f061d... Refactor: All sensors now synced on 100hz clock.
   }
-// End loop specific methods.
 }

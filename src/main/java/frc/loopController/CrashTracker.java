@@ -1,17 +1,20 @@
-package frc.lib.util;
+package frc.loopController;
 
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.PrintWriter;
+import java.io.*;
 import java.util.Date;
 import java.util.UUID;
 
 /**
- * Tracks start-up and caught crash events, logging them to a file which dosn't roll over
+ * Tracks start-up and caught crash events, logging them to a file which dosn't
+ * roll over
  */
 public class CrashTracker {
 
     private static final UUID RUN_INSTANCE_UUID = UUID.randomUUID();
+
+    public static void logRobotStartup() {
+        logMarker("robot startup");
+    }
 
     public static void logRobotConstruction() {
         logMarker("robot startup");
@@ -31,10 +34,6 @@ public class CrashTracker {
 
     public static void logDisabledInit() {
         logMarker("disabled init");
-    }
-
-    public static void logTestInit() {
-        logMarker("test init");
     }
 
     public static void logThrowableCrash(Throwable throwable) {

@@ -1,4 +1,4 @@
-package frc.lib.util;
+package frc.loopController;
 
 /**
  * Runnable class with reports all uncaught throws to CrashTracker
