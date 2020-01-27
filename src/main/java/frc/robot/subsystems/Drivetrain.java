@@ -83,12 +83,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     rightDriveMaster.set(right);
   }
 
-<<<<<<< HEAD
-  private void tankVolts(double leftVolts, double rightVolts) {
-    /*
-=======
   public void tankDriveVolts(double leftVolts, double rightVolts) {
->>>>>>> parent of 25f061d... Refactor: All sensors now synced on 100hz clock.
     leftVolts = leftVolts/12;
     if(Math.abs(leftVolts) > 12)
       leftVolts = Math.signum(leftVolts) * 12;
@@ -96,13 +91,9 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     rightVolts = rightVolts/12;
     if(Math.abs(rightVolts) > 12)
       rightVolts = Math.signum(rightVolts) * 12;
-<<<<<<< HEAD
-    */
-=======
     
     //System.out.println("left: " + leftVolts + "  right: " + rightVolts);
 
->>>>>>> parent of 25f061d... Refactor: All sensors now synced on 100hz clock.
     leftDriveMaster.setVoltage(leftVolts);
     rightDriveMaster.setVoltage(rightVolts);
   }
@@ -140,74 +131,6 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
 
   public Pose2d getCurrentPose() {
-<<<<<<< HEAD
-    return periodicIO.currentPose;
-  }
-
-  public synchronized double getTimestamp() {
-    return periodicIO.timestamp;
-  }
-
-  public synchronized DriveTrainMode getCurrentMode() {
-    return periodicIO.dtMode;
-  }
-// End data accessor section.
-
-// Begin data mutators section.
-  public synchronized void setBrakeMode(boolean brake) {
-    if(brake) {
-      leftDriveMaster.setIdleMode(IdleMode.kBrake);
-      rightDriveMaster.setIdleMode(IdleMode.kBrake);
-    }
-    else {
-      leftDriveMaster.setIdleMode(IdleMode.kCoast);
-      rightDriveMaster.setIdleMode(IdleMode.kCoast);
-    }
-  }
-
-  public synchronized void arcadeDrive(double throttle, double headingThrottle) {
-    periodicIO.dtMode = DriveTrainMode.Arcade;
-    periodicIO.throttle = throttle;
-    periodicIO.headingThrottle = headingThrottle;
-  }
-
-  public synchronized void tankDrive(double leftThrottle, double rightThrottle) {
-    periodicIO.dtMode = DriveTrainMode.Tank;
-    periodicIO.leftThrottle = leftThrottle;
-    periodicIO.rightThrottle = rightThrottle;
-  }
-
-  public synchronized void tankDriveVolts(double leftVolts, double rightVolts) {
-    periodicIO.dtMode = DriveTrainMode.TankVolts;
-    periodicIO.leftVolts = leftVolts;
-    periodicIO.rightVolts = rightVolts;
-  }
-// End data mutators section.
-
-// Begin telemetry updating section.
-  @Override
-  public void outputTelemetry() {
-    SmartDashboard.putNumber("Gyro Heading (deg): ", periodicIO.heading);
-    SmartDashboard.putNumber("Left Encoder Distance (m): ", periodicIO.leftDistance);
-    SmartDashboard.putNumber("Right Encoder Distance (m): ", periodicIO.rightDistance);
-    SmartDashboard.putNumber("Left Encoder Velocity (m/s): ", periodicIO.leftVelocity);
-    SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", periodicIO.rightVelocity);
-    SmartDashboard.putNumber("Average Velocity (m/s): ", periodicIO.averageVelocity);
-
-    // Debugging
-    // System.out.println("Left Volts: " + periodicIO.leftVolts);
-    // System.out.println("Right Volts: " + periodicIO.rightVolts);
-    System.out.println("Left Encoder Velocity (m/s): " + periodicIO.leftVelocity); 
-    System.out.println("Right Encoder Velocity (m/s): " + periodicIO.rightVelocity); 
-  }
-// End telemetry updating section.
-
-// Start loop specific methods.
-  @Override
-  public void stop() {
-    // Code to run on once when the loop changes state to not running.
-=======
     return odometry.getPoseMeters();
->>>>>>> parent of 25f061d... Refactor: All sensors now synced on 100hz clock.
   }
 }
