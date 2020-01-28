@@ -75,16 +75,22 @@ public class Drivetrain extends SubsystemBase implements Constants, HardwareAdap
   double lastTimerValue = 0;
 
   public void turnToAngle(double angle) {
-    double error = navX.getAngle() - angle;
+    double error = angle - navX.getAngle();
     double p = DRIVE_TURN_P * error;
     lastIntegral += error;
     double i = (lastIntegral) * DRIVE_TURN_I;
+    System.out.println(timer.get()-lastTimerValue);
     double d = DRIVE_TURN_D *(error-lastError) / (timer.get()-lastTimerValue);
     lastTimerValue = timer.get();
     lastError = error;
 
     //TODO FIX THIS 
-    arcadeDrive(0,12*(p+i+d));
+    double output = 12*(p+i+d);
+    System.out.println("output in turn to angle: " + output);
+    rightDriveMaster.setVoltage(-output);
+    leftDriveMaster.setVoltage( output);
+    System.out.println("turn to angle outputs: " +leftDriveMaster.get() + " "+ rightDriveMaster.get());
+
   }
 
   public boolean isAtAngle(double angle) {
@@ -107,6 +113,11 @@ public class Drivetrain extends SubsystemBase implements Constants, HardwareAdap
   public void resetEncoders() {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
+  }
+
+  public void restartTimer() {
+    timer.reset();
+    timer.start();
   }
 
   public void arcadeDrive(double throttle, double heading) {

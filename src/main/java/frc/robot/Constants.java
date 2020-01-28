@@ -16,7 +16,7 @@ public interface Constants {
 	public final static double DRIVE_RIGHT_P = .11;
 	public final static double DRIVE_RIGHT_I = 0;
 	public final static double DRIVE_RIGHT_D = 1.5;
-	public final static double DRIVE_TURN_P = .01;
+	public final static double DRIVE_TURN_P = .008;
 	public final static double DRIVE_TURN_I = 0;
 	public final static double DRIVE_TURN_D = 0;
 

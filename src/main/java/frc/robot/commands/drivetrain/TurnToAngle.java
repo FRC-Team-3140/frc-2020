@@ -22,6 +22,7 @@ public class TurnToAngle extends CommandBase {
   @Override
   public void initialize() {
     RobotContainer.dt.resetSensorsForPID();
+    RobotContainer.dt.restartTimer();
   }
 
   // Called every time the scheduler runs while the command is scheduled.
@@ -33,7 +34,9 @@ public class TurnToAngle extends CommandBase {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.dt.resetSensorsForPID();
+    System.out.println("turn to angle command finished");
+    RobotContainer.dt.stop();
+    //RobotContainer.dt.resetSensorsForPID();
   }
 
   // Returns true when the command should end.

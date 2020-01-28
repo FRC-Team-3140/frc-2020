@@ -34,6 +34,7 @@ public class DriveToDistance extends CommandBase implements Constants {
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
+    //RobotContainer.dt.stop();
     System.out.println("drive to distance finished (" + inches +")");
   }
 
