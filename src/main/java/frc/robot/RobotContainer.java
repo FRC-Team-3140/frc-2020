@@ -8,6 +8,7 @@ import frc.robot.commands.pneumatics.wheelDeployer.WheelDown;
 import frc.robot.commands.pneumatics.wheelDeployer.WheelUp;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Spinner;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.libs.*;
@@ -24,6 +25,7 @@ public class RobotContainer {
 
   public static final Drivetrain dt = new Drivetrain();
   public static final Pneumatics pn = new Pneumatics();
+  public static final Spinner sp = new Spinner();
 
   public RobotContainer() {
     configureButtonBindings();
