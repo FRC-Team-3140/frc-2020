@@ -7,7 +7,7 @@ import frc.loopController.Looper;
 
 public class VelocityDutyCycleEncoder extends DutyCycleEncoder implements Loop {
   private final Timer m_timer = new Timer();
-  private Looper looper = new Looper(0.01);
+  private Looper looper = new Looper(0.01); // Update velocity @ 100hz
   private double lastPosition;
   private double lastTime;
   private double currentVelocity;

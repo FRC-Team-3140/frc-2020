@@ -20,7 +20,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.otherCommands.DesiredPose_SMDB_Sender;
 import frc.robot.subsystems.Drivetrain;
-
+import frc.libs.ReversedTrajectory;
 import frc.libs.XboxController;
 
 public class RobotContainer {
@@ -43,7 +43,7 @@ public class RobotContainer {
     //Import trajectory
     Trajectory trajectory = TrajectoryUtil
         .fromPathweaverJson(Paths.get("/home/lvuser/deploy/TestPath2.wpilib.json"));
-
+    
     // Create a generic zeroed robot pose to set the path relative to.
     // This is done so we can preemptively import the paths/
     // The robot will have to be zeroed before this auto command is run
@@ -54,10 +54,11 @@ public class RobotContainer {
     
     // Make path relative to a zeroed robot
     var transform = zeroedPose.minus(trajectory.getInitialPose());
-    Trajectory newTrajectory = trajectory.transformBy(transform);
+    Trajectory robotRelativeTrajectory = trajectory.transformBy(transform);
+    ReversedTrajectory reversedRobotRelativeTrajectory = new ReversedTrajectory(robotRelativeTrajectory.getStates());
 
     // Build RamseteCommand, this command follows the trajectory in auto.
-    RamseteCommand ramseteCommand = new RamseteCommand(newTrajectory, dt::getCurrentPose,
+    RamseteCommand ramseteCommand = new RamseteCommand(robotRelativeTrajectory, dt::getCurrentPose,
         new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
         new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
             DriveConstants.kaVoltSecondsSquaredPerMeter),
@@ -67,9 +68,21 @@ public class RobotContainer {
         // RamseteCommand passes volts to the callback
         dt::tankDriveVolts, dt);
 
-    // Run path following command
-    // In parallel update the smartDashboard with variable from the trajectory
-    // And finally when the trajectory ends cancel everything and stop the drivetrain.
-    return ramseteCommand.deadlineWith(new DesiredPose_SMDB_Sender(newTrajectory)).andThen(() -> dt.tankDriveVolts(0, 0));
+    // Build Reverse RamseteCommand, this command follows the trajectory backwards in auto.
+    RamseteCommand reversedRamseteCommand = new RamseteCommand(reversedRobotRelativeTrajectory, dt::getCurrentPose,
+        new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+        new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
+            DriveConstants.kaVoltSecondsSquaredPerMeter),
+        DriveConstants.kDriveKinematics, dt::getWheelSpeeds,
+        new PIDController(DriveConstants.kPDriveVel, DriveConstants.kIDriveVel, DriveConstants.kDDriveVel),
+        new PIDController(DriveConstants.kPDriveVel, DriveConstants.kIDriveVel, DriveConstants.kDDriveVel),
+        // RamseteCommand passes volts to the callback
+        dt::tankDriveVolts, dt);
+
+    return 
+    // Run Path Forward, In parallel update SMDB, then stop driving at end of path.
+    ramseteCommand.deadlineWith(new DesiredPose_SMDB_Sender(robotRelativeTrajectory)).andThen(() -> dt.tankDriveVolts(0, 0))
+    // Then Run Path Backwards, In parallel update SMDB, then stop driving at end of path.
+    .andThen(reversedRamseteCommand.deadlineWith(new DesiredPose_SMDB_Sender(reversedRobotRelativeTrajectory)).andThen(() -> dt.tankDriveVolts(0, 0)));
   }
 }

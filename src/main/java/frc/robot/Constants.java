@@ -10,26 +10,15 @@ public interface Constants {
     public final static int LEFT_DRIVE_SLAVE1 = 4;
     public final static int RIGHT_DRIVE_SLAVE1 = 5;
 
-    /*
-    public final static int Left_Encoder_A_PORT = 0;
-    public final static int Left_Encoder_B_PORT = 1;
-    public final static int Left_Encoder_I_PORT = 2;
-    public final static int Right_Encoder_A_PORT = 3;
-    public final static int Right_Encoder_B_PORT = 4;
-    public final static int Right_Encoder_I_PORT = 5;
-*/
     public final static int Left_Encoder_PWM_PORT = 0;
     public final static int Right_Encoder_PWM_PORT = 1;
-
-    //public final static boolean leftEncoderReversed = true;
-    //public final static boolean rightEncoderReversed = false;
 
     //Drivetrain gear ratio's number with respect to 1. i.e. 12:1
     public static final double highGear = 12.86;
     public static final double lowGear = 6.25;
     public static final boolean lockedInHighGear = true;
-    //public static double gearRatio = lockedInHighGear ? highGear:lowGear;
-    public static double gearRatio = 1.0;
+    public static double gearRatio = lockedInHighGear ? highGear:lowGear;
+    //public static double gearRatio = 1.0;
 
     //Distance between center of wheel thicknesses
     //Or (distance between wheel outsides + distance between wheel insides) / 2
@@ -58,7 +47,9 @@ public interface Constants {
     public static final double ksVolts = 0.116;
     public static final double kvVoltSecondsPerMeter = 5.06;
     public static final double kaVoltSecondsSquaredPerMeter = 0.327;
-    public static final double kPDriveVel = 11.1;
+    //2.75 (Scaled to 42 counts/rotation using talon instead of onboard option when gains were calculated.)
+    // w/ post encoder gearing 0.0653
+    public static final double kPDriveVel = 11.1; 
     public static final double kIDriveVel = 0;
     public static final double kDDriveVel = 0;
   }
