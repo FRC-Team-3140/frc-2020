@@ -17,8 +17,8 @@ public interface Constants {
     public static final double highGear = 12.86;
     public static final double lowGear = 6.25;
     public static final boolean lockedInHighGear = true;
-    public static double gearRatio = lockedInHighGear ? highGear:lowGear;
-    //public static double gearRatio = 1.0;
+    //public static double gearRatio = lockedInHighGear ? highGear:lowGear;
+    public static double gearRatio = 1.0;
 
     //Distance between center of wheel thicknesses
     //Or (distance between wheel outsides + distance between wheel insides) / 2
@@ -49,7 +49,7 @@ public interface Constants {
     public static final double kaVoltSecondsSquaredPerMeter = 0.327;
     //2.75 (Scaled to 42 counts/rotation using talon instead of onboard option when gains were calculated.)
     // w/ post encoder gearing 0.0653
-    public static final double kPDriveVel = 11.1; 
+    public static final double kPDriveVel = 0.0000111;//0.0172;//11.1; 
     public static final double kIDriveVel = 0;
     public static final double kDDriveVel = 0;
   }

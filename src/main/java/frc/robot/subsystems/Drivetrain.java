@@ -1,5 +1,7 @@
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
 import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
@@ -15,6 +17,11 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
 
   public Drivetrain() {
     setFollowers();
+    leftDriveMaster.setInverted(false);
+    leftDriveMaster.setIdleMode(IdleMode.kBrake);
+    rightDriveMaster.setInverted(true);
+    rightDriveMaster.setIdleMode(IdleMode.kBrake);
+
     
     leftEncoder.setDistancePerRotation(DriveConstants.kEncoderMetersPerPulse);
     rightEncoder.setDistancePerRotation(DriveConstants.kEncoderMetersPerPulse);
@@ -27,6 +34,9 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   private void setFollowers() {
     leftDriveSlave1.follow(leftDriveMaster);
     rightDriveSlave1.follow(rightDriveMaster);
+
+    leftDriveSlave1.setIdleMode(IdleMode.kBrake);
+    rightDriveSlave1.setIdleMode(IdleMode.kBrake);
   }
 
   public double getLeftEncoderDistance() {
@@ -54,7 +64,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     SmartDashboard.putNumber("Left Encoder Velocity (m/s): ", getLeftEncoderVelocity());
     SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", getRightEncoderVelocity());
     SmartDashboard.putNumber("Average Velocity (m/s): ", (getLeftEncoderVelocity() + getRightEncoderVelocity()) / 2);
-    System.out.println("left: " + getLeftEncoderVelocity() + "  right: " + getRightEncoderVelocity());
+    //System.out.println("left: " + getLeftEncoderVelocity() + "  right: " + getRightEncoderVelocity());
   }
 
   public void arcadeDrive(double throttle, double heading) {
