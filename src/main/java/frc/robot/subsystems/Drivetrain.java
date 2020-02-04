@@ -17,6 +17,7 @@ import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.SPI;
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.trajectory.TrapezoidProfile;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Constants;
 import frc.robot.HardwareAdapter;
@@ -33,6 +34,8 @@ public class Drivetrain extends SubsystemBase implements Constants, HardwareAdap
   private AHRS navX;
 
   private double turnP = DRIVE_TURN_P, turnI = DRIVE_TURN_I, turnD = DRIVE_RIGHT_D;
+
+  private TrapezoidProfile rightProfile, leftProfile;
 
   public Drivetrain() {
     setFollowers();
@@ -70,10 +73,28 @@ public class Drivetrain extends SubsystemBase implements Constants, HardwareAdap
     rightPIDController.setReference(inches*DT_TICKS_TO_INCHES, ControlType.kPosition);
   }
 
+  // creates trapezoidal profiles
+  public void setPosTrapProfile(double inches) {
+    leftProfile = new TrapezoidProfile(new TrapezoidProfile.Constraints(DT_MAX_VELOCITY, DT_MAX_ACCEL), new TrapezoidProfile.State(inches, 0),
+        new TrapezoidProfile.State(0, 0));
+    rightProfile = new TrapezoidProfile(new TrapezoidProfile.Constraints(DT_MAX_VELOCITY, DT_MAX_ACCEL), new TrapezoidProfile.State(inches, 0),
+        new TrapezoidProfile.State(0, 0));
+  }
+
+  // moves to whatever profile is currently generated in the class
+  public void moveToPosProfile() {
+    double timeStep = ((int) (timer.get() / SETPOINT_DT) + 1) * SETPOINT_DT;
+    TrapezoidProfile.State lState = leftProfile.calculate(timeStep);
+    TrapezoidProfile.State rState = rightProfile.calculate(timeStep);
+    System.out.println("left: " + lState.position + "     right: " + rState.position);
+
+    leftPIDController.setReference(lState.position * DT_TICKS_TO_INCHES, ControlType.kPosition, 0, DRIVE_LEFT_FF*lState.velocity);
+    rightPIDController.setReference(rState.position * DT_TICKS_TO_INCHES, ControlType.kPosition, 0, DRIVE_RIGHT_FF*rState.velocity);
+  }
+
   double lastError=0;
   double lastIntegral = 0;
   double lastTimerValue = 0;
-
   public void turnToAngle(double angle) {
     double error = angle - navX.getAngle();
     double p = DRIVE_TURN_P * error;
@@ -84,7 +105,6 @@ public class Drivetrain extends SubsystemBase implements Constants, HardwareAdap
     lastTimerValue = timer.get();
     lastError = error;
 
-    //TODO FIX THIS 
     double output = 12*(p+i+d);
     System.out.println("output in turn to angle: " + output);
     rightDriveMaster.setVoltage(-output);

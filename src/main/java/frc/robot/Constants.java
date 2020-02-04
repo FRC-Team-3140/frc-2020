@@ -19,6 +19,8 @@ public interface Constants {
 	public final static double DRIVE_TURN_P = .008;
 	public final static double DRIVE_TURN_I = 0;
 	public final static double DRIVE_TURN_D = 0;
+	public final static double DRIVE_LEFT_FF = 0;
+	public final static double DRIVE_RIGHT_FF = 0;
 
 	// PID for turret 
 	public final static double TURRET_P = 1;
@@ -36,6 +38,9 @@ public interface Constants {
 	public final static double DT_TICKS_TO_INCHES =  1;// TODO test for this val
 	public final static double DT_MAX_INPUT_PID = 0.5;
 	public final static double DT_RAMP_RATE = 2; // time it takes for drivetrain to go from 0 to max throttle
+	public final static double DT_MAX_VELOCITY = 7; // ft/s
+	public final static double DT_MAX_ACCEL = DT_MAX_VELOCITY / DT_RAMP_RATE;
+	public final static double SETPOINT_DT = .1; // seconds
 
 	public final static double DT_TOL_IN = 1;
 	public final static double DT_TOL_ANGLE = 3; // in degrees
