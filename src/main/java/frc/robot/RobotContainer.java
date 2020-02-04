@@ -81,8 +81,8 @@ public class RobotContainer {
 
     return 
     // Run Path Forward, In parallel update SMDB, then stop driving at end of path.
-    ramseteCommand.deadlineWith(new DesiredPose_SMDB_Sender(robotRelativeTrajectory)).andThen(() -> dt.tankDriveVolts(0, 0))
+    ramseteCommand.deadlineWith(new DesiredPose_SMDB_Sender(robotRelativeTrajectory)).andThen(() -> dt.tankDriveVolts(0, 0));
     // Then Run Path Backwards, In parallel update SMDB, then stop driving at end of path.
-    .andThen(reversedRamseteCommand.deadlineWith(new DesiredPose_SMDB_Sender(reversedRobotRelativeTrajectory)).andThen(() -> dt.tankDriveVolts(0, 0)));
+    //.andThen(reversedRamseteCommand.deadlineWith(new DesiredPose_SMDB_Sender(reversedRobotRelativeTrajectory)).andThen(() -> dt.tankDriveVolts(0, 0)));
   }
 }

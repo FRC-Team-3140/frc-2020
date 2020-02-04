@@ -49,7 +49,7 @@ public interface Constants {
     public static final double kaVoltSecondsSquaredPerMeter = 0.327;
     //2.75 (Scaled to 42 counts/rotation using talon instead of onboard option when gains were calculated.)
     // w/ post encoder gearing 0.0653
-    public static final double kPDriveVel = 0.0000111;//0.0172;//11.1; 
+    public static final double kPDriveVel = 0.0;//1.11;//0.0172;//11.1; 
     public static final double kIDriveVel = 0;
     public static final double kDDriveVel = 0;
   }

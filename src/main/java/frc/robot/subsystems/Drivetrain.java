@@ -18,9 +18,9 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   public Drivetrain() {
     setFollowers();
     leftDriveMaster.setInverted(false);
-    leftDriveMaster.setIdleMode(IdleMode.kBrake);
+    leftDriveMaster.setIdleMode(IdleMode.kCoast);
     rightDriveMaster.setInverted(true);
-    rightDriveMaster.setIdleMode(IdleMode.kBrake);
+    rightDriveMaster.setIdleMode(IdleMode.kCoast);
 
     
     leftEncoder.setDistancePerRotation(DriveConstants.kEncoderMetersPerPulse);
@@ -35,8 +35,8 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     leftDriveSlave1.follow(leftDriveMaster);
     rightDriveSlave1.follow(rightDriveMaster);
 
-    leftDriveSlave1.setIdleMode(IdleMode.kBrake);
-    rightDriveSlave1.setIdleMode(IdleMode.kBrake);
+    leftDriveSlave1.setIdleMode(IdleMode.kCoast);
+    rightDriveSlave1.setIdleMode(IdleMode.kCoast);
   }
 
   public double getLeftEncoderDistance() {
