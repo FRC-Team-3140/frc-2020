@@ -77,17 +77,16 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
 
   public void tankDriveVolts(double leftVolts, double rightVolts) {
-    /*
+    System.out.println("leftVolts: " + leftVolts + "  rightVolts: " + rightVolts);
+    
     leftVolts = leftVolts/12;
     if(Math.abs(leftVolts) > 12)
       leftVolts = Math.signum(leftVolts) * 12;
 
     rightVolts = rightVolts/12;
     if(Math.abs(rightVolts) > 12)
-      rightVolts = Math.signum(rightVolts) * 12;
-    */
+      rightVolts = Math.signum(rightVolts) * 12;    
     
-    System.out.println("leftVolts: " + leftVolts + "  rightVolts: " + rightVolts);
 
     leftDriveMaster.setVoltage(leftVolts);
     rightDriveMaster.setVoltage(rightVolts);
