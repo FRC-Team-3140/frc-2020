@@ -34,6 +34,9 @@ public interface HardwareAdapter extends Constants {
     //FEEDER
     public static final CANSparkMax feeder = new CANSparkMax(FEEDER, MotorType.kBrushless);
 
+    //ANGLED HOOD
+    public static final WPI_TalonSRX hoodMotor = new WPI_TalonSRX(20);
+
     // FEEDER LIMIT SWITCHES
     public static final DigitalInput chamber1 = new DigitalInput(CHAMBER_1);
     public static final DigitalInput chamber2 = new DigitalInput(CHAMBER_2);

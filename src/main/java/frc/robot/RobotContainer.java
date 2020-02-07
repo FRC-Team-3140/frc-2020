@@ -1,6 +1,7 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import frc.robot.commands.angledHood.AngleWithJoystick;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.flywheel.FlywheelShootOff;
 import frc.robot.commands.flywheel.FlywheelShootOut;
@@ -12,6 +13,7 @@ import frc.robot.commands.pneumatics.intake.RetractIntake;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Flywheel;
+import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -34,6 +36,7 @@ public class RobotContainer {
   public static final Intake in = new Intake();
   public static final Flywheel fw = new Flywheel();
   public static final Feeder fd = new Feeder();
+  public static final Hood hd = new Hood();
   
   public RobotContainer() {
     configureButtonBindings();
@@ -60,6 +63,7 @@ public class RobotContainer {
     
   private void configureDefaultCommands() {
     dt.setDefaultCommand(new Drive());
+    hd.setDefaultCommand(new AngleWithJoystick());
   }
 
 
