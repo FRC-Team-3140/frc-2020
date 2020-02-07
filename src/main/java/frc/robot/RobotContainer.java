@@ -10,12 +10,14 @@ import frc.robot.commands.intake.SpinIntakeOff;
 import frc.robot.commands.intake.SpinIntakeOut;
 import frc.robot.commands.pneumatics.intake.DeployIntake;
 import frc.robot.commands.pneumatics.intake.RetractIntake;
+import frc.robot.commands.turret.AngleWithTurret;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.libs.*;
@@ -37,6 +39,7 @@ public class RobotContainer {
   public static final Flywheel fw = new Flywheel();
   public static final Feeder fd = new Feeder();
   public static final Hood hd = new Hood();
+  public static final Turret tr = new Turret(); 
   
   public RobotContainer() {
     configureButtonBindings();
@@ -64,6 +67,7 @@ public class RobotContainer {
   private void configureDefaultCommands() {
     dt.setDefaultCommand(new Drive());
     hd.setDefaultCommand(new AngleWithJoystick());
+    tr.setDefaultCommand(new AngleWithTurret());
   }
 
 

@@ -37,6 +37,10 @@ public interface HardwareAdapter extends Constants {
     //ANGLED HOOD
     public static final WPI_TalonSRX hoodMotor = new WPI_TalonSRX(20);
 
+    //TURRET
+    public static final WPI_TalonSRX turretMotor = new WPI_TalonSRX(21);
+    
+
     // FEEDER LIMIT SWITCHES
     public static final DigitalInput chamber1 = new DigitalInput(CHAMBER_1);
     public static final DigitalInput chamber2 = new DigitalInput(CHAMBER_2);
