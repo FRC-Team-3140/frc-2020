@@ -4,6 +4,7 @@ import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
+import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 
@@ -15,7 +16,9 @@ public interface HardwareAdapter extends Constants {
     public static final CANSparkMax leftDriveSlave1 = new CANSparkMax(4, MotorType.kBrushless);
     public static final CANSparkMax rightDriveSlave1 = new CANSparkMax(5, MotorType.kBrushless);
     //public static final CANSparkMax leftDriveSlave2 = new CANSparkMax(6, MotorType.kBrushless);
-	//public static final CANSparkMax rightDriveSlave2 = new CANSparkMax(7, MotorType.kBrushless);
+    //public static final CANSparkMax rightDriveSlave2 = new CANSparkMax(7, MotorType.kBrushless);
+    
+    public static final AddressableLED led = new AddressableLED(9);
 
 	//public static final Compressor compressor = new Compressor(PCM);
 

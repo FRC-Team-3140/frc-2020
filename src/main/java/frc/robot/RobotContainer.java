@@ -1,14 +1,18 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import frc.robot.commands.RunningLEDs;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.pneumatics.shifter.ShiftDown;
 import frc.robot.commands.pneumatics.shifter.ShiftUp;
+import frc.robot.controllers.LEDLoop;
 import frc.robot.subsystems.Drivetrain;
+import frc.robot.subsystems.LEDs;
 import frc.robot.subsystems.Pneumatics;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.libs.*;
+import frc.libs.loops.Looper;
 
 /**
  * This class is where the bulk of the robot should be declared.  Since Command-based is a
@@ -16,16 +20,20 @@ import frc.libs.*;
  * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
  * (including subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer {
+public class RobotContainer implements Constants {
   // The robot's subsystems and OI devices
   public static final XboxController xbox = new XboxController(0);
 
   public static final Drivetrain dt = new Drivetrain();
   public static final Pneumatics pn = new Pneumatics();
+  public static final LEDs led = new LEDs();
+  public static final Looper looper = new Looper(kDt);
 
   public RobotContainer() {
     configureButtonBindings();
     configureDefaultCommands();
+    looper.register(new LEDLoop());
+    looper.start();
   }
 
   /**
@@ -41,6 +49,7 @@ public class RobotContainer {
 
   private void configureDefaultCommands() {
     dt.setDefaultCommand(new Drive());
+    //led.setDefaultCommand(new RunningLEDs());
   }
 
 

@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.AddressableLEDBuffer;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -11,7 +12,7 @@ import frc.robot.commands.pneumatics.shifter.ShiftDown;
  * the package after creating this project, you must also update the build.gradle file in the
  * project.
  */
-public class Robot extends TimedRobot {
+public class Robot extends TimedRobot implements HardwareAdapter{
   private Command m_autonomousCommand;
 
   private RobotContainer m_robotContainer;
@@ -26,7 +27,21 @@ public class Robot extends TimedRobot {
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
 
-    new ShiftDown().schedule();
+    /*AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(60);
+    led.setLength(ledBuffer.getLength());
+
+    // Set the data
+    led.setData(ledBuffer);
+    led.start();
+
+    for (var i = 0; i < ledBuffer.getLength(); i++) {
+      // Sets the specified LED to the RGB values for red
+      ledBuffer.setRGB(i, 255, 0, 0);
+    }
+   
+    led.setData(ledBuffer);*/
+
+    //new ShiftDown().schedule();
   }
 
   /**

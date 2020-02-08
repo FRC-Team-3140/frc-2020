@@ -11,6 +11,8 @@ public interface Constants {
 
 	public final static double DEADBAND = 0.1;
 
+	public final static double kDt = 0.05;
+
 	public final static int LEFT_DRIVE_MASTER = 3;
 	public final static int RIGHT_DRIVE_MASTER = 2;
 	public final static int LEFT_DRIVE_SLAVE1 = 4;
