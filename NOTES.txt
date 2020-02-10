@@ -44,3 +44,15 @@ Complete system automatic test class, with all subsystems and sensors, also maki
 //// Notes:
 Set controller to WPILIB 2020 and Talon in characterization tool, velocity controller,
 input 42 for encoder counts, and gear ratio for post encoder gearing????
+
+
+
+// Important things to remember when debugging
+1: Use meters, volts, degrees, and seconds for all units, i.e. SI units
+2: Trackwidth should be a positive number that's not close to zero, roughly the width between wheel
+    centers width wise on the robot
+3: You should use velocity mode when calculating robot Constants
+4: Use the same encoders for characterization that you will use for driving a trajectory
+5: Check that the feed forward values and feedback values are scaled correctly, either may be off by
+    a factor of 10 in either direction.
+

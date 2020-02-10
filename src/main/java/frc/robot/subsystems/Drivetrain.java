@@ -22,7 +22,6 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     rightDriveMaster.setInverted(true);
     rightDriveMaster.setIdleMode(IdleMode.kCoast);
 
-    
     leftEncoder.setDistancePerRotation(DriveConstants.kEncoderMetersPerPulse);
     rightEncoder.setDistancePerRotation(DriveConstants.kEncoderMetersPerPulse);
 

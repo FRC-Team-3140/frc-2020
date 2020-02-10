@@ -73,7 +73,7 @@ public final class XboxController extends Joystick implements Constants {
 	}
 	
 	public double getSmoothedMainY() {
-		return getDeadband(Math.pow(super.getRawAxis(1), 5));
+		return getDeadband(-Math.pow(super.getRawAxis(1), 5));
 		//return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(1)));
 	}
 	
@@ -83,7 +83,7 @@ public final class XboxController extends Joystick implements Constants {
 	}
 	
 	public double getSmoothedAltY() {
-		return getDeadband(Math.pow(super.getRawAxis(5), 3));
+		return getDeadband(-Math.pow(super.getRawAxis(5), 3));
 		//return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(5)));
 	}
 

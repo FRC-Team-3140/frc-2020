@@ -31,6 +31,9 @@ public class VelocityDutyCycleEncoder extends DutyCycleEncoder implements Loop {
     
     lastPosition = getDistance();
     lastTime = m_timer.get();
+
+    // Needed???
+    currentVelocity = 0;
   }
   
   // Returns Encoder Distance / Seconds
