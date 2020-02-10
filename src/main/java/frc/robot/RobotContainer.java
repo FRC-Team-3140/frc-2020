@@ -42,7 +42,7 @@ public class RobotContainer {
   public Command getAutonomousCommand() throws IOException {    
     //Import trajectory
     Trajectory trajectory = TrajectoryUtil
-        .fromPathweaverJson(Paths.get("/home/lvuser/deploy/Around Post.wpilib.json"));//"/home/lvuser/deploy/TestPath.wpilib.json"));
+        .fromPathweaverJson(Paths.get("/home/lvuser/deploy/TestPath.wpilib.json"));
     
     // Create a generic zeroed robot pose to set the path relative to.
     // This is done so we can preemptively import the paths/
