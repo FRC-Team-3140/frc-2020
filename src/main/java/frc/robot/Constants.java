@@ -49,9 +49,9 @@ public interface Constants {
     //Should check for a 10X factor being left out of the encoders in the robot characterization 
     //tool generated code, even though the response back from that code in the tool, seemed to be the correct distance driven.
     //either way this is potentially the source of the difference between the expected and useful control values.
-    public static final double ksVolts = 0.129; // Working well 10X characterized constant 1.29;
-    public static final double kvVoltSecondsPerMeter = 5.08; // Working well 10X characterized constant 50.8;
-    public static final double kaVoltSecondsSquaredPerMeter = 0.454; // Working well 10X charachterized constant 4.54;
+    public static final double ksVolts = 1.29; // Working well 10X characterized constant 1.29;
+    public static final double kvVoltSecondsPerMeter = 50.8; // Working well 10X characterized constant 50.8;
+    public static final double kaVoltSecondsSquaredPerMeter = 4.54; // Working well 10X charachterized constant 4.54;
     //2.75 (Scaled to 42 counts/rotation using talon instead of onboard option when gains were calculated.)
     // w/ post encoder gearing 0.0653
     
