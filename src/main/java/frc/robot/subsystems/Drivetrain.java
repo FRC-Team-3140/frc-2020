@@ -22,12 +22,15 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     rightDriveMaster.setInverted(true);
     rightDriveMaster.setIdleMode(IdleMode.kCoast);
 
-    leftEncoder.setDistancePerRotation(DriveConstants.kEncoderMetersPerPulse);
-    rightEncoder.setDistancePerRotation(DriveConstants.kEncoderMetersPerPulse);
+    leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderMetersPerPulse);
+    rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderMetersPerPulse);
+    leftEncoder.setVelocityConversionFactor(DriveConstants.kEncoderLinearMetersPerSecondPerRPM);
+    rightEncoder.setVelocityConversionFactor(DriveConstants.kEncoderLinearMetersPerSecondPerRPM);
 
     resetEncoders();
     resetGyro();
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
+    System.out.println("New code with CanEncoder3");
   }
 
   private void setFollowers() {
@@ -39,19 +42,23 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
 
   public double getLeftEncoderDistance() {
-    return leftEncoder.getDistance();
+    return leftEncoder.getPosition();
+    //return leftEncoder.getDistance();
   }
 
   public double getRightEncoderDistance() {
-    return -rightEncoder.getDistance();
+    return rightEncoder.getPosition();
+    //return -rightEncoder.getDistance();
   }
 
   public double getLeftEncoderVelocity() {
-    return leftEncoder.getRate();
+    return rightEncoder.getVelocity();
+    //return leftEncoder.getRate();
   }
 
   public double getRightEncoderVelocity() {
-    return -rightEncoder.getRate();
+    return rightEncoder.getVelocity();
+    //return -rightEncoder.getRate();
   }
 
   @Override
@@ -76,13 +83,16 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
 
   public void tankDriveVolts(double leftVolts, double rightVolts) {
-    System.out.println("leftVolts: " + leftVolts + "  rightVolts: " + rightVolts);
     
-    leftVolts = leftVolts/12;
+    //Comment these lines out and then stop multiplying constants by 10????
+    //leftVolts = leftVolts/12;
+    //rightVolts = rightVolts/12;
+
+    System.out.println("leftVolts: " + leftVolts + "  rightVolts: " + rightVolts);
+
     if(Math.abs(leftVolts) > 12)
       leftVolts = Math.signum(leftVolts) * 12;
 
-    rightVolts = rightVolts/12;
     if(Math.abs(rightVolts) > 12)
       rightVolts = Math.signum(rightVolts) * 12;    
     
@@ -92,8 +102,10 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
 
   public void resetEncoders() {
-    leftEncoder.reset();
-    rightEncoder.reset();
+    leftEncoder.setPosition(0);
+    rightEncoder.setPosition(0);
+    //leftEncoder.reset();
+    //rightEncoder.reset();
   }
 
   public void resetGyro() {
