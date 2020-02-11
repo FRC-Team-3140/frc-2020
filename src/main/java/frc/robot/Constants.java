@@ -41,8 +41,9 @@ public interface Constants {
 	public final static int CHAMBER_4 = 4;
 	public final static int CHAMBER_5 = 5;
 
-
 	public final static int PCM = 1;
+	public final static int INTAKE_SOLENOID_EXT = 2;
+	public final static int INTAKE_SOLENOID_RET = 5;
 
 	public final static Value EXT = Value.kForward;
 	public final static Value RET = Value.kReverse;
