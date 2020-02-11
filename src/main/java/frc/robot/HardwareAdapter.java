@@ -2,11 +2,13 @@ package frc.robot;
 
 import com.ctre.phoenix.motorcontrol.can.WPI_TalonSRX;
 import com.revrobotics.CANSparkMax;
+import com.revrobotics.ColorSensorV3;
 import com.revrobotics.CANSparkMaxLowLevel.MotorType;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.Compressor;
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.I2C;
 
 public interface HardwareAdapter extends Constants {
 
@@ -19,6 +21,9 @@ public interface HardwareAdapter extends Constants {
     //public static final CANSparkMax rightDriveSlave2 = new CANSparkMax(7, MotorType.kBrushless);
     
     public static final AddressableLED led = new AddressableLED(9);
+
+    public final I2C.Port i2cPort = I2C.Port.kOnboard;
+    public final ColorSensorV3 colorSensor = new ColorSensorV3(i2cPort); // need to install color sensor libs for this
 
 	//public static final Compressor compressor = new Compressor(PCM);
 

@@ -1,6 +1,8 @@
 package frc.robot;
 
 import edu.wpi.first.wpilibj.GenericHID;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
+import edu.wpi.first.wpilibj.util.Color;
 import frc.robot.commands.RunningLEDs;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.pneumatics.shifter.ShiftDown;
@@ -20,7 +22,7 @@ import frc.libs.loops.Looper;
  * periodic methods (other than the scheduler calls).  Instead, the structure of the robot
  * (including subsystems, commands, and button mappings) should be declared here.
  */
-public class RobotContainer implements Constants {
+public class RobotContainer implements Constants, HardwareAdapter {
   // The robot's subsystems and OI devices
   public static final XboxController xbox = new XboxController(0);
 
@@ -32,8 +34,9 @@ public class RobotContainer implements Constants {
   public RobotContainer() {
     configureButtonBindings();
     configureDefaultCommands();
-    looper.register(new LEDLoop());
-    looper.start();
+    //looper.register(new LEDLoop());
+    //slooper.start();
+    SmartDashboard.putNumber("LED segments", 0);
   }
 
   /**
@@ -50,6 +53,15 @@ public class RobotContainer implements Constants {
   private void configureDefaultCommands() {
     dt.setDefaultCommand(new Drive());
     //led.setDefaultCommand(new RunningLEDs());
+  }
+
+  public void periodic() {
+    Color detectedColor = colorSensor.getColor();
+    double IR = colorSensor.getIR();
+    SmartDashboard.putNumber("IR", IR);
+    SmartDashboard.putNumber("Red", detectedColor.red);
+    SmartDashboard.putNumber("Green", detectedColor.green);
+    SmartDashboard.putNumber("Blue", detectedColor.blue);
   }
 
 

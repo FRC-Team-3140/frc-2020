@@ -9,6 +9,7 @@ package frc.robot.subsystems;
 
 import edu.wpi.first.wpilibj.AddressableLED;
 import edu.wpi.first.wpilibj.AddressableLEDBuffer;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
@@ -24,12 +25,37 @@ public class LEDs extends SubsystemBase implements HardwareAdapter {
     led.start();
 
     // clear leds
-    /*for (var i = 0; i < ledBuffer.getLength(); i++) 
+    for (var i = 0; i < ledBuffer.getLength(); i++) 
       ledBuffer.setHSV(i, 0, 0, 0);      
     
-    led.setData(ledBuffer);*/
+    led.setData(ledBuffer);
 
-    rainbow(0);
+    rainbow(0,0);
+  }
+
+  // Rainbow but only lights up a certain number of segments out of 5
+  public void rainbow(int startIndex, int segments) {
+
+    double hueIncrement = 179.0/(ledBuffer.getLength()-1);
+    int segmentLength = 120/5;
+
+    int amountToLight = segmentLength * segments;
+
+    for (int j = 0; j < ledBuffer.getLength(); j++) {
+      int i = (j+startIndex) % ledBuffer.getLength(); // index of led
+      int hue =(int) (j *hueIncrement);
+
+      if(i >= amountToLight) {
+        ledBuffer.setHSV(i, 0, 0, 0); 
+        System.out.println("hello wtf");
+      }  
+      else {
+        ledBuffer.setHSV(i, hue, 225, 50);   
+        System.out.println("wtf 2 j:" + i+" "  + amountToLight);
+      }
+    }
+    led.setData(ledBuffer);
+
   }
 
   public void rainbow(int startIndex) {
@@ -43,7 +69,13 @@ public class LEDs extends SubsystemBase implements HardwareAdapter {
     led.setData(ledBuffer);
   }
 
+  int lastSDBNum = 0;
   @Override
   public void periodic() {
+    int newNum = (int) SmartDashboard.getNumber("LED segments", 0);
+    if(newNum != lastSDBNum) {
+      rainbow(0, newNum);
+      lastSDBNum = newNum;
+    }
   }
 }

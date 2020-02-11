@@ -26,22 +26,6 @@ public class Robot extends TimedRobot implements HardwareAdapter{
     // Instantiate our RobotContainer.  This will perform all our button bindings, and put our
     // autonomous chooser on the dashboard.
     m_robotContainer = new RobotContainer();
-
-    /*AddressableLEDBuffer ledBuffer = new AddressableLEDBuffer(60);
-    led.setLength(ledBuffer.getLength());
-
-    // Set the data
-    led.setData(ledBuffer);
-    led.start();
-
-    for (var i = 0; i < ledBuffer.getLength(); i++) {
-      // Sets the specified LED to the RGB values for red
-      ledBuffer.setRGB(i, 255, 0, 0);
-    }
-   
-    led.setData(ledBuffer);*/
-
-    //new ShiftDown().schedule();
   }
 
   /**
@@ -58,6 +42,7 @@ public class Robot extends TimedRobot implements HardwareAdapter{
     // and running subsystem periodic() methods.  This must be called from the robot's periodic
     // block in order for anything in the Command-based framework to work.
     CommandScheduler.getInstance().run();
+    m_robotContainer.periodic();
   }
 
   /**
