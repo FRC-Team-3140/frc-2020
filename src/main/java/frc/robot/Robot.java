@@ -1,7 +1,5 @@
 package frc.robot;
 
-import java.io.IOException;
-
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
@@ -13,13 +11,6 @@ public class Robot extends TimedRobot {
   @Override
   public void robotInit() {
     robotContainer = new RobotContainer();
-
-    // Import auto's when robot initializes to save time.
-    try {
-      autoCommand = robotContainer.getAutonomousCommand();
-    } catch (IOException e) {
-      e.printStackTrace();
-    }
   }
 
   @Override
@@ -38,10 +29,8 @@ public class Robot extends TimedRobot {
 
   @Override
   public void autonomousInit() {
-    //Reset sensors
-    RobotContainer.dt.resetAll();
+    autoCommand = robotContainer.getAutonomousCommand();
 
-    //Run autoCommand
     if (autoCommand != null) {
       autoCommand.schedule();
     }
