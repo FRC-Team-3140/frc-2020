@@ -27,19 +27,15 @@ public interface Constants {
 
 	public final static int FLYWHEEL_MASTER = 9;
 	public final static int FLYWHEEL_SLAVE1 = 10;
-	public final static int FLYWHEEL_SLAVE2 = 11;
-	public final static int FEEDER = 12;
+	public final static int FEEDER = 11;
+	public final static int FEEDER_2 = 12;
 
 	public final static int HOOD_MOTOR = 16;
 	public final static int TURRET_MOTOR = 17;
 
 	// LIMIT SWITCHES
 	public final static int CHAMBER_OUT = 0;
-	public final static int CHAMBER_1 = 1;
-	public final static int CHAMBER_2 = 2;
-	public final static int CHAMBER_3 = 3;
-	public final static int CHAMBER_4 = 4;
-	public final static int CHAMBER_5 = 5;
+	public final static int CHAMBER_IN = 1;
 
 	public final static int PCM = 1;
 	public final static int INTAKE_SOLENOID_EXT = 2;

@@ -3,6 +3,8 @@ package frc.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.commands.angledHood.AngleWithJoystick;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.feeder.IncrementFeeder;
+import frc.robot.commands.feeder.StopInting;
 import frc.robot.commands.flywheel.FlywheelShootOff;
 import frc.robot.commands.flywheel.FlywheelShootOut;
 import frc.robot.commands.intake.SpinIntakeIn;
@@ -62,6 +64,8 @@ public class RobotContainer {
     xbox2.b.whenReleased(new SpinIntakeOff());
     xbox2.x.whenPressed(new FlywheelShootOut());
     xbox2.x.whenReleased(new FlywheelShootOff());
+    xbox2.y.whenPressed(new IncrementFeeder());
+    xbox2.y.whenReleased(new StopInting());
   }
     
   private void configureDefaultCommands() {

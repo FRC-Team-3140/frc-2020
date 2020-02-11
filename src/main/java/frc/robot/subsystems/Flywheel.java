@@ -20,7 +20,6 @@ public class Flywheel extends SubsystemBase implements HardwareAdapter {
 
   private void setFollowers() {
     flyWheelSlave1.follow(flyWheelMaster);
-    flyWheelSlave2.follow(flyWheelMaster);
   }
    
   public void shootOut() {
