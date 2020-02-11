@@ -31,17 +31,17 @@ public interface HardwareAdapter extends Constants {
     public static final CANSparkMax flyWheelSlave1 = new CANSparkMax(FLYWHEEL_SLAVE1, MotorType.kBrushless);
     public static final CANSparkMax flyWheelSlave2 = new CANSparkMax(FLYWHEEL_SLAVE2, MotorType.kBrushless);
 
-    //FEEDER
+    // FEEDER
     public static final CANSparkMax feeder = new CANSparkMax(FEEDER, MotorType.kBrushless);
 
-    //ANGLED HOOD
-    public static final WPI_TalonSRX hoodMotor = new WPI_TalonSRX(20);
+    // ANGLED HOOD
+    public static final WPI_TalonSRX hoodMotor = new WPI_TalonSRX(HOOD_MOTOR);
 
-    //TURRET
-    public static final WPI_TalonSRX turretMotor = new WPI_TalonSRX(21);
+    // TURRET
+    public static final WPI_TalonSRX turretMotor = new WPI_TalonSRX(TURRET_MOTOR);
     
-
-    // FEEDER LIMIT SWITCHES
+    // CHAMBER/FEEDER LIMIT SWITCHES
+    public static final DigitalInput chamberOut = new DigitalInput(CHAMBER_OUT);
     public static final DigitalInput chamber1 = new DigitalInput(CHAMBER_1);
     public static final DigitalInput chamber2 = new DigitalInput(CHAMBER_2);
     public static final DigitalInput chamber3 = new DigitalInput(CHAMBER_3);

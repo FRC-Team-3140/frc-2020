@@ -30,7 +30,11 @@ public interface Constants {
 	public final static int FLYWHEEL_SLAVE2 = 11;
 	public final static int FEEDER = 12;
 
+	public final static int HOOD_MOTOR = 16;
+	public final static int TURRET_MOTOR = 17;
+
 	// LIMIT SWITCHES
+	public final static int CHAMBER_OUT = 0;
 	public final static int CHAMBER_1 = 1;
 	public final static int CHAMBER_2 = 2;
 	public final static int CHAMBER_3 = 3;
