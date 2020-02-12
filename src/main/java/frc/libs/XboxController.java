@@ -39,10 +39,6 @@ public final class XboxController extends Joystick implements Constants {
 		rightTrigger = new AnalogButton(this, 3, 0.1);
 	}
 	
-	// Call this in a loop to force update if needed
-	public void check() {
-	}
-	
 	public double getMainX(){
 		return -super.getRawAxis(0);
 	}
@@ -91,5 +87,4 @@ public final class XboxController extends Joystick implements Constants {
 		if(Math.abs(d) > OIConstants.deadBand) return d;
 		else return 0;
 	}
-
 }

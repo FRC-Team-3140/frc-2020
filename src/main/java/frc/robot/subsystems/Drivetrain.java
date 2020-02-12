@@ -30,7 +30,6 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     resetEncoders();
     resetGyro();
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
-    System.out.println("New code with CanEncoder3");
   }
 
   private void setFollowers() {
@@ -43,22 +42,18 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
 
   public double getLeftEncoderDistance() {
     return leftEncoder.getPosition();
-    //return leftEncoder.getDistance();
   }
 
   public double getRightEncoderDistance() {
     return rightEncoder.getPosition();
-    //return -rightEncoder.getDistance();
   }
 
   public double getLeftEncoderVelocity() {
     return rightEncoder.getVelocity();
-    //return leftEncoder.getRate();
   }
 
   public double getRightEncoderVelocity() {
     return rightEncoder.getVelocity();
-    //return -rightEncoder.getRate();
   }
 
   @Override
@@ -70,7 +65,6 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     SmartDashboard.putNumber("Left Encoder Velocity (m/s): ", getLeftEncoderVelocity());
     SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", getRightEncoderVelocity());
     SmartDashboard.putNumber("Average Velocity (m/s): ", (getLeftEncoderVelocity() + getRightEncoderVelocity()) / 2);
-    //System.out.println("left: " + getLeftEncoderVelocity() + "  right: " + getRightEncoderVelocity());
   }
 
   public void arcadeDrive(double throttle, double heading) {
@@ -104,8 +98,6 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   public void resetEncoders() {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
-    //leftEncoder.reset();
-    //rightEncoder.reset();
   }
 
   public void resetGyro() {
@@ -123,10 +115,13 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     resetOdometry();
   }
 
+  // Returns left and right linear speeds in m/s
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
     return new DifferentialDriveWheelSpeeds(getLeftEncoderVelocity(), getRightEncoderVelocity());
   }
 
+  // (kGyroReversed == true) 180 deg. to -180 deg. CCWP
+  // (kGyroReversed == false) -180 deg. to 180 deg. CWP
   public double getHeading() {
     return navx.getYaw() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
