@@ -16,11 +16,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   private final DifferentialDriveOdometry odometry;
 
   public Drivetrain() {
-    setFollowers();
-    leftDriveMaster.setInverted(false);
-    leftDriveMaster.setIdleMode(IdleMode.kCoast);
-    rightDriveMaster.setInverted(true);
-    rightDriveMaster.setIdleMode(IdleMode.kCoast);
+    setupMotors();
 
     leftEncoder.setPositionConversionFactor(DriveConstants.kEncoderMetersPerPulse);
     rightEncoder.setPositionConversionFactor(DriveConstants.kEncoderMetersPerPulse);
@@ -32,12 +28,26 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
   }
 
-  private void setFollowers() {
-    leftDriveSlave1.follow(leftDriveMaster);
-    rightDriveSlave1.follow(rightDriveMaster);
+  private void setupMotors() {
+    boolean leftInverted = false;
+    boolean rightInverted = true;
 
-    leftDriveSlave1.setIdleMode(IdleMode.kCoast);
-    rightDriveSlave1.setIdleMode(IdleMode.kCoast);
+    leftDriveMaster.setInverted(leftInverted);
+    leftDriveSlave1.follow(leftDriveMaster);
+    leftDriveSlave1.setInverted(leftInverted);
+
+    rightDriveMaster.setInverted(rightInverted);
+    rightDriveSlave1.follow(rightDriveMaster);
+    rightDriveSlave1.setInverted(rightInverted);
+
+    setIdleMode(IdleMode.kCoast);
+  }
+
+  public void setIdleMode(IdleMode mode) {
+    leftDriveMaster.setIdleMode(mode);
+    leftDriveSlave1.setIdleMode(mode);
+    rightDriveMaster.setIdleMode(mode);
+    rightDriveSlave1.setIdleMode(mode);
   }
 
   public double getLeftEncoderDistance() {
