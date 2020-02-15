@@ -55,6 +55,7 @@ public interface Constants {
     public static final double kDDriveVel = 0;
 
     // Hold Position
+    // From characterization tool using position instead of velocity modes
     // Use P gain only
     // Max position error 0.01 units
     // Max velocitry error 0.02 units

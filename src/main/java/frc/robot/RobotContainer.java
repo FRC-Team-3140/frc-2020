@@ -1,9 +1,11 @@
 package frc.robot;
 
+import java.util.Set;
+
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.auto.DoNothingAuto;
 import frc.robot.commands.auto.EightBallAuto;
@@ -28,7 +30,22 @@ public class RobotContainer {
     // and this time would normally be wasted with the robot just sitting still during auto.
     chooser.setName("Please Select and Auto");
     chooser.setDefaultOption("Do Nothing", new DoNothingAuto());
-    chooser.addOption("8BallAuto", new EightBallAuto());
+    Command eightball = new Command(){
+    
+      @Override
+      public Set<Subsystem> getRequirements() {
+        // TODO Auto-generated method stub
+        return null;
+      }
+      public boolean isFinished() {
+        return true;
+      }
+    };
+    eightball.andThen(TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 5))
+      .andThen(TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 5))
+      .andThen(TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 5));
+      
+    chooser.addOption("8BallAuto", eightball);
     chooser.addOption("Drive Around Post", TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 15));
     chooser.addOption("Hold Position Test", new HoldPositionController());//TrajectoryFollower.makeFollowingCommandForAuto("HoldPosition_For3Min.wpilib.json", 180));
 
