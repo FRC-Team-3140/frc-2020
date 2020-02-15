@@ -43,6 +43,10 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     setIdleMode(IdleMode.kCoast);
   }
 
+  public IdleMode getIdleMode() {
+    return leftDriveMaster.getIdleMode();
+  }
+
   public void setIdleMode(IdleMode mode) {
     leftDriveMaster.setIdleMode(mode);
     leftDriveSlave1.setIdleMode(mode);

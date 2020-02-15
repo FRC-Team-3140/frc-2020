@@ -8,6 +8,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.auto.DoNothingAuto;
 import frc.robot.commands.auto.EightBallAuto;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.drivetrain.HoldPositionController;
 import frc.robot.subsystems.Drivetrain;
 import frc.libs.TrajectoryFollower;
 import frc.libs.XboxController;
@@ -29,7 +30,7 @@ public class RobotContainer {
     chooser.setDefaultOption("Do Nothing", new DoNothingAuto());
     chooser.addOption("8BallAuto", new EightBallAuto());
     chooser.addOption("Drive Around Post", TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 15));
-    chooser.addOption("Hold Position Test", TrajectoryFollower.makeFollowingCommandForAuto("HoldPosition_For3Min.wpilib.json", 180));
+    chooser.addOption("Hold Position Test", new HoldPositionController());//TrajectoryFollower.makeFollowingCommandForAuto("HoldPosition_For3Min.wpilib.json", 180));
 
     Shuffleboard.getTab("Selector").add(chooser);
 
@@ -42,6 +43,7 @@ public class RobotContainer {
 
   private void configureDefaultCommands() {
     dt.setDefaultCommand(new Drive());
+    xbox.x.whileHeld(new HoldPositionController());
   }
 
   public Command getAutonomousCommand() {

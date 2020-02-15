@@ -53,6 +53,15 @@ public interface Constants {
     public static final double kPDriveVel = 14.2;
     public static final double kIDriveVel = 0;
     public static final double kDDriveVel = 0;
+
+    // Hold Position
+    // Use P gain only
+    // Max position error 0.01 units
+    // Max velocitry error 0.02 units
+    // Max control effort 7 volts
+    public static final double holdPositonKP = 49.5;
+    public static final double holdPositonKI = 0;
+    public static final double holdPositonKD = 0;
   }
 
   public static final class OIConstants {
