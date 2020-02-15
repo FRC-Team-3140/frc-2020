@@ -1,5 +1,6 @@
 package frc.robot;
 
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 
@@ -24,10 +25,13 @@ public class RobotContainer {
     // This is because the chooser object is made on robot init and so everything added to the chooser 
     // is made on robot init as well. This saves time during auto as .json file loading can take some time,
     // and this time would normally be wasted with the robot just sitting still during auto.
+    chooser.setName("Please Select and Auto");
     chooser.setDefaultOption("Do Nothing", new DoNothingAuto());
     chooser.addOption("8BallAuto", new EightBallAuto());
     chooser.addOption("Drive Around Post", TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 15));
     chooser.addOption("Hold Position Test", TrajectoryFollower.makeFollowingCommandForAuto("HoldPosition_For3Min.wpilib.json", 180));
+
+    Shuffleboard.getTab("Selector").add(chooser);
 
     configureButtonBindings();
     configureDefaultCommands();

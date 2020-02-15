@@ -87,10 +87,10 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
 
   public void tankDriveVolts(double leftVolts, double rightVolts) {
-    
-    //Comment these lines out and then stop multiplying constants by 10????
-    //leftVolts = leftVolts/12;
-    //rightVolts = rightVolts/12;
+    // TODO:
+    // Comment these lines out and then stop multiplying constants by 10????
+    leftVolts = leftVolts/12;
+    rightVolts = rightVolts/12;
 
     System.out.println("leftVolts: " + leftVolts + "  rightVolts: " + rightVolts);
 
@@ -105,16 +105,16 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     rightDriveMaster.setVoltage(rightVolts);
   }
 
-  public void resetEncoders() {
+  private void resetEncoders() {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
   }
 
-  public void resetGyro() {
+  private void resetGyro() {
     navx.reset();
   }
   
-  public void resetOdometry() {
+  private void resetOdometry() {
     Pose2d defaultPose = new Pose2d();
     odometry.resetPosition(defaultPose, Rotation2d.fromDegrees(getHeading()));
   }
