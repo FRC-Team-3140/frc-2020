@@ -17,12 +17,12 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter {
   }
 
   public void arcadeDrive(double throttle, double heading) {
-    tankDrive(throttle - heading, throttle + heading);
+    tankDrive(throttle + heading, throttle - heading);
   }
 
   public void tankDrive(double left, double right) {
     leftDriveMaster.set(left);
-    rightDriveMaster.set(right);
+    rightDriveMaster.set(-right);
   }
 
   private void setFollowers() {
