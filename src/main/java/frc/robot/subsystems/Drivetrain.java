@@ -109,12 +109,12 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     rightDriveMaster.setVoltage(rightVolts);
   }
 
-  private void resetEncoders() {
+  public void resetEncoders() {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
   }
 
-  private void resetGyro() {
+  public void resetGyro() {
     navx.reset();
   }
   

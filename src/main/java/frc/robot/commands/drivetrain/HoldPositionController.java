@@ -18,7 +18,8 @@ public class HoldPositionController extends CommandBase {
 
     @Override
     public void initialize() {
-        RobotContainer.dt.resetAll();
+        // RobotContainer.dt.resetAll();
+        RobotContainer.dt.resetEncoders();
         leftPID = new PIDController(DriveConstants.holdPositonKP, DriveConstants.holdPositonKI,
                 DriveConstants.holdPositonKD);
         rightPID = new PIDController(DriveConstants.holdPositonKP, DriveConstants.holdPositonKI,

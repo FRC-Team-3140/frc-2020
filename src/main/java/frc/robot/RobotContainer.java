@@ -8,7 +8,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.auto.DoNothingAuto;
-import frc.robot.commands.auto.EightBallAuto;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.HoldPositionController;
 import frc.robot.subsystems.Drivetrain;
