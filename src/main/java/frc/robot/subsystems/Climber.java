@@ -10,30 +10,35 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
-public class Drivetrain extends SubsystemBase implements HardwareAdapter {
-
-  public Drivetrain() {
-	  setFollowers();
+public class Climber extends SubsystemBase implements HardwareAdapter {
+  /**
+   * Creates a new Climber.
+   */
+  public Climber() {
+    setFollowers();
   }
+  
+    public boolean isAtBot() {
+    return climberBot.get();
+    }
+    public boolean isAtTop() {
+      return climberTop.get();
 
-  public void arcadeDrive(double throttle, double heading) {
-    tankDrive(throttle - heading, throttle + heading);
-  }
-
-  public void tankDrive(double left, double right) {
-    leftDriveMaster.set(left);
-    rightDriveMaster.set(right);
-  }
-
-  private void setFollowers() {
-    leftDriveSlave1.follow(leftDriveMaster);
-   // leftDriveSlave2.follow(leftDriveMaster);
-    rightDriveSlave1.follow(rightDriveMaster);
-    //rightDriveSlave2.follow(rightDriveMaster);
-  }
+    }
+    public void climberTop() {
+      climberMaster.set(1);
+    }
+    public void climberBot() {
+      climberMaster.set(-1);
+    }
+    public void climberOff() {
+      climberMaster.set(0);
+    } 
+    private void setFollowers() {
+      climberSlave.follow(climberMaster);
+    }
   @Override
   public void periodic() {
     // This method will be called once per scheduler run
-    
   }
 }

@@ -18,6 +18,9 @@ public interface Constants {
 	public final static int LEFT_DRIVE_SLAVE2 = 6;
 	public final static int RIGHT_DRIVE_SLAVE2 = 7;
 
+	public final static int CLIMBER_MASTER = 11;
+	public final static int CLIMBER_SLAVE = 12;
+
 	public final static int PCM = 1;
 
 	public final static Value EXT = Value.kForward;
