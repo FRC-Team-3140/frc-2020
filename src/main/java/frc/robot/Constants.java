@@ -9,6 +9,11 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
  */
 public interface Constants {
 
+	public final static int CHAMBER_POS_SHIFT = 20; // in encoder ticks
+
+	/*
+	 * MOTORS
+	 */
 	public final static double DEADBAND = 0.1;
 
 	public final static int LEFT_DRIVE_MASTER = 3;
@@ -20,8 +25,23 @@ public interface Constants {
 
 	public final static int CLIMBER_MASTER = 11;
 	public final static int CLIMBER_SLAVE = 12;
+	public final static int INTAKE_MOTOR = 8;
+
+	public final static int FLYWHEEL_MASTER = 9;
+	public final static int FLYWHEEL_SLAVE1 = 10;
+	public final static int FEEDER = 11;
+	public final static int FEEDER_2 = 12;
+
+	public final static int HOOD_MOTOR = 16;
+	public final static int TURRET_MOTOR = 17;
+
+	// LIMIT SWITCHES
+	public final static int CHAMBER_OUT = 0;
+	public final static int CHAMBER_IN = 1;
 
 	public final static int PCM = 1;
+	public final static int INTAKE_SOLENOID_EXT = 2;
+	public final static int INTAKE_SOLENOID_RET = 5;
 
 	public final static Value EXT = Value.kForward;
 	public final static Value RET = Value.kReverse;
