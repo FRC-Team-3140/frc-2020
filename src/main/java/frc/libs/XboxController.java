@@ -1,4 +1,4 @@
-package frc.lib;
+package frc.libs;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
@@ -39,10 +39,6 @@ public final class XboxController extends Joystick implements Constants {
 		rightTrigger = new AnalogButton(this, 3, 0.1);
 	}
 	
-	// Call this in a loop to force update if needed
-	public void check() {
-	}
-	
 	public double getMainX(){
 		return -super.getRawAxis(0);
 	}
@@ -68,24 +64,27 @@ public final class XboxController extends Joystick implements Constants {
 	}
 	
 	public double getSmoothedMainX() {
-		return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(0)));
+		return getDeadband(-Math.pow(super.getRawAxis(0), 3));
+		//return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(0)));
 	}
 	
 	public double getSmoothedMainY() {
-		return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(1)));
+		return getDeadband(-Math.pow(super.getRawAxis(1), 5));
+		//return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(1)));
 	}
 	
 	public double getSmoothedAltX() {
-		return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(4)));
+		return getDeadband(-Math.pow(super.getRawAxis(4), 3));
+		//return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(4)));
 	}
 	
 	public double getSmoothedAltY() {
-		return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(5)));
+		return getDeadband(-Math.pow(super.getRawAxis(5), 3));
+		//return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(5)));
 	}
 
 	private double getDeadband(double d) {
 		if(Math.abs(d) > OIConstants.deadBand) return d;
 		else return 0;
 	}
-
 }

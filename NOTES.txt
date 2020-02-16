@@ -15,3 +15,44 @@ This was a big refactor, does $hit still work correctly????
 -Is the path following dimensionally accurate?
 
 -Did you get sleep??? Things look stupid when you didn't.
+  // ?? Do I need to put a deadband on the encoder distance so velocity doesn't drift when the bot
+    // isn't moving i.e. if distance < 0.001 set to 0????
+
+
+/////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+New changes to test:
+Encoders reporting velocity correctly?
+Voltage being driven correctly?
+Moved Gyro to Harware Adapter
+Now using looper for VelocityEncoder wrapper
+Deadband needed on velocity?
+Path now drives path forwards and then reverse when run
+Gear ratio re-enabled, was 1, must've been changed during testing. Explains need to divide by 12????
+Alternate kP values available to test in Constants
+Track width must be determined by analyzing the data in the robot-characterization tool?????
+Check the paths that were generated for correct max velocity and acceleration.
+
+
+///// TODO:
+Build Gyro Reversing program to help with analysis of robot data.
+Autonomous selector on dashboard based on trajectory path name.
+Being able to run a command when a certain timestamp is hit within the trajectory
+Complete system automatic test class, with all subsystems and sensors, also making sure all 
+    trajectories specified for all of the auto's are available.
+
+
+//// Notes:
+Set controller to WPILIB 2020 and Talon in characterization tool, velocity controller,
+input 42 for encoder counts, and gear ratio for post encoder gearing????
+
+
+
+// Important things to remember when debugging
+1: Use meters, volts, degrees, and seconds for all units, i.e. SI units
+2: Trackwidth should be a positive number that's not close to zero, roughly the width between wheel
+    centers width wise on the robot
+3: You should use velocity mode when calculating robot Constants
+4: Use the same encoders for characterization that you will use for driving a trajectory
+5: Check that the feed forward values and feedback values are scaled correctly, either may be off by
+    a factor of 10 in either direction.
+

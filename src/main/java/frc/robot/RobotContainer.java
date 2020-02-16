@@ -1,33 +1,56 @@
 package frc.robot;
 
-import java.io.IOException;
-import java.nio.file.Paths;
+import java.util.Set;
 
-import edu.wpi.first.wpilibj.controller.PIDController;
-import edu.wpi.first.wpilibj.controller.RamseteController;
-import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
-import edu.wpi.first.wpilibj.geometry.Pose2d;
-import edu.wpi.first.wpilibj.geometry.Rotation2d;
-import edu.wpi.first.wpilibj.kinematics.DifferentialDriveOdometry;
-import edu.wpi.first.wpilibj.trajectory.Trajectory;
-import edu.wpi.first.wpilibj.trajectory.TrajectoryUtil;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.RamseteCommand;
-
-import frc.robot.Constants.AutoConstants;
-import frc.robot.Constants.DriveConstants;
+import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.auto.DoNothingAuto;
+import frc.robot.commands.auto.EightBallAuto;
 import frc.robot.commands.drivetrain.Drive;
-import frc.robot.commands.otherCommands.DesiredPose_SMDB_Sender;
+import frc.robot.commands.drivetrain.HoldPositionController;
 import frc.robot.subsystems.Drivetrain;
-
-import frc.lib.XboxController;
+import frc.libs.TrajectoryFollower;
+import frc.libs.XboxController;
 
 public class RobotContainer {
   public static final Drivetrain dt = new Drivetrain();
   public static final XboxController xbox = new XboxController(OIConstants.xboxPort);
 
+  private SendableChooser<Command> chooser;
+
   public RobotContainer() {
+    chooser = new SendableChooser<>();
+    // By adding all of our trajectory commands to the chooser
+    // We are effectively importing all of the .json trajectory files on robot startup.
+    // This is because the chooser object is made on robot init and so everything added to the chooser 
+    // is made on robot init as well. This saves time during auto as .json file loading can take some time,
+    // and this time would normally be wasted with the robot just sitting still during auto.
+    chooser.setName("Please Select and Auto");
+    chooser.setDefaultOption("Do Nothing", new DoNothingAuto());
+    Command eightball = new Command(){
+    
+      @Override
+      public Set<Subsystem> getRequirements() {
+        // TODO Auto-generated method stub
+        return null;
+      }
+      public boolean isFinished() {
+        return true;
+      }
+    };
+    eightball.andThen(TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 5))
+      .andThen(TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 5))
+      .andThen(TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 5));
+      
+    chooser.addOption("8BallAuto", eightball);
+    chooser.addOption("Drive Around Post", TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 15));
+    chooser.addOption("Hold Position Test", new HoldPositionController());//TrajectoryFollower.makeFollowingCommandForAuto("HoldPosition_For3Min.wpilib.json", 180));
+
+    Shuffleboard.getTab("Selector").add(chooser);
+
     configureButtonBindings();
     configureDefaultCommands();
   }
@@ -37,39 +60,10 @@ public class RobotContainer {
 
   private void configureDefaultCommands() {
     dt.setDefaultCommand(new Drive());
+    xbox.x.whileHeld(new HoldPositionController());
   }
 
-  public Command getAutonomousCommand() throws IOException {    
-    //Import trajectory
-    Trajectory trajectory = TrajectoryUtil
-        .fromPathweaverJson(Paths.get("/home/lvuser/deploy/TestPath2.wpilib.json"));
-
-    // Create a generic zeroed robot pose to set the path relative to.
-    // This is done so we can preemptively import the paths/
-    // The robot will have to be zeroed before this auto command is run
-    // in order to be consistent with this assumption which we have modified
-    // the path relative to.
-    DifferentialDriveOdometry odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(0));
-    Pose2d zeroedPose = odometry.getPoseMeters();
-    
-    // Make path relative to a zeroed robot
-    var transform = zeroedPose.minus(trajectory.getInitialPose());
-    Trajectory newTrajectory = trajectory.transformBy(transform);
-
-    // Build RamseteCommand, this command follows the trajectory in auto.
-    RamseteCommand ramseteCommand = new RamseteCommand(newTrajectory, dt::getCurrentPose,
-        new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
-        new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
-            DriveConstants.kaVoltSecondsSquaredPerMeter),
-        DriveConstants.kDriveKinematics, dt::getWheelSpeeds,
-        new PIDController(DriveConstants.kPDriveVel, DriveConstants.kIDriveVel, DriveConstants.kDDriveVel),
-        new PIDController(DriveConstants.kPDriveVel, DriveConstants.kIDriveVel, DriveConstants.kDDriveVel),
-        // RamseteCommand passes volts to the callback
-        dt::tankDriveVolts, dt);
-
-    // Run path following command
-    // In parallel update the smartDashboard with variable from the trajectory
-    // And finally when the trajectory ends cancel everything and stop the drivetrain.
-    return ramseteCommand.deadlineWith(new DesiredPose_SMDB_Sender(newTrajectory)).andThen(() -> dt.tankDriveVolts(0, 0));
+  public Command getAutonomousCommand() {
+    return chooser.getSelected();
   }
 }

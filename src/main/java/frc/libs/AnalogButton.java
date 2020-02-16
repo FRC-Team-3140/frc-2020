@@ -1,4 +1,4 @@
-package frc.lib;
+package frc.libs;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.Button;
@@ -53,10 +53,9 @@ public final class AnalogButton extends Button {
 	}
 
 	public boolean get() {
-		if (threshold < 0) {
+		if (threshold < 0)
 			return joystick.getRawAxis(axisNumber) < threshold; 
-		} else {
+		else
 			return joystick.getRawAxis(axisNumber) > threshold; 
-		}
 	}
 }

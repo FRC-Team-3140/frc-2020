@@ -1,4 +1,4 @@
-package frc.lib;
+package frc.libs;
 
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj2.command.button.InternalButton;
@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj2.command.button.InternalButton;
  * @author DuckDuckWhale
  */
 public final class DpadButton extends InternalButton {
-	public static final int UP=0, DOWN=180, LEFT=270, RIGHT=90;
+	public static final int UP = 0, DOWN = 180, LEFT = 270, RIGHT = 90;
 	private GenericHID hid;
 	private int pov;
 
@@ -20,8 +20,8 @@ public final class DpadButton extends InternalButton {
 	 */
 	public DpadButton(GenericHID hid, int pov) {
 		super();
-		this.hid=hid;
-		this.pov=pov;
+		this.hid = hid;
+		this.pov = pov;
 	}
 
 	/**
@@ -29,7 +29,7 @@ public final class DpadButton extends InternalButton {
 	 */
 	@Override
 	public boolean get() {
-		return hid.getPOV()==pov;
+		return hid.getPOV() == pov;
 	}
 
 	/**
@@ -37,7 +37,7 @@ public final class DpadButton extends InternalButton {
 	 * @param pov The target pov of the button
 	 */
 	public void setPOV(int pov) {
-		this.pov=pov;
+		this.pov = pov;
 	}
 
 	/**
@@ -45,6 +45,6 @@ public final class DpadButton extends InternalButton {
 	 * @param hid The GenericHID object that has the button (e.g. Joystick, KinectStick, etc)
 	 */
 	public void setHID(GenericHID hid) {
-		this.hid=hid;
+		this.hid = hid;
 	}
 }
