@@ -32,8 +32,11 @@ public class RobotContainer {
     chooser.setDefaultOption("Do Nothing", new DoNothingAuto());
    
     Command eightball;
-    dt.setTrajectoryReversed(false);
-    eightball = TrajectoryFollower.makeFollowingCommandForAuto("RightSideInitializationLine_to_ShootingLocation.wpilib.json", 5)
+    dt.setTrajectoryReversed(true);
+    eightball = TrajectoryFollower.makeFollowingCommandForAuto("Side_to_Ball_Pickup.wpilib.json", 5)
+      .andThen(() -> dt.setTrajectoryReversed(false))
+      .andThen(TrajectoryFollower.makeFollowingCommandForAuto("Ball_Pickup_to_Initialization_Line.wpilib.json", 5))
+      .andThen(TrajectoryFollower.makeFollowingCommandForAuto("RightSideInitializationLine_to_ShootingLocation.wpilib.json", 5))
       .andThen(TrajectoryFollower.makeFollowingCommandForAuto("ShootingLocation_to_CollectBallsFromControlPanel.wpilib.json", 5))
       .andThen(() -> dt.setTrajectoryReversed(true))
       .andThen(TrajectoryFollower.makeFollowingCommandForAuto("replacentTest.wpilib.json", 5));//"CollectBallsFromControlPanel_to_ShootingLocation.wpilib.json", 5));
