@@ -9,6 +9,9 @@ public interface Constants {
     public final static int RIGHT_DRIVE_MASTER = 2;
     public final static int LEFT_DRIVE_SLAVE1 = 4;
     public final static int RIGHT_DRIVE_SLAVE1 = 5;
+    // Comment out the 2 lines below when working on the chassis bot
+    public final static int LEFT_DRIVE_SLAVE2 = 6;
+    public final static int RIGHT_DRIVE_SLAVE2 = 7;
 
     // Drivetrain gear ratio's number with respect to 1. i.e. 12:1
     public static final double lowGear = 12.86;
