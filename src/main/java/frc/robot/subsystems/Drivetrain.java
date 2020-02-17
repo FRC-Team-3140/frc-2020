@@ -49,15 +49,15 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     leftDriveSlave1.follow(leftDriveMaster);
     leftDriveSlave1.setInverted(leftInverted);
     // Comment the 2 lines below out when working on the chassis bot
-    leftDriveSlave2.follow(leftDriveMaster);
-    leftDriveSlave2.setInverted(leftInverted);
+    //leftDriveSlave2.follow(leftDriveMaster);
+    //leftDriveSlave2.setInverted(leftInverted);
 
     rightDriveMaster.setInverted(rightInverted);
     rightDriveSlave1.follow(rightDriveMaster);
     rightDriveSlave1.setInverted(rightInverted);
     // Comment the 2 lines below out when working on the chassis bot
-    rightDriveSlave2.follow(rightDriveMaster);
-    rightDriveSlave2.setInverted(rightInverted);
+    //rightDriveSlave2.follow(rightDriveMaster);
+    //rightDriveSlave2.setInverted(rightInverted);
 
     setIdleMode(IdleMode.kCoast);
   }
@@ -70,12 +70,12 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     leftDriveMaster.setIdleMode(mode);
     leftDriveSlave1.setIdleMode(mode);
     // Comment the line below out when working on the chassis bot
-    leftDriveSlave2.setIdleMode(mode);
+    //leftDriveSlave2.setIdleMode(mode);
 
     rightDriveMaster.setIdleMode(mode);
     rightDriveSlave1.setIdleMode(mode);
     // Comment the line below out when working on the chassis bot
-    rightDriveSlave2.setIdleMode(mode);
+    //rightDriveSlave2.setIdleMode(mode);
   }
 
   public double getLeftEncoderDistance() {
@@ -108,7 +108,10 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
 
   @Override
   public void periodic() {
-    odometry.update(Rotation2d.fromDegrees(getHeading()), getLeftEncoderDistance(), getRightEncoderDistance());
+    if(isTrajectoryReversed())
+      odometry.update(Rotation2d.fromDegrees(getHeading()), getRightEncoderDistance(), getLeftEncoderDistance());
+    else
+      odometry.update(Rotation2d.fromDegrees(getHeading()), getLeftEncoderDistance(), getRightEncoderDistance());
     SmartDashboard.putNumber("Gyro Heading (deg): ", getHeading());
     SmartDashboard.putNumber("Left Encoder Distance (m): ", getLeftEncoderDistance());
     SmartDashboard.putNumber("Right Encoder Distance (m): ", getRightEncoderDistance());
@@ -143,6 +146,9 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     if(reversedTrajectory) {
       leftVolts *= -1;
       rightVolts *= -1;
+      double temp = rightVolts;
+      rightVolts = leftVolts;
+      leftVolts = temp;
     }   
 
     leftDriveMaster.setVoltage(leftVolts);
@@ -171,14 +177,20 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
 
   // Returns left and right linear speeds in m/s
   public DifferentialDriveWheelSpeeds getWheelSpeeds() {
-    return new DifferentialDriveWheelSpeeds(getLeftEncoderVelocity(), getRightEncoderVelocity());
+    if(isTrajectoryReversed())
+      return new DifferentialDriveWheelSpeeds(getRightEncoderVelocity(), getLeftEncoderVelocity());
+    else
+      return new DifferentialDriveWheelSpeeds(getLeftEncoderVelocity(), getRightEncoderVelocity());
   }
 
   // (kGyroReversed == true) 180 deg. to -180 deg. CCWP
   // (kGyroReversed == false) -180 deg. to 180 deg. CWP
   public double getHeading() {
     double output = navx.getYaw() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
-    if(reversedTrajectory) output *= -1;
+    if(reversedTrajectory) {
+       //output *= -1;
+       //output = -Math.signum(output) * (180 - Math.abs(output));
+    }
     return output;
   }
 

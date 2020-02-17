@@ -13,7 +13,7 @@ public interface Constants {
     public final static int LEFT_DRIVE_SLAVE2 = 6;
     public final static int RIGHT_DRIVE_SLAVE2 = 7;
 
-    public final static boolean isCompetition = true;
+    public final static boolean isCompetition = false;
 
     // Drivetrain gear ratio's number with respect to 1. i.e. 12:1
     private static final double compBotGear = 7.88;

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants.OIConstants;
+import frc.robot.commands.blankCommand;
 import frc.robot.commands.auto.DoNothingAuto;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.HoldPositionController;
@@ -29,7 +30,9 @@ public class RobotContainer {
     // and this time would normally be wasted with the robot just sitting still during auto.
     chooser.setName("Please Select and Auto");
     chooser.setDefaultOption("Do Nothing", new DoNothingAuto());
+   
     Command eightball;
+    dt.setTrajectoryReversed(false);
     eightball = TrajectoryFollower.makeFollowingCommandForAuto("RightSideInitializationLine_to_ShootingLocation.wpilib.json", 5)
       .andThen(TrajectoryFollower.makeFollowingCommandForAuto("ShootingLocation_to_CollectBallsFromControlPanel.wpilib.json", 5))
       .andThen(() -> dt.setTrajectoryReversed(true))

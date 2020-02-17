@@ -20,11 +20,12 @@ public interface HardwareAdapter {
                         MotorType.kBrushless);
                         
         // Comment out the 2 lines below when working on the chassis bot
+        /*
         public static final CANSparkMax leftDriveSlave2 = new CANSparkMax(DriveConstants.LEFT_DRIVE_SLAVE2,
                         MotorType.kBrushless);
         public static final CANSparkMax rightDriveSlave2 = new CANSparkMax(DriveConstants.RIGHT_DRIVE_SLAVE2,
                         MotorType.kBrushless);
-
+*/
         public static final CANEncoder leftEncoder = new CANEncoder(leftDriveMaster);
         public static final CANEncoder rightEncoder = new CANEncoder(rightDriveMaster);
 
