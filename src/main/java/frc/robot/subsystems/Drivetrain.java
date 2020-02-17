@@ -14,6 +14,15 @@ import frc.robot.Constants;
 
 public class Drivetrain extends SubsystemBase implements HardwareAdapter, Constants {
   private final DifferentialDriveOdometry odometry;
+  private boolean reversedTrajectory = false;
+
+  public boolean isTrajectoryReversed() {
+    return reversedTrajectory;
+  }
+
+  public void setTrajectoryReversed(boolean reversed) {
+    reversedTrajectory = reversed;
+  }
 
   public Drivetrain() {
     setupMotors();
@@ -55,19 +64,31 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
 
   public double getLeftEncoderDistance() {
-    return leftEncoder.getPosition();
+    double output = leftEncoder.getPosition();
+
+    if(reversedTrajectory) output *= -1;
+    return output;
   }
 
   public double getRightEncoderDistance() {
-    return rightEncoder.getPosition();
+    double output = rightEncoder.getPosition();
+
+    if(reversedTrajectory) output *= -1;
+    return output;
   }
 
   public double getLeftEncoderVelocity() {
-    return rightEncoder.getVelocity();
+    double output = rightEncoder.getVelocity();
+
+    if(reversedTrajectory) output *= -1;
+    return output;
   }
 
   public double getRightEncoderVelocity() {
-    return rightEncoder.getVelocity();
+    double output = rightEncoder.getVelocity();
+
+    if(reversedTrajectory) output *= -1;
+    return output;
   }
 
   @Override
@@ -103,7 +124,11 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
 
     if(Math.abs(rightVolts) > 12)
       rightVolts = Math.signum(rightVolts) * 12;    
-    
+
+    if(reversedTrajectory) {
+      leftVolts *= -1;
+      rightVolts *= -1;
+    }   
 
     leftDriveMaster.setVoltage(leftVolts);
     rightDriveMaster.setVoltage(rightVolts);
@@ -137,7 +162,9 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   // (kGyroReversed == true) 180 deg. to -180 deg. CCWP
   // (kGyroReversed == false) -180 deg. to 180 deg. CWP
   public double getHeading() {
-    return navx.getYaw() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+    double output = navx.getYaw() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
+    if(reversedTrajectory) output *= -1;
+    return output;
   }
 
   public Pose2d getCurrentPose() {

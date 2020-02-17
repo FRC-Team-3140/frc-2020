@@ -29,20 +29,11 @@ public class RobotContainer {
     // and this time would normally be wasted with the robot just sitting still during auto.
     chooser.setName("Please Select and Auto");
     chooser.setDefaultOption("Do Nothing", new DoNothingAuto());
-    Command eightball = new Command(){
-    
-      @Override
-      public Set<Subsystem> getRequirements() {
-        // TODO Auto-generated method stub
-        return null;
-      }
-      public boolean isFinished() {
-        return true;
-      }
-    };
-    eightball.andThen(TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 5))
-      .andThen(TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 5))
-      .andThen(TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 5));
+    Command eightball;
+    eightball = TrajectoryFollower.makeFollowingCommandForAuto("RightSideInitializationLine_to_ShootingLocation.wpilib.json", 5)
+      .andThen(TrajectoryFollower.makeFollowingCommandForAuto("ShootingLocation_to_CollectBallsFromControlPanel.wpilib.json", 5))
+      .andThen(() -> dt.setTrajectoryReversed(true))
+      .andThen(TrajectoryFollower.makeFollowingCommandForAuto("replacentTest.wpilib.json", 5));//"CollectBallsFromControlPanel_to_ShootingLocation.wpilib.json", 5));
       
     chooser.addOption("8BallAuto", eightball);
     chooser.addOption("Drive Around Post", TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 15));

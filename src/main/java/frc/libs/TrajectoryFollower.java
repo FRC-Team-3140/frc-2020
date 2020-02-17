@@ -71,7 +71,7 @@ public class TrajectoryFollower {
                                         .deadlineWith(new DesiredPose_SMDB_Sender(robotRelativeTrajectory))
                                         .andThen(() -> RobotContainer.dt.tankDriveVolts(0, 0)));
                 } catch (IOException ex) {
-                        DriverStation.reportError("Unable to open trajectory: ", ex.getStackTrace());
+                        DriverStation.reportError("Unable to open trajectory: " + fileName, ex.getStackTrace());
                         return new DoNothingAuto();
                 }
 
