@@ -38,26 +38,13 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   }
 
   private void setupMotors() {
-    boolean leftInverted = true;
-    boolean rightInverted = false;
-    if(!DriveConstants.isCompetition) {
-      leftInverted = false;
-      rightInverted = true;
-    }
-
-    leftDriveMaster.setInverted(leftInverted);
     leftDriveSlave1.follow(leftDriveMaster);
-    leftDriveSlave1.setInverted(leftInverted);
-    // Comment the 2 lines below out when working on the chassis bot
+    // Comment the line below out when working on the chassis bot
     leftDriveSlave2.follow(leftDriveMaster);
-    leftDriveSlave2.setInverted(leftInverted);
 
-    rightDriveMaster.setInverted(rightInverted);
     rightDriveSlave1.follow(rightDriveMaster);
-    rightDriveSlave1.setInverted(rightInverted);
-    // Comment the 2 lines below out when working on the chassis bot
+    // Comment the line below out when working on the chassis bot
     rightDriveSlave2.follow(leftDriveMaster);
-    rightDriveSlave2.setInverted(leftInverted);
 
     setIdleMode(IdleMode.kCoast);
   }
