@@ -16,10 +16,11 @@ public interface Constants {
     public final static boolean isCompetition = true;
 
     // Drivetrain gear ratio's number with respect to 1. i.e. 12:1
-    public static final double lowGear = 12.86;
-    public static final double highGear = 6.25;
-    public static final boolean lockedInLowGear = true;
-    public static double gearRatio = lockedInLowGear ? lowGear:highGear;
+    private static final double compBotGear = 7.88;
+    private static final double lowGear = 12.86;
+    private static final double highGear = 6.25;
+    private static final boolean lockedInLowGear = true;
+    public static double gearRatio = isCompetition ? compBotGear : (lockedInLowGear ? lowGear:highGear);
 
     // Distance between wheel centers + needed controller gain offsets
     // Generated from Robot Characterization tool, should be a position number (generally > 0.33m)
@@ -29,7 +30,9 @@ public interface Constants {
         kTrackwidthMeters);
 
     // Wheel Diameter
-    public static final double kWheelDiameterMeters = 0.1016;
+    private static final double kWheelDiameterMetersComp = 0.1524;
+    private static final double kWheelDiameterMetersChassis = 0.1016;
+    public static final double kWheelDiameterMeters = isCompetition ? kWheelDiameterMetersComp : kWheelDiameterMetersChassis;
 
     // Position Conversions
     //(Native units for the Spark Max are in Rotations)
