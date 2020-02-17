@@ -9,6 +9,8 @@ import edu.wpi.first.wpilibj.DoubleSolenoid.Value;
  */
 public interface Constants {
 
+	public final static int VISION_TARGET_TOL = 10; // in pixels
+
 	public final static double DEADBAND = 0.1;
 
 	public final static int LEFT_DRIVE_MASTER = 3;
