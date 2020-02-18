@@ -30,7 +30,8 @@ public class RobotContainer {
     chooser.addOption("Three Ball Auto", ag.getThreeBallAuto());
     chooser.addOption("Five Ball Auto", ag.getFiveBallAuto());
     chooser.addOption("Eight Ball Auto", ag.getEightBallAuto());
-    chooser.addOption("Drive Around Post", ag.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 15));
+    chooser.addOption("Ten Ball Auto", ag.getTenBallAuto());
+    chooser.addOption("Drive Around Post", ag.makeFollowingCommandForAuto("AroundPostTest.wpilib.json"));
     chooser.addOption("Hold Position Test", new HoldPositionController());
 
     Shuffleboard.getTab("Selector").add(chooser);
