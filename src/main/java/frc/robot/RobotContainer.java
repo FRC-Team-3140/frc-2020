@@ -1,49 +1,37 @@
 package frc.robot;
 
-import java.util.Set;
-
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
-import edu.wpi.first.wpilibj2.command.Subsystem;
 import frc.robot.Constants.OIConstants;
-import frc.robot.commands.blankCommand;
-import frc.robot.commands.auto.DoNothingAuto;
+import frc.robot.commands.auto.AutoGenerator;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.HoldPositionController;
 import frc.robot.subsystems.Drivetrain;
-import frc.libs.TrajectoryFollower;
 import frc.libs.XboxController;
 
 public class RobotContainer {
+  // By creating an AutoGenerator object
+  // We are effectively importing all of the .json trajectory files on robot
+  // startup.
+  // This is because the AutoGenerator object is made on robot init and so everything
+  // .json file is loaded on robot init as well. This saves time during auto as .json file
+  // loading can take some time, and this time would normally be wasted with the robot just 
+  // sitting still during auto.
+  public static final AutoGenerator ag = new AutoGenerator();
   public static final Drivetrain dt = new Drivetrain();
   public static final XboxController xbox = new XboxController(OIConstants.xboxPort);
-
-  private SendableChooser<Command> chooser;
+  private static final SendableChooser<Command> chooser = new SendableChooser<>();
 
   public RobotContainer() {
-    chooser = new SendableChooser<>();
-    // By adding all of our trajectory commands to the chooser
-    // We are effectively importing all of the .json trajectory files on robot startup.
-    // This is because the chooser object is made on robot init and so everything added to the chooser 
-    // is made on robot init as well. This saves time during auto as .json file loading can take some time,
-    // and this time would normally be wasted with the robot just sitting still during auto.
     chooser.setName("Please Select and Auto");
-    chooser.setDefaultOption("Do Nothing", new DoNothingAuto());
-   
-    Command eightball;
-    dt.setTrajectoryReversed(true);
-    eightball = TrajectoryFollower.makeFollowingCommandForAuto("Side_to_Ball_Pickup.wpilib.json", 5)
-      .andThen(() -> dt.setTrajectoryReversed(false))
-      .andThen(TrajectoryFollower.makeFollowingCommandForAuto("Ball_Pickup_to_Initialization_Line.wpilib.json", 5))
-      .andThen(TrajectoryFollower.makeFollowingCommandForAuto("RightSideInitializationLine_to_ShootingLocation.wpilib.json", 5))
-      .andThen(TrajectoryFollower.makeFollowingCommandForAuto("ShootingLocation_to_CollectBallsFromControlPanel.wpilib.json", 5))
-      .andThen(() -> dt.setTrajectoryReversed(true))
-      .andThen(TrajectoryFollower.makeFollowingCommandForAuto("replacentTest.wpilib.json", 5));//"CollectBallsFromControlPanel_to_ShootingLocation.wpilib.json", 5));
-      
-    chooser.addOption("8BallAuto", eightball);
-    chooser.addOption("Drive Around Post", TrajectoryFollower.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 15));
-    chooser.addOption("Hold Position Test", new HoldPositionController());//TrajectoryFollower.makeFollowingCommandForAuto("HoldPosition_For3Min.wpilib.json", 180));
+    chooser.setDefaultOption("Do Nothing", ag.getDoNothingAuto());
+    chooser.addOption("Drive Straight", ag.getDriveStraightAuto());
+    chooser.addOption("Three Ball Auto", ag.getThreeBallAuto());
+    chooser.addOption("Five Ball Auto", ag.getFiveBallAuto());
+    chooser.addOption("Eight Ball Auto", ag.getEightBallAuto());
+    chooser.addOption("Drive Around Post", ag.makeFollowingCommandForAuto("AroundPostTest.wpilib.json", 15));
+    chooser.addOption("Hold Position Test", new HoldPositionController());
 
     Shuffleboard.getTab("Selector").add(chooser);
 
@@ -52,11 +40,11 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
+    xbox.x.whileHeld(new HoldPositionController());
   }
 
   private void configureDefaultCommands() {
     dt.setDefaultCommand(new Drive());
-    xbox.x.whileHeld(new HoldPositionController());
   }
 
   public Command getAutonomousCommand() {

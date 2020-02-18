@@ -81,29 +81,25 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   public double getLeftEncoderDistance() {
     double output = leftEncoder.getPosition();
 
-    if(reversedTrajectory) output *= -1;
-    return output;
+    return reversedTrajectory ? -output : output;
   }
 
   public double getRightEncoderDistance() {
     double output = rightEncoder.getPosition();
 
-    if(reversedTrajectory) output *= -1;
-    return output;
+    return reversedTrajectory ? -output : output;
   }
 
   public double getLeftEncoderVelocity() {
     double output = rightEncoder.getVelocity();
 
-    if(reversedTrajectory) output *= -1;
-    return output;
+    return reversedTrajectory ? -output : output;
   }
 
   public double getRightEncoderVelocity() {
     double output = rightEncoder.getVelocity();
 
-    if(reversedTrajectory) output *= -1;
-    return output;
+    return reversedTrajectory ? -output : output;
   }
 
   @Override
@@ -144,15 +140,13 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
       rightVolts = Math.signum(rightVolts) * 12;    
 
     if(reversedTrajectory) {
-      leftVolts *= -1;
-      rightVolts *= -1;
-      double temp = rightVolts;
-      rightVolts = leftVolts;
-      leftVolts = temp;
-    }   
-
-    leftDriveMaster.setVoltage(leftVolts);
-    rightDriveMaster.setVoltage(rightVolts);
+      leftDriveMaster.setVoltage(-rightVolts);
+      rightDriveMaster.setVoltage(-leftVolts);
+    }
+    else {
+      leftDriveMaster.setVoltage(leftVolts);
+      rightDriveMaster.setVoltage(rightVolts);
+    }
   }
 
   public void resetEncoders() {
@@ -186,12 +180,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   // (kGyroReversed == true) 180 deg. to -180 deg. CCWP
   // (kGyroReversed == false) -180 deg. to 180 deg. CWP
   public double getHeading() {
-    double output = navx.getYaw() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
-    if(reversedTrajectory) {
-       //output *= -1;
-       //output = -Math.signum(output) * (180 - Math.abs(output));
-    }
-    return output;
+    return navx.getYaw() * (DriveConstants.kGyroReversed ? -1.0 : 1.0);
   }
 
   public Pose2d getCurrentPose() {
