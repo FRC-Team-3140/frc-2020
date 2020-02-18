@@ -101,6 +101,7 @@ public class AutoGenerator {
             .andThen(() -> RobotContainer.dt.setTrajectoryReversed(true))
             .andThen(makeFollowingCommandForAuto("BallPickup1_To_Shooting_Location.wpilib.json"))
             .andThen(() -> RobotContainer.dt.setTrajectoryReversed(false))
+            .andThen(makeFollowingCommandForAuto("Shooting_Location_To_BallPickup2.wpilib.json"))
             .andThen(makeFollowingCommandForAuto("BallPickup2_To_BallPickup3.wpilib.json"))
             .andThen(() -> RobotContainer.dt.setTrajectoryReversed(true))
             .andThen(makeFollowingCommandForAuto("BallPickup3_To_ShootingLocation.wpilib.json"))
