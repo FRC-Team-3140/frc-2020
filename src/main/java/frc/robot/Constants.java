@@ -19,7 +19,7 @@ public interface Constants {
     private static final double compBotGear = 7.88;
     private static final double lowGear = 12.86;
     private static final double highGear = 6.25;
-    private static final boolean lockedInLowGear = true;
+    private static final boolean lockedInLowGear = false;
     public static double gearRatio = isCompetition ? compBotGear : (lockedInLowGear ? lowGear:highGear);
 
     // Distance between wheel centers + needed controller gain offsets

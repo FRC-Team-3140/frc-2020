@@ -3,6 +3,8 @@ package frc.robot.commands.auto;
 import java.io.IOException;
 import java.nio.file.Path;
 
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -30,6 +32,7 @@ public class AutoGenerator {
     private Command threeBallAuto;
     private Command fiveBallAuto;
     private Command eightBallAuto;
+    private Command tenBallAuto;
 
     public AutoGenerator() {
         makeDoNothingAuto();
@@ -37,6 +40,7 @@ public class AutoGenerator {
         makeThreeBallAuto();
         makeFiveBallAuto();
         makeEightBallAuto();
+        makeTenBallAuto();
     }
 
     // Build auto's
@@ -58,13 +62,13 @@ public class AutoGenerator {
 
     private void makeEightBallAuto() {
         eightBallAuto = new blankCommand().andThen(() -> RobotContainer.dt.setTrajectoryReversed(true))
-                .andThen(makeFollowingCommandForAuto("Side_to_Ball_Pickup.wpilib.json", 5))
+                .andThen(makeFollowingCommandForAuto("Side_to_Ball_Pickup.wpilib.json"))
                 .andThen(() -> RobotContainer.dt.setTrajectoryReversed(false))
-                .andThen(makeFollowingCommandForAuto("Ball_Pickup_to_Initialization_Line.wpilib.json", 5))
-                .andThen(makeFollowingCommandForAuto("RightSideInitializationLine_to_ShootingLocation.wpilib.json", 5))
-                .andThen(makeFollowingCommandForAuto("ShootingLocation_to_CollectBallsFromControlPanel.wpilib.json", 5))
+                .andThen(makeFollowingCommandForAuto("Ball_Pickup_to_Initialization_Line.wpilib.json"))
+                .andThen(makeFollowingCommandForAuto("RightSideInitializationLine_to_ShootingLocation.wpilib.json"))
+                .andThen(makeFollowingCommandForAuto("ShootingLocation_to_CollectBallsFromControlPanel.wpilib.json"))
                 .andThen(() -> RobotContainer.dt.setTrajectoryReversed(true))
-                .andThen(makeFollowingCommandForAuto("replacentTest.wpilib.json", 5));
+                .andThen(makeFollowingCommandForAuto("replacentTest.wpilib.json"));
         // TODO:
         // Brake Mode On
         // TrajectoryFollowing Drive to Shooting Location
@@ -83,6 +87,24 @@ public class AutoGenerator {
         // End Shooting and HoldPosition Off
         // Home and Stow Shooter
         // Brake Mode Off
+    }
+
+    public void makeTenBallAuto() {
+        // RightSideInitForward_To_BallPickup1
+        // BallPickup1_To_Shooting_Location
+        // Shooting_Location_To_BallPickup2
+        // BallPickup2_To_BallPickup3
+        // BallPickup3_To_ShootingLocation
+        tenBallAuto = new blankCommand().andThen(() -> RobotContainer.dt.setIdleMode(IdleMode.kBrake))
+            .andThen(() -> RobotContainer.dt.setTrajectoryReversed(false))
+            .andThen(makeFollowingCommandForAuto("RightSideInitForward_To_BallPickup1.wpilib.json"))
+            .andThen(() -> RobotContainer.dt.setTrajectoryReversed(true))
+            .andThen(makeFollowingCommandForAuto("BallPickup1_To_Shooting_Location.wpilib.json"))
+            .andThen(() -> RobotContainer.dt.setTrajectoryReversed(false))
+            .andThen(makeFollowingCommandForAuto("BallPickup2_To_BallPickup3.wpilib.json"))
+            .andThen(() -> RobotContainer.dt.setTrajectoryReversed(true))
+            .andThen(makeFollowingCommandForAuto("BallPickup3_To_ShootingLocation.wpilib.json"))
+            .andThen(() -> RobotContainer.dt.setIdleMode(IdleMode.kCoast));
     }
 
     // Make auto's accessible
@@ -106,11 +128,13 @@ public class AutoGenerator {
         return eightBallAuto;
     }
 
+    public Command getTenBallAuto() {
+        return tenBallAuto;
+    }
+
     // Generates commands that follow trajectories
-    public Command makeFollowingCommandForAuto(String fileName, int timeout) {
+    public Command makeFollowingCommandForAuto(String fileName) {
         // fileName e.x. "AroundPostTest.wpilib.json";
-        // timeout e.x. 15s max for Auto (Amount of time in seconds that can pass from
-        // start of comman until it automatically cancels)
         String filePath = "output/".concat(fileName);
 
         try {
@@ -143,12 +167,12 @@ public class AutoGenerator {
                     RobotContainer.dt::tankDriveVolts, RobotContainer.dt);
 
             // 1. Reset sensors
-            // 2. Run Path Forward until timeout expires,
-            // In parallel update SMDB until Path is completed or timeout expires
+            // 2. Run Path Forward
+            // In parallel update SMDB until Path is completed
             // 3. Stop driving at end of path.
-            return new InstantCommand(() -> RobotContainer.dt.resetAll()).andThen(ramseteCommand.withTimeout(timeout)
-                    .deadlineWith(new DesiredPose_SMDB_Sender(robotRelativeTrajectory))
-                    .andThen(() -> RobotContainer.dt.tankDriveVolts(0, 0)));
+            return new InstantCommand(() -> RobotContainer.dt.resetAll())
+                    .andThen(ramseteCommand.deadlineWith(new DesiredPose_SMDB_Sender(robotRelativeTrajectory))
+                            .andThen(() -> RobotContainer.dt.tankDriveVolts(0, 0)));
         } catch (IOException ex) {
             DriverStation.reportError("Unable to open trajectory: " + fileName, ex.getStackTrace());
             return new DoNothingAuto();
