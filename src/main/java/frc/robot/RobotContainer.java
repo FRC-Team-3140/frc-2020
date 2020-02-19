@@ -4,8 +4,11 @@ import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.pneumatics.shifter.ShiftDown;
 import frc.robot.commands.pneumatics.shifter.ShiftUp;
+import frc.robot.commands.servo.MoveServo;
+import frc.robot.commands.servo.StopServo;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Pneumatics;
+import frc.robot.subsystems.Servo;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.libs.*;
@@ -22,6 +25,7 @@ public class RobotContainer {
 
   public static final Drivetrain dt = new Drivetrain();
   public static final Pneumatics pn = new Pneumatics();
+  public static final Servo sr = new Servo();
 
   public RobotContainer() {
     configureButtonBindings();
@@ -37,6 +41,8 @@ public class RobotContainer {
   private void configureButtonBindings() {
     xbox.leftBumper.whenPressed(new ShiftUp());
     xbox.leftBumper.whenReleased(new ShiftDown());
+    xbox.rightTrigger.whenPressed(new MoveServo());
+    xbox.rightTrigger.whenReleased(new StopServo());
   }
 
   private void configureDefaultCommands() {
