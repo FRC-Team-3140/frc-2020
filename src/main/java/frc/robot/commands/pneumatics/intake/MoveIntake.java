@@ -20,7 +20,7 @@ public class MoveIntake extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.pn.shift(value);
+    RobotContainer.pn.setIntakeState(value);
   }
 
   // Called once the command ends or is interrupted.

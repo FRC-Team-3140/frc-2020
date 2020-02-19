@@ -15,7 +15,6 @@ public class SpinIntakeIn extends CommandBase {
    * Creates a new SpinIntakeIn.
    */
   public SpinIntakeIn() {
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.in);
   }
 

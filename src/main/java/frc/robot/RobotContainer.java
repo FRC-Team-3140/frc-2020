@@ -1,15 +1,20 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.GenericHID;
 import frc.robot.commands.climber.ExtendClimber;
 import frc.robot.commands.climber.RetractClimber;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.feeder.IncrementFeeder;
+import frc.robot.commands.feeder.ReverseFeeder;
+import frc.robot.commands.feeder.StopInting;
+import frc.robot.commands.flywheel.FlywheelShootOff;
+import frc.robot.commands.flywheel.FlywheelShootOut;
 import frc.robot.commands.pneumatics.intake.DeployIntake;
 import frc.robot.commands.pneumatics.intake.RetractIntake;
 import frc.robot.subsystems.Climber;
 import frc.robot.commands.angledHood.AngleWithJoystick;
 import frc.robot.commands.intake.SpinIntakeIn;
 import frc.robot.commands.intake.SpinIntakeOff;
+import frc.robot.commands.intake.SpinIntakeOut;
 import frc.robot.commands.turret.AngleWithTurret;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
@@ -22,13 +27,6 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.libs.*;
 
-/**
- * This class is where the bulk of the robot should be declared. Since
- * Command-based is a "declarative" paradigm, very little robot logic should
- * actually be handled in the {@link Robot} periodic methods (other than the
- * scheduler calls). Instead, the structure of the robot (including subsystems,
- * commands, and button mappings) should be declared here.
- */
 public class RobotContainer implements Constants.ElectricalPortConstants {
   // The robot's subsystems and OI devices
   public static final XboxController xbox = new XboxController(xboxPrimaryDriver);
@@ -48,29 +46,24 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
     configureDefaultCommands();
   }
 
-  /**
-   * Use this method to define your button->command mappings. Buttons can be
-   * created by instantiating a {@link GenericHID} or one of its subclasses
-   * ({@link edu.wpi.first.wpilibj.Joystick} or {@link XboxController}), and then
-   * passing it to a {@link edu.wpi.first.wpilibj2.command.button.JoystickButton}.
-   */
   private void configureButtonBindings() {
     // xbox.leftBumper.whileHeld(new HoldPositionController);
     // xbox.rightBumper.whenPressed(() -> dt.setIdleMode(IdleMode.kBrake));
     // xbox.rightBumper.whenReleased(() -> dt.setIdleMode(dt.getPreviousIdleMode()));
 
-
-    xbox2.leftBumper.whenPressed(new DeployIntake().alongWith(new SpinIntakeIn()));
-    xbox2.leftBumper.whenReleased(new RetractIntake().alongWith(new SpinIntakeOff()));
-
-    // xbox2 right bumper, dump balls
+    // Intake balls
+    xbox2.leftBumper.whenPressed(new DeployIntake().alongWith(new SpinIntakeIn()).alongWith(new IncrementFeeder()));
+    xbox2.leftBumper.whenReleased(new RetractIntake().alongWith(new SpinIntakeOff()).alongWith(new StopInting()));
+    // Dump balls if there's a jam
+    xbox2.rightBumper.whenPressed(new DeployIntake().alongWith(new SpinIntakeOut()).alongWith(new ReverseFeeder()));
+    xbox2.rightBumper.whenReleased(new RetractIntake().alongWith(new SpinIntakeOff()).alongWith(new StopInting()));
 
     xbox2.y.whileHeld(new ExtendClimber());
     xbox2.a.whileHeld(new RetractClimber());
   
     // xbox2 x automated shooting
-    // xbox2 b manual shooting
-
+    xbox2.b.whileHeld(new FlywheelShootOut());
+    xbox2.b.whenReleased(new FlywheelShootOff());
   }
 
   private void configureDefaultCommands() {

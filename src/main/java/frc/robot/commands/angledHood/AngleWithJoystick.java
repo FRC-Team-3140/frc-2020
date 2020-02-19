@@ -11,12 +11,8 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
 public class AngleWithJoystick extends CommandBase {
-  /**
-   * Creates a new AngleWithJoystick.
-   */
   public AngleWithJoystick() {
     addRequirements(RobotContainer.hd);
-    // Use addRequirements() here to declare subsystem dependencies.
   }
 
   // Called when the command is initially scheduled.
@@ -27,7 +23,7 @@ public class AngleWithJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.hd.drive(RobotContainer.xbox2.getSmoothedAltY());
+    RobotContainer.hd.drive(RobotContainer.xbox2.getSmoothedMainY());
   }
 
   // Called once the command ends or is interrupted.

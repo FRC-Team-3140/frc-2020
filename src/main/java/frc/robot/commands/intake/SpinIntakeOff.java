@@ -13,7 +13,6 @@ import frc.robot.RobotContainer;
 public class SpinIntakeOff extends CommandBase {
 
   public SpinIntakeOff() {
-    // Use addRequirements() here to declare subsystem dependencies.
     addRequirements(RobotContainer.in);
   }
 

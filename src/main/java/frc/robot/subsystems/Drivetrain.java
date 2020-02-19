@@ -11,7 +11,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
 public class Drivetrain extends SubsystemBase implements HardwareAdapter {
-
   public Drivetrain() {
 	  setFollowers();
   }
@@ -27,13 +26,12 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter {
 
   private void setFollowers() {
     leftDriveSlave1.follow(leftDriveMaster);
-   // leftDriveSlave2.follow(leftDriveMaster);
+    leftDriveSlave2.follow(leftDriveMaster);
     rightDriveSlave1.follow(rightDriveMaster);
-    //rightDriveSlave2.follow(rightDriveMaster);
+    rightDriveSlave2.follow(rightDriveMaster);
   }
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
-    
+    // This method will be called once per scheduler run    
   }
 }

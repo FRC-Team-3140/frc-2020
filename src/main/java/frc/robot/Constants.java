@@ -25,7 +25,7 @@ public interface Constants {
 		public interface RobotPhysicalConstants {
 			// Gear Ratio's
 			public static final double driveTrainGearRatio = 7.88;
-			public static final double flyWheelGearRatio = 1.33;
+			public static final double flyWheelGearRatio = 0.7159;
 			// Diameters
 			public static final double wheelDiameterMeters = 0.1524;
 			public static final double flyWheelDiameterMeters = 0.1016;

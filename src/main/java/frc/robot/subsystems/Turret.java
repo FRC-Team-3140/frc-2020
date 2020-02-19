@@ -10,13 +10,11 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
-public class Turret extends SubsystemBase implements HardwareAdapter{
-  /**
-   * Creates a new Turret.
-   */
+public class Turret extends SubsystemBase implements HardwareAdapter {
   public Turret() {
 
   }
+
   public void drive(double throttle) {
     turretMotor.set(throttle);
   }

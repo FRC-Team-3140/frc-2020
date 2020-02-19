@@ -11,9 +11,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
 public class Intake extends SubsystemBase implements HardwareAdapter {
-  /**
-   * Creates a new Intake.
-   */
   public Intake() {
 
   }
@@ -21,11 +18,12 @@ public class Intake extends SubsystemBase implements HardwareAdapter {
   public void spinIn() {
     intakeMotor.set(1);
   }
-  
+
   public void spinOut() {
     intakeMotor.set(-1);
   }
-  public void spinOff(){
+
+  public void spinOff() {
     intakeMotor.set(0);
   }
 

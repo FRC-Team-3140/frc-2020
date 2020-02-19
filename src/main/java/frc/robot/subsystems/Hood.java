@@ -10,13 +10,11 @@ package frc.robot.subsystems;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
-public class Hood extends SubsystemBase implements HardwareAdapter{
-  /**
-   * Creates a new Hood.
-   */
+public class Hood extends SubsystemBase implements HardwareAdapter {
   public Hood() {
 
   }
+
   public void drive(double throttle) {
     hoodMotor.set(throttle);
   }

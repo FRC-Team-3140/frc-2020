@@ -11,9 +11,6 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
 public class StopInting extends CommandBase {
-  /**
-   * Creates a new StopInting.
-   */
   public StopInting() {
     addRequirements(RobotContainer.fd);
   }

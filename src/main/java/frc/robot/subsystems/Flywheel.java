@@ -11,15 +11,14 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
 public class Flywheel extends SubsystemBase implements HardwareAdapter {
-  /**
-   * Creates a new Flywheel.
-   */
   public Flywheel() {
-  setFollowers();
+    flyWheelMaster.setInverted(false);
+    setFollowers();
   }
 
   private void setFollowers() {
     flyWheelSlave1.follow(flyWheelMaster);
+    flyWheelSlave1.setInverted(true);
   }
    
   public void shootOut() {
