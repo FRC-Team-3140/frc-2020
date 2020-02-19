@@ -5,7 +5,7 @@ import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
 
 
-public final class XboxController extends Joystick implements Constants {
+public final class XboxController extends Joystick implements Constants.GeneralConstants {
 	
 	// Internal Buttons
 	public JoystickButton a;
