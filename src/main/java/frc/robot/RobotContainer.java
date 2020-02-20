@@ -58,8 +58,8 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
     xbox2.rightBumper.whenPressed(new DeployIntake().alongWith(new SpinIntakeOut()).alongWith(new ReverseFeeder()));
     xbox2.rightBumper.whenReleased(new RetractIntake().alongWith(new SpinIntakeOff()).alongWith(new StopInting()));
 
-    xbox2.y.whileHeld(new ExtendClimber());
-    xbox2.a.whileHeld(new RetractClimber());
+    xbox2.dpadUp.whileHeld(new ExtendClimber());
+    xbox2.dpadDown.whileHeld(new RetractClimber());
   
     // xbox2 x automated shooting
     xbox2.b.whileHeld(new FlywheelShootOut());

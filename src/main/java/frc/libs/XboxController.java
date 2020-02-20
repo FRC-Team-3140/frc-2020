@@ -23,6 +23,9 @@ public final class XboxController extends Joystick implements Constants.GeneralC
 	// Triggers
 	public AnalogButton leftTrigger;
 	public AnalogButton rightTrigger;
+	// DPAD
+	public DpadButton dpadUp;
+	public DpadButton dpadDown;
 	
 	public XboxController(int port) {
 		super(port);
@@ -39,6 +42,8 @@ public final class XboxController extends Joystick implements Constants.GeneralC
 		rightJoystickPress = new JoystickButton(this, 10);
 		leftTrigger = new AnalogButton(this, 2, 0.1);
 		rightTrigger = new AnalogButton(this, 3, 0.1);
+		dpadDown = new DpadButton(this, 0);
+		dpadUp = new DpadButton(this, 180);
 	}
 	
 	// Call this in a loop if needed
