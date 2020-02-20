@@ -17,11 +17,12 @@ public class Servo extends SubsystemBase implements HardwareAdapter{
   public Servo() {
 
   }
-  public void move() {
-    servo.setRaw(100);
+
+  public void move(double pos) {
+    servo.set(pos);
   }
   public void stop() {
-    servo.setRaw(0);
+    servo.set(0);
   }
   @Override
   public void periodic() {

@@ -41,12 +41,13 @@ public class RobotContainer {
   private void configureButtonBindings() {
     xbox.leftBumper.whenPressed(new ShiftUp());
     xbox.leftBumper.whenReleased(new ShiftDown());
-    xbox.rightTrigger.whenPressed(new MoveServo());
-    xbox.rightTrigger.whenReleased(new StopServo());
+    // xbox.a.whenPressed(new MoveServo());
+    // xbox.a.whenReleased(new StopServo());
   }
 
   private void configureDefaultCommands() {
     dt.setDefaultCommand(new Drive());
+    sr.setDefaultCommand(new MoveServo());
   }
 
 
