@@ -10,7 +10,6 @@ import frc.libs.*;
 public class RobotContainer implements Constants.ElectricalPortConstants {
   // The robot's subsystems and OI devices
   public static final XboxController xbox = new XboxController(xboxPrimaryDriver);
-  public static final XboxController xbox2 = new XboxController(xboxSecondaryDriver);
 
   public static final Flywheel fw = new Flywheel();
   public static final Hood hd = new Hood();
