@@ -13,7 +13,6 @@ import frc.robot.RobotContainer;
 public class FlywheelShootOut extends CommandBase {
   public FlywheelShootOut() {
     addRequirements(RobotContainer.fw);
-    addRequirements(RobotContainer.fd);
   }
 
   // Called when the command is initially scheduled.
@@ -25,7 +24,6 @@ public class FlywheelShootOut extends CommandBase {
   @Override
   public void execute() {
     RobotContainer.fw.shootOut();
-    RobotContainer.fd.feedShooter();
   }
 
   // Called once the command ends or is interrupted.
