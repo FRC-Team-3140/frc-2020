@@ -8,6 +8,8 @@ import frc.robot.commands.feeder.ReverseFeeder;
 import frc.robot.commands.feeder.StopInting;
 import frc.robot.commands.flywheel.FlywheelShootOff;
 import frc.robot.commands.flywheel.FlywheelShootOut;
+import frc.robot.commands.pneumatics.climber.LockClimber;
+import frc.robot.commands.pneumatics.climber.UnlockClimber;
 import frc.robot.commands.pneumatics.intake.DeployIntake;
 import frc.robot.commands.pneumatics.intake.RetractIntake;
 import frc.robot.subsystems.Climber;
@@ -64,6 +66,10 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
     // xbox2 x automated shooting
     xbox2.b.whileHeld(new FlywheelShootOut());
     xbox2.b.whenReleased(new FlywheelShootOff());
+
+    // climber piston
+    xbox2.start.whenPressed(new LockClimber());
+    xbox2.select.whenPressed(new UnlockClimber());
   }
 
   private void configureDefaultCommands() {

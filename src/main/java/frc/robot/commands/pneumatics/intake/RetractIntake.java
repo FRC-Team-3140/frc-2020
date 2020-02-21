@@ -7,6 +7,6 @@ import frc.robot.Constants;
 public class RetractIntake extends SequentialCommandGroup implements Constants.GeneralConstants {
 
   public RetractIntake() {
-    super(new MoveIntake(EXT), new WaitCommand(.2), new MoveIntake(OFF));
+    super(new MoveIntake(RET), new WaitCommand(.2), new MoveIntake(OFF));
   }
 }
