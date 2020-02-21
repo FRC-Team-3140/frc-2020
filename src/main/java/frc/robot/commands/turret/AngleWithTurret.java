@@ -8,9 +8,10 @@
 package frc.robot.commands.turret;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.Constants;
 import frc.robot.RobotContainer;
 
-public class AngleWithTurret extends CommandBase {
+public class AngleWithTurret extends CommandBase implements Constants.GeneralConstants {
   public AngleWithTurret() {
     addRequirements(RobotContainer.tr);
   }
@@ -23,7 +24,7 @@ public class AngleWithTurret extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.tr.drive(RobotContainer.xbox2.getSmoothedAltX());
+    RobotContainer.tr.drive(RobotContainer.xbox.getSmoothedAltX() * TurretSpeedLimiter);
   }
 
   // Called once the command ends or is interrupted.

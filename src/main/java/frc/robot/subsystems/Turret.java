@@ -12,10 +12,10 @@ import frc.robot.HardwareAdapter;
 
 public class Turret extends SubsystemBase implements HardwareAdapter {
   public Turret() {
-
   }
 
   public void drive(double throttle) {
+    // Implement logic with encoder to limit travel
     turretMotor.set(throttle);
   }
 

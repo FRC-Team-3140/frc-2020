@@ -1,7 +1,6 @@
 package frc.robot;
 
-import frc.robot.subsystems.Flywheel;
-import frc.robot.subsystems.Hood;
+import frc.robot.commands.turret.AngleWithTurret;
 import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
@@ -10,9 +9,6 @@ import frc.libs.*;
 public class RobotContainer implements Constants.ElectricalPortConstants {
   // The robot's subsystems and OI devices
   public static final XboxController xbox = new XboxController(xboxPrimaryDriver);
-
-  public static final Flywheel fw = new Flywheel();
-  public static final Hood hd = new Hood();
   public static final Turret tr = new Turret();
 
   public RobotContainer() {
@@ -24,6 +20,7 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
   }
 
   private void configureDefaultCommands() {
+    tr.setDefaultCommand(new AngleWithTurret());
   }
 
   public Command getAutonomousCommand() {
