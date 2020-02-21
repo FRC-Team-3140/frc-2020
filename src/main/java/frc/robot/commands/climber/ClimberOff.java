@@ -10,8 +10,11 @@ package frc.robot.commands.climber;
 import edu.wpi.first.wpilibj2.command.CommandBase;
 import frc.robot.RobotContainer;
 
-public class ExtendClimber extends CommandBase {
-  public ExtendClimber() {
+public class ClimberOff extends CommandBase {
+  /**
+   * Creates a new ClimberOff.
+   */
+  public ClimberOff() {
     addRequirements(RobotContainer.cl);
   }
 
@@ -23,18 +26,17 @@ public class ExtendClimber extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.cl.climberExtend();
+    RobotContainer.cl.climberOff();
   }
 
   // Called once the command ends or is interrupted.
   @Override
   public void end(boolean interrupted) {
-    RobotContainer.cl.climberOff();
   }
 
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return !RobotContainer.xbox2.dpadUp.get();
+    return true;
   }
 }

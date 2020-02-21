@@ -8,6 +8,6 @@ public class DeployIntake extends SequentialCommandGroup implements Constants.Ge
   public DeployIntake() {
     // Add your commands in the super() call, e.g.
     // super(new FooCommand(), new BarCommand());
-    super(new MoveIntake(RET), new WaitCommand(.2), new MoveIntake(OFF));
+    super(new MoveIntake(EXT), new WaitCommand(.2), new MoveIntake(OFF));
   }
 }

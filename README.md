@@ -12,3 +12,8 @@ PLEASE KEEP THIS LIST UPDATED
 * pid: simple pid in programming chassis
 * thacker-chassis: chassis to test with thacker chassis
 * vision-targeting: vision targeting with programming robot
+* Alex-Characterization-Dev: Branched from master, base code for other alex dev branches
+-Merge into master when done
+* Alex-Characterization-Dev-Flywheel: Flywheel velocity control, merge into Alex-     Characterization-Dev When Done
+* Alex-Characterization-Dev-Turret: Turret position control, merge into Alex-     Characterization-Dev When Done
+* Alex-Characterization-Dev-Hood: Hood position control, merge into Alex-     Characterization-Dev When Done

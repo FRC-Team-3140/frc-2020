@@ -35,6 +35,7 @@ public class RetractClimber extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return false;
+    // makes the motor stop upon releasing the dpad button
+    return !RobotContainer.xbox2.dpadDown.get();
   }
 }
