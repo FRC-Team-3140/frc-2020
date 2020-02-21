@@ -1,8 +1,7 @@
 package frc.robot;
 
+import frc.robot.commands.FlywheelFromXBOX;
 import frc.robot.subsystems.Flywheel;
-import frc.robot.subsystems.Hood;
-import frc.robot.subsystems.Turret;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.libs.*;
@@ -12,8 +11,6 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
   public static final XboxController xbox = new XboxController(xboxPrimaryDriver);
 
   public static final Flywheel fw = new Flywheel();
-  public static final Hood hd = new Hood();
-  public static final Turret tr = new Turret();
 
   public RobotContainer() {
     configureButtonBindings();
@@ -24,6 +21,7 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
   }
 
   private void configureDefaultCommands() {
+    fw.setDefaultCommand(new FlywheelFromXBOX());
   }
 
   public Command getAutonomousCommand() {

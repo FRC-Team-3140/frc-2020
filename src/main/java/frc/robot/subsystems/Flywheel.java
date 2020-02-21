@@ -21,6 +21,10 @@ public class Flywheel extends SubsystemBase implements HardwareAdapter {
     flyWheelSlave1.setInverted(true);
   }
    
+  public void spin(double output) {
+    flyWheelMaster.set(output);
+  }
+  
   public void shootOut() {
     flyWheelMaster.set(1);
   }
