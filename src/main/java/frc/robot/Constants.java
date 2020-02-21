@@ -19,13 +19,20 @@ public interface Constants {
 		public final static double DEADBAND = 0.1;
 
 		public interface PhysicalConstants {
+			public final double heightDeltaFromShooterReleaseToPowerPortCenter = 0; // m
 			// Field dimensions, etc.
 		}
 
 		public interface RobotPhysicalConstants {
+			// Robot dimensions
+			
+			// Camera offsets
+
 			// Gear Ratio's
 			public static final double driveTrainGearRatio = 7.88;
 			public static final double flyWheelGearRatio = 0.7159;
+			public static final double turretGearRatio = 0;
+			public static final double hoodDegreesPerRotation = 0;
 			// Diameters
 			public static final double wheelDiameterMeters = 0.1524;
 			public static final double flyWheelDiameterMeters = 0.1016;
