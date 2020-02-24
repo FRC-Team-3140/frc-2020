@@ -1,5 +1,6 @@
 package frc.robot;
 
+import frc.robot.commands.climber.ClimberOff;
 import frc.robot.commands.climber.ExtendClimber;
 import frc.robot.commands.climber.RetractClimber;
 import frc.robot.commands.drivetrain.Drive;
@@ -62,6 +63,8 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
 
     // Climber
     xbox2.dpadUp.whenPressed(new ExtendClimber());
+    xbox2.dpadUp.whenReleased(new ClimberOff());
+    xbox2.dpadDown.whenReleased(new ClimberOff());
     xbox2.dpadDown.whenPressed(new RetractClimber());
   
     // xbox2 x automated shooting

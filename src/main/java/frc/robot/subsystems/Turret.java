@@ -7,12 +7,14 @@
 
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
 public class Turret extends SubsystemBase implements HardwareAdapter {
   public Turret() {
-
+    turretMotor.setNeutralMode(NeutralMode.Brake);
   }
 
   public void drive(double throttle) {

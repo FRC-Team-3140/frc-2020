@@ -1,10 +1,15 @@
 package frc.robot.subsystems;
 
+import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
 public class Feeder extends SubsystemBase implements HardwareAdapter {
   public Feeder() {
+    ballFeeder.setIdleMode(IdleMode.kBrake);
+    shooterFeeder.setNeutralMode(NeutralMode.Brake);
   }
 
   public void feedShooter() {

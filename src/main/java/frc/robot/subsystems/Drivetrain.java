@@ -1,18 +1,15 @@
-/*----------------------------------------------------------------------------*/
-/* Copyright (c) 2019 FIRST. All Rights Reserved.                             */
-/* Open Source Software - may be modified and shared by FRC teams. The code   */
-/* must be accompanied by the FIRST BSD license file in the root directory of */
-/* the project.                                                               */
-/*----------------------------------------------------------------------------*/
-
 package frc.robot.subsystems;
+
+import com.revrobotics.CANSparkMax.IdleMode;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
 public class Drivetrain extends SubsystemBase implements HardwareAdapter {
   public Drivetrain() {
-	  setFollowers();
+    setFollowers();
+    
+    setIdleMode(IdleMode.kBrake);
   }
 
   public void arcadeDrive(double throttle, double heading) {
@@ -22,6 +19,15 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter {
   public void tankDrive(double left, double right) {
     leftDriveMaster.set(left);
     rightDriveMaster.set(right);
+  }
+
+  private void setIdleMode(IdleMode m) {
+    leftDriveMaster.setIdleMode(m);
+    leftDriveSlave1.setIdleMode(m);
+    leftDriveSlave2.setIdleMode(m);
+    rightDriveSlave1.setIdleMode(m);
+    rightDriveSlave2.setIdleMode(m);
+    rightDriveMaster.setIdleMode(m);
   }
 
   private void setFollowers() {
