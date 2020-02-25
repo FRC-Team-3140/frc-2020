@@ -6,9 +6,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import frc.robot.Constants.OIConstants;
 import frc.robot.commands.auto.AutoGenerator;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.drivetrain.DriveDistanceCommandGenerator;
 import frc.robot.commands.drivetrain.HoldPositionController;
 import frc.robot.commands.drivetrain.ReducedSpeedTurningDrive;
 import frc.robot.commands.drivetrain.TimedDrive;
+import frc.robot.commands.drivetrain.TurnToAngleCommandGenerator;
 import frc.robot.subsystems.Drivetrain;
 import frc.libs.XboxController;
 
@@ -39,6 +41,10 @@ public class RobotContainer {
     chooser.addOption("Drive Around Post", ag.makeFollowingCommandForAuto("AroundPostTest.wpilib.json"));
     chooser.addOption("Hold Position Test", new HoldPositionController());
     chooser.addOption("Timed Drive", new TimedDrive(0.5, 2));
+    chooser.addOption("Trajectory Distance Drive", new DriveDistanceCommandGenerator(3).getCommand());
+    chooser.addOption("Trajectory Distance Drive Backwards", new DriveDistanceCommandGenerator(-3).getCommand());
+    chooser.addOption("Trajectory Turn 90deg. Left", new TurnToAngleCommandGenerator(-90).getCommand());
+    chooser.addOption("Trajectory Turn 90deg. Right", new TurnToAngleCommandGenerator(90).getCommand());
 
     Shuffleboard.getTab("Selector").add(chooser);
 

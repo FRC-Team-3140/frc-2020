@@ -1,0 +1,62 @@
+package frc.robot.commands.drivetrain;
+
+import java.util.ArrayList;
+
+import edu.wpi.first.wpilibj.controller.PIDController;
+import edu.wpi.first.wpilibj.controller.RamseteController;
+import edu.wpi.first.wpilibj.controller.SimpleMotorFeedforward;
+import edu.wpi.first.wpilibj.geometry.Pose2d;
+import edu.wpi.first.wpilibj.geometry.Rotation2d;
+import edu.wpi.first.wpilibj.geometry.Translation2d;
+import edu.wpi.first.wpilibj.trajectory.Trajectory;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryConfig;
+import edu.wpi.first.wpilibj.trajectory.TrajectoryGenerator;
+import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.InstantCommand;
+import edu.wpi.first.wpilibj2.command.RamseteCommand;
+
+import frc.robot.Constants;
+import frc.robot.RobotContainer;
+import frc.robot.commands.otherCommands.DesiredPose_SMDB_Sender;
+
+public class TurnToAngleCommandGenerator implements Constants {
+    private double angle = 0;
+
+    // Pass the desired angle to this class in degrees.
+    // Angle should be from -180deg. to 0deg. to 180deg. (CCWP)
+    // i.e. Negative angle turn left
+    public TurnToAngleCommandGenerator(double angle) {
+        this.angle = angle;
+    }
+
+    public Command getCommand() {
+        var startingPose = new Pose2d(new Translation2d(0, 0), new Rotation2d(0));
+        var endingPose = new Pose2d(new Translation2d(0, 0), new Rotation2d(angle));
+        var interiorWaypoints = new ArrayList<Translation2d>();
+
+        TrajectoryConfig config = new TrajectoryConfig(Constants.DriveConstants.trajectoryMaxVelocity,
+                Constants.DriveConstants.trajectoryMaxAcceleration);
+
+        Trajectory trajectory = TrajectoryGenerator.generateTrajectory(startingPose, interiorWaypoints, endingPose,
+                config);
+
+        // Build RamseteCommand, this command follows the trajectory in auto.
+        RamseteCommand ramseteCommand = new RamseteCommand(trajectory, RobotContainer.dt::getCurrentPose,
+                new RamseteController(AutoConstants.kRamseteB, AutoConstants.kRamseteZeta),
+                new SimpleMotorFeedforward(DriveConstants.ksVolts, DriveConstants.kvVoltSecondsPerMeter,
+                        DriveConstants.kaVoltSecondsSquaredPerMeter),
+                DriveConstants.kDriveKinematics, RobotContainer.dt::getWheelSpeeds,
+                new PIDController(DriveConstants.kPDriveVel, DriveConstants.kIDriveVel, DriveConstants.kDDriveVel),
+                new PIDController(DriveConstants.kPDriveVel, DriveConstants.kIDriveVel, DriveConstants.kDDriveVel),
+                // RamseteCommand passes volts to the callback
+                RobotContainer.dt::tankDriveVolts, RobotContainer.dt);
+
+        // 1. Reset sensors
+        // 2. Run Path
+        // In parallel update SMDB until Path is completed
+        // 3. Stop driving at end of path.
+            return new InstantCommand(() -> RobotContainer.dt.resetAll())
+                    .andThen(ramseteCommand.deadlineWith(new DesiredPose_SMDB_Sender(trajectory))
+                            .andThen(() -> RobotContainer.dt.tankDriveVolts(0, 0)));
+    }
+}

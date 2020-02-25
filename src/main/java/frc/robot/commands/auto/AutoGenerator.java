@@ -178,6 +178,5 @@ public class AutoGenerator {
             DriverStation.reportError("Unable to open trajectory: " + fileName, ex.getStackTrace());
             return new DoNothingAuto();
         }
-
     }
 }

@@ -62,6 +62,11 @@ public interface Constants {
     public static final double kIDriveVel = 0;
     public static final double kDDriveVel = 0;
 
+    // Max speed and acceleration for trajectories
+    // Both must be positive values
+    public static final double trajectoryMaxVelocity = 2.1; // m/s
+    public static final double trajectoryMaxAcceleration = 2.0; // m/s^2
+
     // Hold Position
     // From characterization tool using position instead of velocity modes
     // Use P gain only
