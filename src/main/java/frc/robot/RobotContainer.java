@@ -7,6 +7,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.auto.AutoGenerator;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.HoldPositionController;
+import frc.robot.commands.drivetrain.TimedDrive;
 import frc.robot.subsystems.Drivetrain;
 import frc.libs.XboxController;
 
@@ -18,8 +19,11 @@ public class RobotContainer {
   // .json file is loaded on robot init as well. This saves time during auto as .json file
   // loading can take some time, and this time would normally be wasted with the robot just 
   // sitting still during auto.
-  public static final AutoGenerator ag = new AutoGenerator();
+
+  // All classes required by any class instantiated here must, be instantiated before the instatiated class.
   public static final Drivetrain dt = new Drivetrain();
+  // e.x. AutoGenerator uses Drivetrain classes, so it must be made after drivetrain
+  public static final AutoGenerator ag = new AutoGenerator();
   public static final XboxController xbox = new XboxController(OIConstants.xboxPort);
   private static final SendableChooser<Command> chooser = new SendableChooser<>();
 
@@ -33,6 +37,7 @@ public class RobotContainer {
     chooser.addOption("Ten Ball Auto", ag.getTenBallAuto());
     chooser.addOption("Drive Around Post", ag.makeFollowingCommandForAuto("AroundPostTest.wpilib.json"));
     chooser.addOption("Hold Position Test", new HoldPositionController());
+    chooser.addOption("Timed Drive", new TimedDrive(0.5, 2));
 
     Shuffleboard.getTab("Selector").add(chooser);
 
