@@ -7,6 +7,7 @@ import frc.robot.Constants.OIConstants;
 import frc.robot.commands.auto.AutoGenerator;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.HoldPositionController;
+import frc.robot.commands.drivetrain.ReducedSpeedTurningDrive;
 import frc.robot.commands.drivetrain.TimedDrive;
 import frc.robot.subsystems.Drivetrain;
 import frc.libs.XboxController;
@@ -46,7 +47,8 @@ public class RobotContainer {
   }
 
   private void configureButtonBindings() {
-    xbox.x.whileHeld(new HoldPositionController());
+    xbox.leftBumper.whileHeld(new HoldPositionController());
+    xbox.rightBumper.whileHeld(new ReducedSpeedTurningDrive());
   }
 
   private void configureDefaultCommands() {
