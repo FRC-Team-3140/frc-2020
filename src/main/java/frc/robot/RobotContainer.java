@@ -43,8 +43,8 @@ public class RobotContainer {
     chooser.addOption("Timed Drive", new TimedDrive(0.5, 2));
     chooser.addOption("Trajectory Distance Drive", new DriveDistanceCommandGenerator(3).getCommand());
     chooser.addOption("Trajectory Distance Drive Backwards", new DriveDistanceCommandGenerator(-3).getCommand());
-    chooser.addOption("Trajectory Turn 90deg. Left", new TurnToAngleCommandGenerator(-90).getCommand());
-    chooser.addOption("Trajectory Turn 90deg. Right", new TurnToAngleCommandGenerator(90).getCommand());
+    //chooser.addOption("Trajectory Turn 90deg. Left", new TurnToAngleCommandGenerator(-90).getCommand());
+    //chooser.addOption("Trajectory Turn 90deg. Right", new TurnToAngleCommandGenerator(90).getCommand());
 
     Shuffleboard.getTab("Selector").add(chooser);
 
