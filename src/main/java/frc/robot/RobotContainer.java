@@ -18,7 +18,7 @@ import frc.robot.commands.pneumatics.intake.DeployIntake;
 import frc.robot.commands.pneumatics.intake.RetractIntake;
 import frc.robot.subsystems.Climber;
 import frc.robot.commands.angledHood.AngleWithJoystick;
-import frc.robot.commands.auto.AutoGenerator;
+import frc.robot.AutoGenerator;
 import frc.robot.commands.intake.SpinIntakeIn;
 import frc.robot.commands.intake.SpinIntakeOff;
 import frc.robot.commands.intake.SpinIntakeOut;

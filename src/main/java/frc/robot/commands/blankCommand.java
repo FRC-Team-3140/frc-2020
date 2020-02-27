@@ -2,8 +2,8 @@ package frc.robot.commands;
 
 import edu.wpi.first.wpilibj2.command.CommandBase;
 
-public class blankCommand extends CommandBase {
-    public blankCommand() {
+public class BlankCommand extends CommandBase {
+  public BlankCommand() {
   }
 
   @Override

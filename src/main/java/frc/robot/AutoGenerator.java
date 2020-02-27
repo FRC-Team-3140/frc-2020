@@ -1,10 +1,9 @@
-package frc.robot.commands.auto;
+package frc.robot;
 
 import java.io.IOException;
 import java.nio.file.Path;
 
 import com.revrobotics.CANSparkMax.IdleMode;
-
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Filesystem;
 import edu.wpi.first.wpilibj.controller.PIDController;
@@ -22,7 +21,7 @@ import frc.robot.Constants;
 import frc.robot.RobotContainer;
 import frc.robot.commands.auto.DoNothingAuto;
 import frc.robot.commands.otherCommands.DesiredPose_SMDB_Sender;
-import frc.robot.commands.blankCommand;
+import frc.robot.commands.BlankCommand;
 
 public class AutoGenerator implements Constants.ControllerConstants.General, Constants.ControllerConstants.DriveTrain.TrajectoryFollowing {
     private Command doNothingAuto;
