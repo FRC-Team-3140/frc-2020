@@ -17,7 +17,7 @@ public class ReducedSpeedTurningDrive extends CommandBase {
         double throttle = RobotContainer.xbox.getSmoothedMainY();
         double heading = RobotContainer.xbox.getSmoothedAltX();
 
-        RobotContainer.dt.arcadeDrive(throttle, heading * 0.33);
+        RobotContainer.dt.arcadeDrive(throttle, -heading * 0.33);
     }
 
     @Override
