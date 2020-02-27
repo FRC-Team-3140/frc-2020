@@ -18,7 +18,7 @@ public class Turret extends SubsystemBase implements HardwareAdapter {
   }
 
   public void drive(double throttle) {
-    turretMotor.set(throttle);
+    turretMotor.set(throttle*.5);
   }
 
   @Override

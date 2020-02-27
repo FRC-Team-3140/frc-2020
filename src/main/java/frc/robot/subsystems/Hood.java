@@ -18,7 +18,7 @@ public class Hood extends SubsystemBase implements HardwareAdapter {
   }
 
   public void drive(double throttle) {
-    hoodMotor.set(throttle);
+    hoodMotor.set(throttle*.5);
   }
 
   @Override
