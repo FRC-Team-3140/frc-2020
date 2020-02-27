@@ -6,6 +6,7 @@ This is our code for our 2020 robot
 PLEASE KEEP THIS LIST UPDATED
 
 * master: programming chassis, climber, ball-handling subsystems
+* Master-With-Trajectory: master with trajectory following merged in
 * Chassis-With-Trajectory: alex's stuff that idc about
 * chassis: competition chassis
 * leds: LED code with programming chassis
