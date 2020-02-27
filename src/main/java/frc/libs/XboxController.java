@@ -4,9 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
 
-
 public final class XboxController extends Joystick implements Constants.GeneralConstants {
-	
 	// Internal Buttons
 	public JoystickButton a;
 	public JoystickButton b;
@@ -44,10 +42,6 @@ public final class XboxController extends Joystick implements Constants.GeneralC
 		rightTrigger = new AnalogButton(this, 3, 0.1);
 		dpadDown = new DpadButton(this, 0);
 		dpadUp = new DpadButton(this, 180);
-	}
-	
-	// Call this in a loop if needed
-	public void check() {
 	}
 	
 	public double getMainX(){
@@ -98,5 +92,4 @@ public final class XboxController extends Joystick implements Constants.GeneralC
 		if(Math.abs(d) > DEADBAND) return d;
 		else return 0;
 	}
-
 }

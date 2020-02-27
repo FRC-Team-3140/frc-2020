@@ -9,7 +9,10 @@ import edu.wpi.first.wpilibj.kinematics.DifferentialDriveKinematics;
  * purpose. All constants should be declared globally (i.e. public static). Do
  * not put anything functional in this class.
  */
+
+// Use meters, seconds, degrees (180deg to -180deg) (CCWP), and volts for all units.
 public interface Constants {
+	// Use meters, seconds, degrees (180deg to -180deg) (CCWP), and volts for all units.
 	public interface GeneralConstants {
 		// Pnuematics
 		public final static Value EXT = Value.kForward;
@@ -18,27 +21,39 @@ public interface Constants {
 		// OI
 		public final static double DEADBAND = 0.1;
 
+		// Use meters, seconds, degrees (180deg to -180deg) (CCWP), and volts for all units.
 		public interface PhysicalConstants {
 			public final double heightDeltaFromShooterReleaseToPowerPortCenter = 0; // m
 			// Field dimensions, etc.
 		}
 
+		// Use meters, seconds, degrees (180deg to -180deg), and volts for all motion profiling based units.
 		public interface RobotPhysicalConstants {
 			// Robot dimensions
-			
+			public static final double robotLengthIntakeInWithBumpers = 0.953;
+			public static final double robotLengthIntakeOutWithBumpers = 1.1;
+			public static final double robotWidthWithBumpers = 0.889;
+			public static final double shooterCenterFromRobotRearWithBumpers = 0.734;
+						
 			// Camera offsets
 
 			// Gear Ratio's
 			public static final double driveTrainGearRatio = 7.88;
 			public static final double flyWheelGearRatio = 0.7159;
-			public static final double turretGearRatio = 0;
+			public static final double turretGearRatio = 11.1;
 			public static final double hoodDegreesPerRotation = 0;
+
 			// Diameters
 			public static final double wheelDiameterMeters = 0.1524;
 			public static final double flyWheelDiameterMeters = 0.1016;
 		}
 
+		// Use meters, seconds, degrees (180deg to -180deg) (CCWP), and volts for all units.
 		public interface SensorConstants {
+			// Gyro
+			// True to make Counter Clockwise Angles Positive, and Clockwise Negative.
+			public static final boolean kGyroReversed = true; 
+
 			// Position Conversions
 			// (Native units for the Spark Max are in Rotations)
 			public static final int kDriveTrainEncoderCPR = 1; // Encoder Counts/Pulses per Rotation (usually > 1)
@@ -108,25 +123,55 @@ public interface Constants {
 		public final static int CLIMBER_LOCK_SOLENOID_RET = 3;
 	}
 
+	// Update from Characterization tool.
+	// Use meters, seconds, degrees (180deg to -180deg), and volts for all motion profiling based units.
 	public interface ControllerConstants {
-		// General
-		public static final double kRamseteB = 2;
-		public static final double kRamseteZeta = 0.7;
+		public interface General {
+			// Ramsete controller recommended values
+			public static final double kRamseteB = 2;
+			public static final double kRamseteZeta = 0.7;
 
-		public interface DriveTrain {
-			public static final double trackWidthMeters = 0;
-			public static final DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(
-					trackWidthMeters);
-			// The constants below are 10X the characterization tool output's.
-			public static final double ksVolts = 1.29;
-			public static final double kvVoltSecondsPerMeter = 50.8;
-			public static final double kaVoltSecondsSquaredPerMeter = 4.54;
-			// The constants below are not 10X
-			public static final double kPDriveVel = 14.2;
-			public static final double kIDriveVel = 0;
-			public static final double kDDriveVel = 0;
+			// Max speed and acceleration for trajectories
+			// Both must be positive values
+			// -------------These are approximate right now, verify on robot--------------
+    		public static final double trajectoryMaxVelocity = 4; // m/s
+    		public static final double trajectoryMaxAcceleration = 2; // m/s^2  
 		}
 
+		public interface DriveTrain {
+			// Uses velocity control constants generated from characterization tool
+			public interface TrajectoryFollowing {
+				// Distance between wheel centers + needed controller gain offsets
+				// Generated from Robot Characterization tool, should be a positive number (generally > 0.33m)
+				public static final double kTrackWidthMeters = 0;
+				public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
+					kTrackWidthMeters);
+
+				// The constants below are 10X the characterization tool output's.
+				public static final double ksVolts = 0;
+				public static final double kvVoltSecondsPerMeter = 0;
+				public static final double kaVoltSecondsSquaredPerMeter = 0;
+				// The constants below are not 10X
+				public static final double kPDriveVel = 0;
+				public static final double kIDriveVel = 0;
+				public static final double kDDriveVel = 0;
+			}
+
+			// Uses posiiton control constants generated from characterization tool
+			public interface HoldPosition {
+				// Hold Position
+				// From characterization tool using position instead of velocity modes
+				// Use P gain only
+				// Max position error 0.01 units
+				// Max velocitry error 0.02 units
+				// Max control effort 7 volts
+				public static final double holdPositonKP = 0;
+				public static final double holdPositonKI = 0;
+				public static final double holdPositonKD = 0;
+			}
+		}
+
+		// Uses velocity control constants generated from characterization tool
 		public interface FlyWheel {
 			// The constants below are 10X the characterization tool output's.
 			public static final double ksVolts = 0;
