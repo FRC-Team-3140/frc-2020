@@ -7,6 +7,8 @@
 
 package frc.robot.subsystems;
 
+import com.revrobotics.CANSparkMax.IdleMode;
+
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
@@ -14,6 +16,9 @@ public class Flywheel extends SubsystemBase implements HardwareAdapter {
   public Flywheel() {
     flyWheelMaster.setInverted(false);
     setFollowers();
+    flyWheelMaster.setIdleMode(IdleMode.kCoast);
+    flyWheelSlave1.setIdleMode(IdleMode.kCoast);
+
   }
 
   private void setFollowers() {
