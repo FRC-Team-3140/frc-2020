@@ -32,7 +32,8 @@ import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pneumatics;
 import frc.robot.subsystems.Turret;
 import frc.libs.*;
-
+import edu.wpi.cscore.UsbCamera;
+import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
@@ -68,7 +69,13 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
   public static final XboxController xbox = new XboxController(xboxPrimaryDriver);
   public static final XboxController xbox2 = new XboxController(xboxSecondaryDriver);
 
+  private UsbCamera camera;
+
   public RobotContainer() {
+    camera = CameraServer.getInstance().startAutomaticCapture();
+    camera.setFPS(30);
+    camera.setResolution(320, 240);
+
     chooser.setName("Please Select and Auto"); // (this works; find alternatives)
     chooser.setDefaultOption("Do Nothing", ag.getDoNothingAuto());
     chooser.addOption("Timed Drive", new TimedDrive(0.5, 2));
