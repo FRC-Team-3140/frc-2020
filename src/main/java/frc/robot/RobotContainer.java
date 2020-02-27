@@ -68,7 +68,7 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
   public static final XboxController xbox2 = new XboxController(xboxSecondaryDriver);
 
   public RobotContainer() {
-    chooser.setName("Please Select and Auto");
+    chooser.setName("Please Select and Auto"); // (this works; find alternatives)
     chooser.setDefaultOption("Do Nothing", ag.getDoNothingAuto());
     chooser.addOption("Timed Drive", new TimedDrive(0.5, 2));
 

@@ -16,14 +16,6 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
   private final DifferentialDriveOdometry odometry;
   private boolean reversedTrajectory = false;
 
-  public boolean isTrajectoryReversed() {
-    return reversedTrajectory;
-  }
-
-  public void setTrajectoryReversed(boolean reversed) {
-    reversedTrajectory = reversed;
-  }
-
   public Drivetrain() {
     setupMotors();
 
@@ -37,77 +29,9 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     odometry = new DifferentialDriveOdometry(Rotation2d.fromDegrees(getHeading()));
   }
 
-  private void setupMotors() {
-    boolean leftInverted = true;
-    boolean rightInverted = false;
-
-    leftDriveMaster.setInverted(leftInverted);
-    leftDriveSlave1.follow(leftDriveMaster);
-    leftDriveSlave1.setInverted(leftInverted);
-    leftDriveSlave2.follow(leftDriveMaster);
-    leftDriveSlave2.setInverted(leftInverted);
-
-    rightDriveMaster.setInverted(rightInverted);
-    rightDriveSlave1.follow(rightDriveMaster);
-    rightDriveSlave1.setInverted(rightInverted);
-    rightDriveSlave2.follow(rightDriveMaster);
-    rightDriveSlave2.setInverted(rightInverted);
-
-    setIdleMode(IdleMode.kBrake);
-  }
-
-  public IdleMode getIdleMode() {
-    return leftDriveMaster.getIdleMode();
-  }
-
-  public void setIdleMode(IdleMode mode) {
-    leftDriveMaster.setIdleMode(mode);
-    leftDriveSlave1.setIdleMode(mode);
-    leftDriveSlave2.setIdleMode(mode);
-
-    rightDriveMaster.setIdleMode(mode);
-    rightDriveSlave1.setIdleMode(mode);
-    rightDriveSlave2.setIdleMode(mode);
-  }
-
-  public double getLeftEncoderDistance() {
-    double output = leftEncoder.getPosition();
-
-    return reversedTrajectory ? -output : output;
-  }
-
-  public double getRightEncoderDistance() {
-    double output = rightEncoder.getPosition();
-
-    return reversedTrajectory ? -output : output;
-  }
-
-  public double getLeftEncoderVelocity() {
-    double output = rightEncoder.getVelocity();
-
-    return reversedTrajectory ? -output : output;
-  }
-
-  public double getRightEncoderVelocity() {
-    double output = rightEncoder.getVelocity();
-
-    return reversedTrajectory ? -output : output;
-  }
-
-  @Override
-  public void periodic() {
-    if(isTrajectoryReversed())
-      odometry.update(Rotation2d.fromDegrees(getHeading()), getRightEncoderDistance(), getLeftEncoderDistance());
-    else
-      odometry.update(Rotation2d.fromDegrees(getHeading()), getLeftEncoderDistance(), getRightEncoderDistance());
-    SmartDashboard.putNumber("Gyro Heading (deg): ", getHeading());
-    SmartDashboard.putNumber("Left Encoder Distance (m): ", getLeftEncoderDistance());
-    SmartDashboard.putNumber("Right Encoder Distance (m): ", getRightEncoderDistance());
-    SmartDashboard.putNumber("Left Encoder Velocity (m/s): ", getLeftEncoderVelocity());
-    SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", getRightEncoderVelocity());
-    SmartDashboard.putNumber("Average Velocity (m/s): ", (getLeftEncoderVelocity() + getRightEncoderVelocity()) / 2);
-  }
-
+  /***********
+   * DRIVING *
+   ***********/
   public void arcadeDrive(double throttle, double heading) {
     tankDrive(throttle - heading, throttle + heading);
   }
@@ -141,6 +65,66 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     }
   }
 
+  /************
+   * PERIODIC *
+   ************/
+  @Override
+  public void periodic() {
+    if(isTrajectoryReversed())
+      odometry.update(Rotation2d.fromDegrees(getHeading()), getRightEncoderDistance(), getLeftEncoderDistance());
+    else
+      odometry.update(Rotation2d.fromDegrees(getHeading()), getLeftEncoderDistance(), getRightEncoderDistance());
+    SmartDashboard.putNumber("Gyro Heading (deg): ", getHeading());
+    SmartDashboard.putNumber("Left Encoder Distance (m): ", getLeftEncoderDistance());
+    SmartDashboard.putNumber("Right Encoder Distance (m): ", getRightEncoderDistance());
+    SmartDashboard.putNumber("Left Encoder Velocity (m/s): ", getLeftEncoderVelocity());
+    SmartDashboard.putNumber("Right Encoder Velocity (m/s): ", getRightEncoderVelocity());
+    SmartDashboard.putNumber("Average Velocity (m/s): ", (getLeftEncoderVelocity() + getRightEncoderVelocity()) / 2);
+  }
+
+  /******************
+   * SETTER METHODS *
+   ******************/
+  public void setTrajectoryReversed(boolean reversed) {
+    reversedTrajectory = reversed;
+  }
+
+  /**********
+   * CONFIG *
+   **********/
+  private void setupMotors() {
+    boolean leftInverted = true;
+    boolean rightInverted = false;
+
+    leftDriveMaster.setInverted(leftInverted);
+    leftDriveSlave1.follow(leftDriveMaster);
+    leftDriveSlave1.setInverted(leftInverted);
+    leftDriveSlave2.follow(leftDriveMaster);
+    leftDriveSlave2.setInverted(leftInverted);
+
+    rightDriveMaster.setInverted(rightInverted);
+    rightDriveSlave1.follow(rightDriveMaster);
+    rightDriveSlave1.setInverted(rightInverted);
+    rightDriveSlave2.follow(rightDriveMaster);
+    rightDriveSlave2.setInverted(rightInverted);
+
+    setIdleMode(IdleMode.kBrake);
+  }
+
+  public void setIdleMode(IdleMode mode) {
+    leftDriveMaster.setIdleMode(mode);
+    leftDriveSlave1.setIdleMode(mode);
+    leftDriveSlave2.setIdleMode(mode);
+
+    rightDriveMaster.setIdleMode(mode);
+    rightDriveSlave1.setIdleMode(mode);
+    rightDriveSlave2.setIdleMode(mode);
+  }
+
+  /**********
+   * RESETS *
+   **********/
+
   public void resetEncoders() {
     leftEncoder.setPosition(0);
     rightEncoder.setPosition(0);
@@ -159,6 +143,42 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     resetEncoders();
     resetGyro();
     resetOdometry();
+  }
+
+  /******************
+   * GETTER METHODS *
+   ******************/
+
+  public IdleMode getIdleMode() {
+    return leftDriveMaster.getIdleMode();
+  }
+
+  public boolean isTrajectoryReversed() {
+    return reversedTrajectory;
+  }
+  
+  public double getLeftEncoderDistance() {
+    double output = leftEncoder.getPosition();
+
+    return reversedTrajectory ? -output : output;
+  }
+
+  public double getRightEncoderDistance() {
+    double output = rightEncoder.getPosition();
+
+    return reversedTrajectory ? -output : output;
+  }
+
+  public double getLeftEncoderVelocity() {
+    double output = rightEncoder.getVelocity();
+
+    return reversedTrajectory ? -output : output;
+  }
+
+  public double getRightEncoderVelocity() {
+    double output = rightEncoder.getVelocity();
+
+    return reversedTrajectory ? -output : output;
   }
 
   // Returns left and right linear speeds in m/s
