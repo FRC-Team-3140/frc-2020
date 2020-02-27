@@ -132,9 +132,10 @@ public interface Constants {
 			public static final double kRamseteZeta = 0.7;
 
 			// Max speed and acceleration for trajectories
-    		// Both must be positive values
-    		public static final double trajectoryMaxVelocity = 0; // m/s
-    		public static final double trajectoryMaxAcceleration = 0; // m/s^2  
+			// Both must be positive values
+			// -------------These are approximate right now, verify on robot--------------
+    		public static final double trajectoryMaxVelocity = 4; // m/s
+    		public static final double trajectoryMaxAcceleration = 2; // m/s^2  
 		}
 
 		public interface DriveTrain {
