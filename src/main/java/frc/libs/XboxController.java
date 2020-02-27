@@ -4,9 +4,7 @@ import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj2.command.button.JoystickButton;
 import frc.robot.Constants;
 
-
 public final class XboxController extends Joystick implements Constants.GeneralConstants {
-	
 	// Internal Buttons
 	public JoystickButton a;
 	public JoystickButton b;
@@ -46,10 +44,6 @@ public final class XboxController extends Joystick implements Constants.GeneralC
 		dpadUp = new DpadButton(this, 180);
 	}
 	
-	// Call this in a loop if needed
-	public void check() {
-	}
-	
 	public double getMainX(){
 		return -super.getRawAxis(0);
 	}
@@ -75,24 +69,27 @@ public final class XboxController extends Joystick implements Constants.GeneralC
 	}
 	
 	public double getSmoothedMainX() {
-		return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(0)));
+		return getDeadband(-Math.pow(super.getRawAxis(0), 3));
+		//return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(0)));
 	}
 	
 	public double getSmoothedMainY() {
-		return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(1)));
+		return getDeadband(-Math.pow(super.getRawAxis(1), 3));
+		//return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(1)));
 	}
 	
 	public double getSmoothedAltX() {
-		return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(4)));
+		return getDeadband(-Math.pow(super.getRawAxis(4), 3));
+		//return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(4)));
 	}
 	
 	public double getSmoothedAltY() {
-		return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(5)));
+		return getDeadband(-Math.pow(super.getRawAxis(5), 3));
+		//return getDeadband(-Math.sin(Math.PI/2 * super.getRawAxis(5)));
 	}
 
 	private double getDeadband(double d) {
 		if(Math.abs(d) > DEADBAND) return d;
 		else return 0;
 	}
-
 }

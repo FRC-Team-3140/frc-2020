@@ -53,10 +53,9 @@ public final class AnalogButton extends Button {
 	}
 
 	public boolean get() {
-		if (threshold < 0) {
+		if (threshold < 0)
 			return joystick.getRawAxis(axisNumber) < threshold; 
-		} else {
+		else
 			return joystick.getRawAxis(axisNumber) > threshold; 
-		}
 	}
 }
