@@ -70,6 +70,8 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
   public RobotContainer() {
     chooser.setName("Please Select and Auto");
     chooser.setDefaultOption("Do Nothing", ag.getDoNothingAuto());
+    chooser.addOption("Timed Drive", new TimedDrive(0.5, 2));
+
     /*
     chooser.addOption("Drive Straight", ag.getDriveStraightAuto());
     chooser.addOption("Three Ball Auto", ag.getThreeBallAuto());
