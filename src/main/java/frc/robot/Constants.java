@@ -40,7 +40,7 @@ public interface Constants {
 			// Gear Ratio's
 			public static final double driveTrainGearRatio = 7.88;
 			public static final double flyWheelGearRatio = 0.7159;
-			public static final double turretGearRatio = 111;
+			public static final double turretGearRatio = 11.1;
 			public static final double hoodDegreesPerRotation = 0;
 
 			// Diameters
@@ -127,12 +127,6 @@ public interface Constants {
 	// Use meters, seconds, degrees (180deg to -180deg), and volts for all motion profiling based units.
 	public interface ControllerConstants {
 		public interface General {
-			// Distance between wheel centers + needed controller gain offsets
-			// Generated from Robot Characterization tool, should be a positive number (generally > 0.33m)
-			public static final double kTrackwidthMeters = 0;
-			public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
-				kTrackwidthMeters);
-
 			// Ramsete controller recommended values
 			public static final double kRamseteB = 2;
 			public static final double kRamseteZeta = 0.7;
@@ -146,9 +140,12 @@ public interface Constants {
 		public interface DriveTrain {
 			// Uses velocity control constants generated from characterization tool
 			public interface TrajectoryFollowing {
-				public static final double trackWidthMeters = 0;
-				public static final DifferentialDriveKinematics driveKinematics = new DifferentialDriveKinematics(
-						trackWidthMeters);
+				// Distance between wheel centers + needed controller gain offsets
+				// Generated from Robot Characterization tool, should be a positive number (generally > 0.33m)
+				public static final double kTrackWidthMeters = 0;
+				public static final DifferentialDriveKinematics kDriveKinematics = new DifferentialDriveKinematics(
+					kTrackWidthMeters);
+
 				// The constants below are 10X the characterization tool output's.
 				public static final double ksVolts = 0;
 				public static final double kvVoltSecondsPerMeter = 0;
