@@ -37,6 +37,7 @@ import edu.wpi.first.cameraserver.CameraServer;
 import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj2.command.Command;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 
 public class RobotContainer implements Constants.ElectricalPortConstants {
   // The robot's subsystems and OI devices
@@ -78,7 +79,7 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
 
     chooser.setName("Please Select and Auto"); // (this works; find alternatives)
     chooser.setDefaultOption("Do Nothing", ag.getDoNothingAuto());
-    chooser.addOption("Timed Drive", new TimedDrive(0.5, 2));
+    chooser.addOption("Timed Drive", new TimedDrive(0.5, .75));
 
     /*
     chooser.addOption("Drive Straight", ag.getDriveStraightAuto());
@@ -119,12 +120,12 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
     xbox2.dpadDown.whenPressed(new RetractClimber());
   
     // xbox2 x automated shooting
-    xbox2.b.whileHeld(new FlywheelShootOut());
-    xbox2.b.whenReleased(new FlywheelShootOff());
+    xbox2.b.whileHeld(new FlywheelShootOut().andThen(new WaitCommand(1)).andThen(() -> fd.feedShooter()));
+    xbox2.b.whenReleased(new FlywheelShootOff().andThen(new StopInting()));
 
     // climber piston
-    xbox2.start.whenPressed(new LockClimber());
-    xbox2.select.whenPressed(new UnlockClimber());
+    xbox2.select.whenPressed(new LockClimber());
+    xbox2.start.whenPressed(new UnlockClimber());
   }
 
   private void configureDefaultCommands() {

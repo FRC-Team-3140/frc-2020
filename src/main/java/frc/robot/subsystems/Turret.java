@@ -21,6 +21,7 @@ public class Turret extends SubsystemBase implements HardwareAdapter {
 
   public Turret() {
     turretMotor.setNeutralMode(NeutralMode.Brake);
+    turretMotor.setInverted(true);
     
     table = NetworkTableInstance.getDefault().getTable("Turret");
     pos = table.getEntry("Turret Position Ticks");

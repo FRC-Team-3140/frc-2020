@@ -27,8 +27,8 @@ public class Flywheel extends SubsystemBase implements HardwareAdapter {
   }
    
   public void shootOut() {
-    flyWheelMaster.set(0.5);
-    flyWheelSlave1.set(-.5);
+    flyWheelMaster.set(0.8);
+    flyWheelSlave1.set(-.8);
   }
 
   public void shootOff() {

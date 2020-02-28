@@ -119,9 +119,9 @@ public interface Constants {
 		public final static int TURRET_LIMIT = 1;
 
 		// Pnuematic solenoids
-		public final static int INTAKE_SOLENOID_EXT = 2;
+		public final static int INTAKE_SOLENOID_EXT = 0;
 		public final static int INTAKE_SOLENOID_RET = 3;
-		public final static int CLIMBER_LOCK_SOLENOID_EXT = 0;
+		public final static int CLIMBER_LOCK_SOLENOID_EXT = 2;
 		public final static int CLIMBER_LOCK_SOLENOID_RET = 1;
 	}
 

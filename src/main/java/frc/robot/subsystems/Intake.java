@@ -18,11 +18,11 @@ public class Intake extends SubsystemBase implements HardwareAdapter {
   }
 
   public void spinIn() {
-    intakeMotor.set(.5);
+    intakeMotor.set(-.5);
   }
 
   public void spinOut() {
-    intakeMotor.set(-.5);
+    intakeMotor.set(.5);
   }
 
   public void spinOff() {

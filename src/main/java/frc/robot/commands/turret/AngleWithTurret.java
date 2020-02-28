@@ -23,7 +23,7 @@ public class AngleWithTurret extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.tr.drive(RobotContainer.xbox2.getSmoothedAltX());
+    RobotContainer.tr.drive(RobotContainer.xbox2.getAltX());
   }
 
   // Called once the command ends or is interrupted.
