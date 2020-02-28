@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 public interface HardwareAdapter extends Constants.ElectricalPortConstants {
     // Drivetrain
     public static final CANSparkMax leftDriveMaster = new CANSparkMax(LEFT_DRIVE_MASTER, MotorType.kBrushless);
-    public static final CANSparkMax ballFeeder = new CANSparkMax(RIGHT_DRIVE_MASTER, MotorType.kBrushless);
+    public static final CANSparkMax rightDriveMaster = new CANSparkMax(RIGHT_DRIVE_MASTER, MotorType.kBrushless);
     public static final CANSparkMax leftDriveSlave1 = new CANSparkMax(LEFT_DRIVE_SLAVE1, MotorType.kBrushless);
     public static final CANSparkMax rightDriveSlave1 = new CANSparkMax(RIGHT_DRIVE_SLAVE1, MotorType.kBrushless);
     public static final CANSparkMax leftDriveSlave2 = new CANSparkMax(LEFT_DRIVE_SLAVE2, MotorType.kBrushless);
@@ -31,7 +31,7 @@ public interface HardwareAdapter extends Constants.ElectricalPortConstants {
     public static final CANSparkMax flyWheelSlave1 = new CANSparkMax(FLYWHEEL_SLAVE, MotorType.kBrushless);
 
     // Feeders
-    public static final CANSparkMax rightDriveMaster = new CANSparkMax(BALL_FEEDER, MotorType.kBrushless);
+    public static final CANSparkMax ballFeeder = new CANSparkMax(BALL_FEEDER, MotorType.kBrushless);
     public static final WPI_VictorSPX shooterFeeder = new WPI_VictorSPX(SHOOTER_FEEDER);
 
     // Climber

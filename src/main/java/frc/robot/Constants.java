@@ -90,8 +90,8 @@ public interface Constants {
 		public final static int LEFT_DRIVE_SLAVE1 = 5;//
 		public final static int LEFT_DRIVE_SLAVE2 = 7;//
 
-		public final static int RIGHT_DRIVE_MASTER = 3;
-		public final static int RIGHT_DRIVE_SLAVE1 = 2; // swapped 2 and 3 just now
+		public final static int RIGHT_DRIVE_MASTER = 11;
+		public final static int RIGHT_DRIVE_SLAVE1 = 2; 
 		public final static int RIGHT_DRIVE_SLAVE2 = 4;
 
 
@@ -103,7 +103,7 @@ public interface Constants {
 		public final static int FLYWHEEL_SLAVE = 10;
 
 		// Feeders
-		public final static int BALL_FEEDER = 11;
+		public final static int BALL_FEEDER = 3;
 		public final static int SHOOTER_FEEDER = 12;
 
 		// Climber
