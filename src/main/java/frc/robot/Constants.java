@@ -86,12 +86,14 @@ public interface Constants {
 		public final static int PCM = 1;
 
 		// Drivetrain
-		public final static int LEFT_DRIVE_MASTER = 3;
-		public final static int RIGHT_DRIVE_MASTER = 2;
-		public final static int LEFT_DRIVE_SLAVE1 = 4;
-		public final static int RIGHT_DRIVE_SLAVE1 = 5;
-		public final static int LEFT_DRIVE_SLAVE2 = 6;
-		public final static int RIGHT_DRIVE_SLAVE2 = 7;
+		public final static int LEFT_DRIVE_MASTER = 6;
+		public final static int LEFT_DRIVE_SLAVE1 = 5;//
+		public final static int LEFT_DRIVE_SLAVE2 = 7;//
+
+		public final static int RIGHT_DRIVE_MASTER = 3;
+		public final static int RIGHT_DRIVE_SLAVE1 = 2; // swapped 2 and 3 just now
+		public final static int RIGHT_DRIVE_SLAVE2 = 4;
+
 
 		// Intake
 		public final static int INTAKE_MOTOR = 8;
@@ -117,10 +119,10 @@ public interface Constants {
 		public final static int TURRET_LIMIT = 1;
 
 		// Pnuematic solenoids
-		public final static int INTAKE_SOLENOID_EXT = 0;
-		public final static int INTAKE_SOLENOID_RET = 1;
-		public final static int CLIMBER_LOCK_SOLENOID_EXT = 2;
-		public final static int CLIMBER_LOCK_SOLENOID_RET = 3;
+		public final static int INTAKE_SOLENOID_EXT = 2;
+		public final static int INTAKE_SOLENOID_RET = 3;
+		public final static int CLIMBER_LOCK_SOLENOID_EXT = 0;
+		public final static int CLIMBER_LOCK_SOLENOID_RET = 1;
 	}
 
 	// Update from Characterization tool.

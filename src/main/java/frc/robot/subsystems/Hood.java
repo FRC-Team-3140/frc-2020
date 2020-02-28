@@ -46,8 +46,8 @@ public class Hood extends SubsystemBase implements HardwareAdapter {
 
   @Override
   public void periodic() {
-    pos.setDouble(getPositionTicks());
-    velo.setDouble(getVelocityTicks());
+    //pos.setDouble(getPositionTicks());
+    //velo.setDouble(getVelocityTicks());
 
   }
 }

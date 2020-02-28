@@ -93,7 +93,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
    **********/
   private void setupMotors() {
     boolean leftInverted = true;
-    boolean rightInverted = false;
+    boolean rightInverted = true;
 
     leftDriveMaster.setInverted(leftInverted);
     leftDriveSlave1.follow(leftDriveMaster);
