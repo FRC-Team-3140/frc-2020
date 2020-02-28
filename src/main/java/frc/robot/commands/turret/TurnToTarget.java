@@ -30,7 +30,7 @@ public class TurnToTarget extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    System.out.println("facing target!");
+    System.out.println("finished turn to target command!");
     return RobotContainer.tr.isFacingTarget();
   }
 }
