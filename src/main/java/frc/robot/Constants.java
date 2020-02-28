@@ -87,8 +87,8 @@ public interface Constants {
 
 		// Drivetrain
 		public final static int LEFT_DRIVE_MASTER = 6;
-		public final static int LEFT_DRIVE_SLAVE1 = 5;//
-		public final static int LEFT_DRIVE_SLAVE2 = 7;//
+		public final static int LEFT_DRIVE_SLAVE1 = 5;
+		public final static int LEFT_DRIVE_SLAVE2 = 7;
 
 		public final static int RIGHT_DRIVE_MASTER = 11;
 		public final static int RIGHT_DRIVE_SLAVE1 = 2; 

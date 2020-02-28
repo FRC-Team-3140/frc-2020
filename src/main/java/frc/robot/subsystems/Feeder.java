@@ -10,7 +10,6 @@ public class Feeder extends SubsystemBase implements HardwareAdapter {
   public Feeder() {
     ballFeeder.setIdleMode(IdleMode.kBrake);
     shooterFeeder.setNeutralMode(NeutralMode.Brake);
-    //ballFeeder.setInverted(true);
   }
 
   public void feedShooter() {

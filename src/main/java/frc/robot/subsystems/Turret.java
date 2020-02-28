@@ -18,11 +18,11 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
 public class Turret extends SubsystemBase implements HardwareAdapter {
-  NetworkTable table;
-  NetworkTableEntry pos, velo;
+  private NetworkTable table;
+  private NetworkTableEntry pos, velo;
   private Timer timer = new Timer();
 
-  public double kP = 1, kI =0, kD = 0;
+  public double kP = 1, kI = 0, kD = 0;
 
   public Turret() {
     turretMotor.setNeutralMode(NeutralMode.Brake);

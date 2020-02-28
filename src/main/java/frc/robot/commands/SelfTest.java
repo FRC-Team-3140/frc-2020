@@ -4,6 +4,7 @@ import edu.wpi.first.wpilibj2.command.CommandBase;
 
 // I can hope that this will get implemented can't I.....
 // :( :) ;)
+// ur bad alex
 public class SelfTest extends CommandBase {
     public SelfTest() {
     }
