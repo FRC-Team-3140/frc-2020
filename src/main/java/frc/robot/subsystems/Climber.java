@@ -24,7 +24,7 @@ public class Climber extends SubsystemBase implements HardwareAdapter {
   }
 
   public void climberRetract() {
-    climberMaster.set(.5);
+    climberMaster.set(1);
   }
 
   public void climberOff() {
