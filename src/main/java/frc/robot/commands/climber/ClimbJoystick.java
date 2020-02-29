@@ -23,7 +23,7 @@ public class ClimbJoystick extends CommandBase {
   // Called every time the scheduler runs while the command is scheduled.
   @Override
   public void execute() {
-    RobotContainer.cl.climberSetValue(RobotContainer.xbox2.getMainY());
+    RobotContainer.cl.climberSetValue(-RobotContainer.xbox2.getMainY());
   }
 
   // Called once the command ends or is interrupted.
@@ -34,6 +34,6 @@ public class ClimbJoystick extends CommandBase {
   // Returns true when the command should end.
   @Override
   public boolean isFinished() {
-    return true;
+    return false;
   }
 }
