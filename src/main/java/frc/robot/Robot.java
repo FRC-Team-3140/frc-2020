@@ -4,7 +4,6 @@ import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.commands.pneumatics.climber.UnlockClimber;
-import frc.robot.commands.pneumatics.intake.RetractIntake;
 
 public class Robot extends TimedRobot {
   private Command autoCommand;
@@ -17,7 +16,6 @@ public class Robot extends TimedRobot {
     robotContainer = new RobotContainer();
 
     new UnlockClimber().schedule();
-    new RetractIntake().schedule();
   }
 
   @Override
