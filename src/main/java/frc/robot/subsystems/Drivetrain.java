@@ -36,12 +36,12 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter {
     boolean leftInverted = true;
     boolean rightInverted = false;
 
-    leftDriveMaster.restoreFactoryDefaults();
-    leftDriveSlave1.restoreFactoryDefaults();
-    leftDriveSlave2.restoreFactoryDefaults();
-    rightDriveMaster.restoreFactoryDefaults();
-    rightDriveSlave1.restoreFactoryDefaults();
-    rightDriveSlave2.restoreFactoryDefaults();
+    leftDriveMaster.clearFaults();
+    leftDriveSlave1.clearFaults();
+    leftDriveSlave2.clearFaults();
+    rightDriveMaster.clearFaults();
+    rightDriveSlave1.clearFaults();
+    rightDriveSlave2.clearFaults();
 
     leftDriveMaster.setInverted(leftInverted);
     leftDriveSlave1.follow(leftDriveMaster);
@@ -57,13 +57,12 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter {
 
     setIdleMode(IdleMode.kBrake);
 
-    leftDriveMaster.clearFaults();
-    leftDriveSlave1.clearFaults();
-    leftDriveSlave2.clearFaults();
-    rightDriveMaster.clearFaults();
-    rightDriveSlave1.clearFaults();
-    rightDriveSlave2.clearFaults();
-
+    leftDriveMaster.burnFlash();
+    leftDriveSlave1.burnFlash();
+    leftDriveSlave2.burnFlash();
+    rightDriveMaster.burnFlash();
+    rightDriveSlave1.burnFlash();
+    rightDriveSlave2.burnFlash();
   }
 
   public void setIdleMode(IdleMode mode) {
