@@ -29,7 +29,7 @@ public class Hood extends SubsystemBase implements HardwareAdapter {
   }
 
   public void drive(double throttle) {
-    hoodMotor.set(throttle*.5);
+    hoodMotor.set(throttle);
   }
 
   public int getPositionTicks() { // 4096 ticks per rot

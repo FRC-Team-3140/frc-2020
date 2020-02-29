@@ -95,6 +95,13 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     boolean leftInverted = true;
     boolean rightInverted = false;
 
+    leftDriveMaster.restoreFactoryDefaults();
+    leftDriveSlave1.restoreFactoryDefaults();
+    leftDriveSlave2.restoreFactoryDefaults();
+    rightDriveMaster.restoreFactoryDefaults();
+    rightDriveSlave1.restoreFactoryDefaults();
+    rightDriveSlave2.restoreFactoryDefaults();
+
     leftDriveMaster.setInverted(leftInverted);
     leftDriveSlave1.follow(leftDriveMaster);
     leftDriveSlave1.setInverted(leftInverted);
@@ -108,6 +115,14 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     rightDriveSlave2.setInverted(rightInverted);
 
     setIdleMode(IdleMode.kBrake);
+
+    leftDriveMaster.clearFaults();
+    leftDriveSlave1.clearFaults();
+    leftDriveSlave2.clearFaults();
+    rightDriveMaster.clearFaults();
+    rightDriveSlave1.clearFaults();
+    rightDriveSlave2.clearFaults();
+
   }
 
   public void setIdleMode(IdleMode mode) {
