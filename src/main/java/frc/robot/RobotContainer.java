@@ -11,7 +11,6 @@ import frc.robot.commands.drivetrain.TimedDrive;
 import frc.robot.commands.pneumatics.climber.LockClimber;
 import frc.robot.commands.pneumatics.climber.UnlockClimber;
 import frc.robot.subsystems.Climber;
-import frc.robot.AutoGenerator;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Pneumatics;
 import frc.libs.*;
@@ -31,18 +30,6 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
   public static final Drivetrain dt = new Drivetrain();
   public static final Pneumatics pn = new Pneumatics();
   public static final Climber cl = new Climber();
-  
-  // e.x. AutoGenerator uses Drivetrain classes, so it must be made after drivetrain
-
-  // By creating an AutoGenerator object
-  // We are effectively importing all of the .json trajectory files on robot
-  // startup.
-  // This is because the AutoGenerator object is made on robot init and so everything
-  // .json file is loaded on robot init as well. This saves time during auto as .json file
-  // loading can take some time, and this time would normally be wasted with the robot just 
-  // sitting still during auto.
-  public static final AutoGenerator ag = new AutoGenerator();
-  private static final SendableChooser<Command> chooser = new SendableChooser<>();
 
   // Xbox controllers
   public static final XboxController xbox = new XboxController(xboxPrimaryDriver);
@@ -54,25 +41,6 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
     camera = CameraServer.getInstance().startAutomaticCapture();
     camera.setFPS(30);
     camera.setResolution(320, 240);
-
-    chooser.setName("Please Select and Auto"); // (this works; find alternatives)
-    chooser.setDefaultOption("Do Nothing", ag.getDoNothingAuto());
-    chooser.addOption("Timed Drive", new TimedDrive(0.5, 0.5));
-
-    /*
-    chooser.addOption("Drive Straight", ag.getDriveStraightAuto());
-    chooser.addOption("Three Ball Auto", ag.getThreeBallAuto());
-    chooser.addOption("Five Ball Auto", ag.getFiveBallAuto());
-    chooser.addOption("Eight Ball Auto", ag.getEightBallAuto());
-    chooser.addOption("Ten Ball Auto", ag.getTenBallAuto());
-    chooser.addOption("Drive Around Post", ag.makeFollowingCommandForAuto("AroundPostTest.wpilib.json"));
-    chooser.addOption("Hold Position Test", new HoldPositionController());
-    chooser.addOption("Timed Drive", new TimedDrive(0.5, 2));
-    chooser.addOption("Trajectory Distance Drive", new DriveDistanceCommandGenerator(3).getCommand());
-    chooser.addOption("Trajectory Distance Drive Backwards", new DriveDistanceCommandGenerator(-3).getCommand());
-    */
-
-    Shuffleboard.getTab("Selector").add(chooser);
 
     configureButtonBindings();
     configureDefaultCommands();
@@ -99,6 +67,6 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
   }
 
   public Command getAutonomousCommand() {
-    return chooser.getSelected();
+    return new TimedDrive(0.5, 0.5);
   }
 }
