@@ -1,9 +1,11 @@
 package frc.robot;
 
+import frc.robot.commands.climber.ClimbJoystick;
 import frc.robot.commands.climber.ClimberOff;
 import frc.robot.commands.climber.ExtendClimber;
 import frc.robot.commands.climber.RetractClimber;
 import frc.robot.commands.drivetrain.Drive;
+import frc.robot.commands.drivetrain.Fix;
 import frc.robot.commands.drivetrain.ReducedSpeedTurningDrive;
 import frc.robot.commands.drivetrain.TimedDrive;
 import frc.robot.commands.pneumatics.climber.LockClimber;
@@ -42,6 +44,7 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
 
   private void configureButtonBindings() {
     // Primary Driver Controls
+    xbox.x.whenPressed(new Fix());
     xbox.rightBumper.whileHeld(new ReducedSpeedTurningDrive());
 
     // Climber
@@ -57,6 +60,7 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
 
   private void configureDefaultCommands() {
     dt.setDefaultCommand(new Drive());
+    cl.setDefaultCommand(new ClimbJoystick());
   }
 
   public Command getAutonomousCommand() {

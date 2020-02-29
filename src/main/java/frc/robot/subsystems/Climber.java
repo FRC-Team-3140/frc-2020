@@ -19,6 +19,10 @@ public class Climber extends SubsystemBase implements HardwareAdapter {
     climberSlave.setNeutralMode(NeutralMode.Brake);
   }
 
+  public void climberSetValue(double value) {
+    climberMaster.set(value);
+  }
+
   public void climberExtend() {
     climberMaster.set(1);
   }

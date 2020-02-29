@@ -32,7 +32,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter {
   /**********
    * CONFIG *
    **********/
-  private void setupMotors() {
+  public void setupMotors() {
     boolean leftInverted = true;
     boolean rightInverted = false;
 
