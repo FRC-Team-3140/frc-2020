@@ -1,6 +1,7 @@
 package frc.robot.subsystems;
 
 import com.revrobotics.CANSparkMax.IdleMode;
+import com.revrobotics.CANSparkMaxLowLevel.PeriodicFrame;
 
 import edu.wpi.first.wpilibj.geometry.Pose2d;
 import edu.wpi.first.wpilibj.geometry.Rotation2d;
@@ -115,6 +116,24 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter, Consta
     rightDriveSlave2.setInverted(rightInverted);
 
     setIdleMode(IdleMode.kBrake);
+
+    leftDriveMaster.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 500);
+    leftDriveMaster.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 500);
+    leftDriveSlave1.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
+    leftDriveSlave1.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 500);
+    leftDriveSlave1.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 500);
+    leftDriveSlave2.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
+    leftDriveSlave2.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 500);
+    leftDriveSlave2.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 500);
+
+    rightDriveMaster.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 500);
+    rightDriveMaster.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 500);
+    rightDriveSlave1.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
+    rightDriveSlave1.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 500);
+    rightDriveSlave1.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 500);
+    rightDriveSlave2.setPeriodicFramePeriod(PeriodicFrame.kStatus0, 100);
+    rightDriveSlave2.setPeriodicFramePeriod(PeriodicFrame.kStatus1, 500);
+    rightDriveSlave2.setPeriodicFramePeriod(PeriodicFrame.kStatus2, 500);
 
     leftDriveMaster.clearFaults();
     leftDriveSlave1.clearFaults();
