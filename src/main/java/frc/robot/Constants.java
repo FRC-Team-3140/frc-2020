@@ -9,7 +9,7 @@ public interface Constants {
 		public final static Value RET = Value.kReverse;
 		public final static Value OFF = Value.kOff;
 		// OI
-		public final static double DEADBAND = 0.1;
+		public final static double DEADBAND = 0.05;
 	}
 
 	public interface ElectricalPortConstants {
