@@ -9,22 +9,29 @@ package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
 public class Climber extends SubsystemBase implements HardwareAdapter {
+  double MAX_HEIGHT = 6.52;
   public Climber() {
     setFollowers();
     climberMaster.setNeutralMode(NeutralMode.Brake);
     climberSlave.setNeutralMode(NeutralMode.Brake);
+    climberEncoder.reset();
   }
 
   public void climberSetValue(double value) {
-    climberMaster.set(value);
+
+    value *= -1;
+    if(Math.abs(value) < .1) climberMaster.set(0);
+    else climberMaster.set(value);
+    
   }
 
   public void climberExtend() {
-    climberMaster.set(1);
+      climberMaster.set(1);
   }
 
   public void climberRetract() {
@@ -41,6 +48,6 @@ public class Climber extends SubsystemBase implements HardwareAdapter {
 
   @Override
   public void periodic() {
-    // This method will be called once per scheduler run
+    SmartDashboard.putNumber("Climber Height", climberEncoder.getDistance());
   }
 }

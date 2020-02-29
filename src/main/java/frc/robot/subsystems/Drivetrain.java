@@ -53,7 +53,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter {
     rightDriveSlave1.follow(rightDriveMaster);
     rightDriveSlave1.setInverted(rightInverted);
     rightDriveSlave2.follow(rightDriveMaster);
-    rightDriveSlave2.setInverted(rightInverted);
+        rightDriveSlave2.setInverted(rightInverted);
 
     setIdleMode(IdleMode.kBrake);
 
