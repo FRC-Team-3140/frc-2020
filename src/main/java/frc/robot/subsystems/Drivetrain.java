@@ -27,6 +27,22 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter {
    ************/
   @Override
   public void periodic() {
+    if(!leftDriveSlave1.isFollower())
+      System.err.println("Left Slave 1 Is Not A Follower");
+
+    if(!leftDriveSlave2.isFollower())
+      System.err.println("Left Slave 2 Is Not A Follower");
+
+    if(!rightDriveSlave1.isFollower())
+      System.err.println("Right Slave 1 Is Not A Follower");
+
+    if(!rightDriveSlave2.isFollower())
+      System.err.println("Right Slave 2 Is Not A Follower");
+
+    System.out.println(leftDriveMaster.getOutputCurrent() + "\t" + 
+      leftDriveSlave1.getOutputCurrent() + "\t" + leftDriveSlave2.getOutputCurrent() + "\t" 
+      + ":" + "\t" + rightDriveMaster.getOutputCurrent() + "\t" + 
+      rightDriveSlave1.getOutputCurrent() + "\t" + rightDriveSlave2.getOutputCurrent());
   }
 
   /**********
@@ -55,7 +71,7 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter {
     rightDriveSlave2.follow(rightDriveMaster);
         rightDriveSlave2.setInverted(rightInverted);
 
-    setIdleMode(IdleMode.kBrake);
+    setIdleMode(IdleMode.kCoast);
 
     leftDriveMaster.burnFlash();
     leftDriveSlave1.burnFlash();
