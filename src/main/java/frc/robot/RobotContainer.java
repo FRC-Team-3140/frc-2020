@@ -46,8 +46,8 @@ public class RobotContainer {
   }
 
   private void configureDefaultCommands() {
-    //dt.setDefaultCommand(new Drive());
-    el.setDefaultCommand(new Move());
+    dt.setDefaultCommand(new Drive());
+    //el.setDefaultCommand(new Move());
   }
 
 
