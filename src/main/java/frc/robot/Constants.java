@@ -30,7 +30,7 @@ public interface Constants {
 		public final static int RIGHT_DRIVE_SLAVE2 = 4;
 		
 		// Climber
-		public final static int CLIMBER_MASTER = 13;
+		public final static int CLIMBER_MASTER = 0;
 		public final static int CLIMBER_SLAVE = 14;
 
 		// Pnuematic solenoids
