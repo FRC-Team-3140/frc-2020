@@ -1,7 +1,6 @@
 package frc.robot;
 
 import frc.robot.commands.climber.ClimbJoystick;
-import frc.robot.commands.climber.ClimberOff;
 import frc.robot.subsystems.Climber;
 import frc.robot.commands.auto.DoNothingAuto;
 
