@@ -1,3 +1,8 @@
+Test if the robot code crashes while importing a trajectory that does not exist.
+Remember that the reason you have to flip left and right wen driving in reverse is because the robot's 
+    frame of  refference is now form the rear, not the front.
+
+
 This was a big refactor, does $hit still work correctly????
 
 -Is velocity reporting correctly (check riolog for first value posted and ongoing data).
