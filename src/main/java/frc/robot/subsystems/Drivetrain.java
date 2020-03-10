@@ -59,13 +59,14 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter {
     rightDriveSlave1.clearFaults();
     rightDriveSlave2.clearFaults();
 
+    /*
     leftDriveMaster.setSmartCurrentLimit(60);
     leftDriveSlave1.setSmartCurrentLimit(60);
     leftDriveSlave2.setSmartCurrentLimit(60);
     rightDriveMaster.setSmartCurrentLimit(60);
     rightDriveSlave1.setSmartCurrentLimit(60);
     rightDriveSlave2.setSmartCurrentLimit(60);
-
+*/
 
     leftDriveMaster.setInverted(leftInverted);
     leftDriveSlave1.follow(leftDriveMaster);
@@ -77,9 +78,9 @@ public class Drivetrain extends SubsystemBase implements HardwareAdapter {
     rightDriveSlave1.follow(rightDriveMaster);
     rightDriveSlave1.setInverted(rightInverted);
     rightDriveSlave2.follow(rightDriveMaster);
-        rightDriveSlave2.setInverted(rightInverted);
+    rightDriveSlave2.setInverted(rightInverted);
 
-    setIdleMode(IdleMode.kCoast);
+    setIdleMode(IdleMode.kBrake);
 
     leftDriveMaster.burnFlash();
     leftDriveSlave1.burnFlash();
