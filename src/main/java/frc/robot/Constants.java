@@ -17,12 +17,18 @@ public interface Constants {
 
 		public interface RobotPhysicalConstants {
 			// Gear Ratio's
-			public static final double hoodGearRatio = 0.7159;
+			public static final double rotationsPerThreadedRodMeter = 625; // Rotations per m
+			public static final double radiusOfThreadedRod = 0.219075; // m
+			public static final double hoodGearRatio = 1; // Gear ratio from encoder to threaded rod nut
+			 	// Multiply this by hood rotations to get hood radians
+			public static final double hoodRotationsToRadians =  (hoodGearRatio * rotationsPerThreadedRodMeter) / radiusOfThreadedRod;
+				// Multiply this by hood rotations to get hood radians
+			public static final double hoodRotationsToDegrees = hoodRotationsToRadians * 2 * Math.PI;
 		}
 
 		public interface SensorConstants {
 			// Position Conversions
-			public static final int kHoodEncoderCPR = 0; // Encoder Counts/Pulses per Rotation (usually > 1)
+			public static final int kHoodEncoderCPR = 1024; // Encoder Counts/Pulses per Rotation (usually > 1)
 		}
 	}
 
