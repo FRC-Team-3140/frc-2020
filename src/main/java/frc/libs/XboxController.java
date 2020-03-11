@@ -86,9 +86,9 @@ public final class XboxController extends Joystick implements Constants.GeneralC
 	}
 
 	private double getDeadband(double d) {
-		if(d > 1) d = 1;
+		if(Math.abs(d) < DEADBAND) d = 0;
+		else if(d > 1) d = 1;
 		else if(d < -1) d = -1;
-		else if(Math.abs(d) < DEADBAND) d = 0;
 		
 		return d;
 	}
