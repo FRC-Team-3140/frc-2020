@@ -1,8 +1,8 @@
 package frc.robot;
 
-import frc.robot.commands.climber.ClimberOff;
-import frc.robot.commands.climber.ExtendClimber;
-import frc.robot.commands.climber.RetractClimber;
+//import frc.robot.commands.climber.ClimberOff;
+//import frc.robot.commands.climber.ExtendClimber;
+//import frc.robot.commands.climber.RetractClimber;
 import frc.robot.commands.drivetrain.Drive;
 import frc.robot.commands.drivetrain.DriveDistanceCommandGenerator;
 import frc.robot.commands.drivetrain.HoldPositionController;
@@ -23,14 +23,14 @@ import frc.robot.AutoGenerator;
 import frc.robot.commands.intake.SpinIntakeIn;
 import frc.robot.commands.intake.SpinIntakeOff;
 import frc.robot.commands.intake.SpinIntakeOut;
-import frc.robot.commands.turret.AngleWithTurret;
+//import frc.robot.commands.turret.AngleWithTurret;
 import frc.robot.subsystems.Drivetrain;
 import frc.robot.subsystems.Feeder;
 import frc.robot.subsystems.Flywheel;
 import frc.robot.subsystems.Hood;
 import frc.robot.subsystems.Intake;
 import frc.robot.subsystems.Pneumatics;
-import frc.robot.subsystems.Turret;
+//import frc.robot.subsystems.Turret;
 import frc.libs.*;
 import edu.wpi.cscore.UsbCamera;
 import edu.wpi.first.cameraserver.CameraServer;
@@ -51,7 +51,7 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
   public static final Flywheel fw = new Flywheel();
   public static final Feeder fd = new Feeder();
   public static final Hood hd = new Hood();
-  public static final Turret tr = new Turret();
+//  public static final Turret tr = new Turret();
   
   // e.x. AutoGenerator uses Drivetrain classes, so it must be made after drivetrain
 
@@ -76,7 +76,7 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
     camera.setFPS(30);
     camera.setResolution(320, 240);
 
-    chooser.setName("Please Select and Auto"); // (this works; find alternatives)
+   // chooser.setName("Please Select and Auto"); // (this works; find alternatives)
     chooser.setDefaultOption("Do Nothing", ag.getDoNothingAuto());
     chooser.addOption("Timed Drive", new TimedDrive(0.5, 2));
 
@@ -112,25 +112,27 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
     xbox2.rightBumper.whenPressed(new DeployIntake().alongWith(new SpinIntakeOut()).alongWith(new ReverseFeeder()));
     xbox2.rightBumper.whenReleased(new RetractIntake().alongWith(new SpinIntakeOff()).alongWith(new StopInting()));
 
-    // Climber
+    /* Climber
     xbox2.dpadUp.whenPressed(new ExtendClimber());
     xbox2.dpadUp.whenReleased(new ClimberOff());
     xbox2.dpadDown.whenReleased(new ClimberOff());
     xbox2.dpadDown.whenPressed(new RetractClimber());
+    */
   
     // xbox2 x automated shooting
     xbox2.b.whileHeld(new FlywheelShootOut());
     xbox2.b.whenReleased(new FlywheelShootOff());
 
-    // climber piston
+    /* climber piston
     xbox2.start.whenPressed(new LockClimber());
     xbox2.select.whenPressed(new UnlockClimber());
+ */
   }
 
   private void configureDefaultCommands() {
     dt.setDefaultCommand(new Drive());
     hd.setDefaultCommand(new AngleWithJoystick());
-    tr.setDefaultCommand(new AngleWithTurret());
+   // tr.setDefaultCommand(new AngleWithTurret());
   }
 
   public Command getAutonomousCommand() {

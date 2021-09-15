@@ -12,17 +12,20 @@ import com.ctre.phoenix.motorcontrol.NeutralMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
-public class Turret extends SubsystemBase implements HardwareAdapter {
+/* public class Turret extends SubsystemBase implements HardwareAdapter {
   public Turret() {
     turretMotor.setNeutralMode(NeutralMode.Brake);
   }
+  */
 
-  public void drive(double throttle) {
+ /* public void drive(double throttle) {
     turretMotor.set(throttle);
   }
+  */
 
-  @Override
+ /* @Override
   public void periodic() {
     // This method will be called once per scheduler run
   }
 }
+*/

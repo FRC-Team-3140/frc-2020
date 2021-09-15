@@ -110,7 +110,7 @@ public interface Constants {
 
 		// Shooter Rotary Components
 		public final static int HOOD_MOTOR = 15;
-		public final static int TURRET_MOTOR = 16;
+	//	public final static int TURRET_MOTOR = 16;
 
 		// Limit Switches
 		public final static int HOOD_LIMIT = 0;

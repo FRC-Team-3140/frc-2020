@@ -1,0 +1,23 @@
+(Spark MAX Brushless)
+Left Drive Master      3
+Left Drive Slave 1     4
+Left Drive Slave 2     6
+Right Drive Master     2
+Right Drive Slave 1    5
+Right Drive Slave 2    7
+Ball Feeder            11
+Flywheel Master        9
+Flywheel Slave         10
+
+(Spark MAX Brushed)
+Intake Motor           8
+
+(Victor SPX)
+Shooter Feeder         12
+
+(Talon SRX)
+Hood Motor             15
+
+(Other)
+PDP                    0
+PCM                    1

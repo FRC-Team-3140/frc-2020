@@ -42,7 +42,7 @@ public interface HardwareAdapter extends Constants.ElectricalPortConstants {
 
     // Shooter Rotary Components
     public static final WPI_TalonSRX hoodMotor = new WPI_TalonSRX(HOOD_MOTOR);
-    public static final WPI_TalonSRX turretMotor = new WPI_TalonSRX(TURRET_MOTOR);
+   // public static final WPI_TalonSRX turretMotor = new WPI_TalonSRX(TURRET_MOTOR);
 
     // Pnuematics
     public static final Compressor compressor = new Compressor(PCM);
