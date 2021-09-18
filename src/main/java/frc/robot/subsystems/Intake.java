@@ -8,13 +8,13 @@
 package frc.robot.subsystems;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-
+import com.revrobotics.CANSparkMax.IdleMode;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.HardwareAdapter;
 
 public class Intake extends SubsystemBase implements HardwareAdapter {
   public Intake() {
-    intakeMotor.setNeutralMode(NeutralMode.Brake);
+    intakeMotor.setIdleMode(IdleMode.kBrake);
   }
 
   public void spinIn() {

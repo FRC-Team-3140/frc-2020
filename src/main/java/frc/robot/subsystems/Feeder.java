@@ -13,12 +13,12 @@ public class Feeder extends SubsystemBase implements HardwareAdapter {
   }
 
   public void feedShooter() {
-    ballFeeder.set(1);
+    ballFeeder.set(-1);
     shooterFeeder.set(1);
   }
 
   public void reverseFeeder() {
-    ballFeeder.set(-1);
+    ballFeeder.set(1);
     shooterFeeder.set(-1);
   }
 

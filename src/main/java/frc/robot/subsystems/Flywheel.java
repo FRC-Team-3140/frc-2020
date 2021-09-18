@@ -12,13 +12,12 @@ import frc.robot.HardwareAdapter;
 
 public class Flywheel extends SubsystemBase implements HardwareAdapter {
   public Flywheel() {
-    flyWheelMaster.setInverted(false);
+    flyWheelMaster.setInverted(true);
     setFollowers();
   }
 
   private void setFollowers() {
-    flyWheelSlave1.follow(flyWheelMaster);
-    flyWheelSlave1.setInverted(true);
+    flyWheelSlave1.follow(flyWheelMaster, true);
   }
    
   public void shootOut() {

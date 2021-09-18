@@ -26,7 +26,7 @@ public interface HardwareAdapter extends Constants.ElectricalPortConstants {
     public static final CANSparkMax rightDriveSlave2 = new CANSparkMax(RIGHT_DRIVE_SLAVE2, MotorType.kBrushless);
 
     // Intake
-    public static WPI_VictorSPX intakeMotor = new WPI_VictorSPX(INTAKE_MOTOR);
+    public static CANSparkMax intakeMotor = new CANSparkMax(INTAKE_MOTOR, MotorType.kBrushed);
 
     // Shooter
     public static final CANSparkMax flyWheelMaster = new CANSparkMax(FLYWHEEL_MASTER, MotorType.kBrushless);
