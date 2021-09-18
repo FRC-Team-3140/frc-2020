@@ -77,8 +77,8 @@ public class RobotContainer implements Constants.ElectricalPortConstants {
     camera.setResolution(320, 240);
 
    // chooser.setName("Please Select and Auto"); // (this works; find alternatives)
-    chooser.setDefaultOption("Do Nothing", ag.getDoNothingAuto());
-    chooser.addOption("Timed Drive", new TimedDrive(0.5, 2));
+    chooser.setDefaultOption("Timed Drive", new TimedDrive(0.5, 1));
+    chooser.addOption("Do Nothing", ag.getDoNothingAuto());
 
     /*
     chooser.addOption("Drive Straight", ag.getDriveStraightAuto());
