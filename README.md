@@ -5,7 +5,7 @@ This is our code for our 2020 robot
 ## Branches
 PLEASE KEEP THIS LIST UPDATED
 
-* master: programming chassis, climber, ball-handling subsystems
+* main: programming chassis, climber, ball-handling subsystems
 * Master-With-Trajectory: master with trajectory following merged in
 * Chassis-With-Trajectory: alex's stuff that idc about
 * chassis: competition chassis
@@ -18,3 +18,4 @@ PLEASE KEEP THIS LIST UPDATED
 * Alex-Characterization-Dev-Flywheel: Flywheel velocity control, merge into Alex-     Characterization-Dev When Done
 * Alex-Characterization-Dev-Turret: Turret position control, merge into Alex-     Characterization-Dev When Done
 * Alex-Characterization-Dev-Hood: Hood position control, merge into Alex-     Characterization-Dev When Done
+* roborodeo: code changes for the 2021 robo-rodeo
