@@ -24,7 +24,10 @@ public class Climber extends SubsystemBase implements HardwareAdapter {
   }
 
   public void climberRetract() {
-    climberMaster.set(-1);
+    if (getPosition() <= CLIMBER_MIN_HEIGHT) { //This line probally does not work, but it is here for now.
+      climberOff();
+    } else {
+      climberMaster.set(-1);
   }
 
   public void climberOff() {
